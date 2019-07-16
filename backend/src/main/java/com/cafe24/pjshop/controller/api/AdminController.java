@@ -214,13 +214,5 @@ public class AdminController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 

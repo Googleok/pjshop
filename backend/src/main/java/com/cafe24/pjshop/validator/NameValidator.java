@@ -10,7 +10,7 @@ import com.cafe24.pjshop.validator.constraints.ValidPassword;
 
 public class NameValidator implements ConstraintValidator<ValidName, String>{
 
-	private Pattern pattern = Pattern.compile("(^[ê°?-?ž£]{2,4}|^[a-zA-Z]*$)");	
+	private Pattern pattern = Pattern.compile("(^[°¡-ÆR]{2,4}|^[a-zA-Z]*$)");	
 	@Override
 	public void initialize(ValidName constraintAnnotation) {
 	}

@@ -19,39 +19,39 @@ public class AdminService {
 	@Autowired
 	private AdminDao adminDao;
 
-	// ?ƒ?’ˆ? „ì²´ë¦¬?Š¤?Š¸
+	// »óÇ°ÀüÃ¼¸®½ºÆ®
 	public List<ProductVo> getProductList() {
 		List<ProductVo> list = new ArrayList<ProductVo>();
-		list.add(new ProductVo(1L, "ëª¨ì", 30000L, "2019-07-11", true,
+		list.add(new ProductVo(1L, "¸ğÀÚ", 30000L, "2019-07-11", true,
 			false, true, 1L, 400L, "cap.html",
 			2500L, 3L));
 		return list;
 	}
 
-	// ?ƒ?’ˆ?•˜?‚˜
+	// »óÇ°ÇÏ³ª
 	public ProductVo getProductOne(Long no) {
-		ProductVo vo = new ProductVo(1L, "ëª¨ì", 30000L, "2019-07-11", true,
+		ProductVo vo = new ProductVo(1L, "¸ğÀÚ", 30000L, "2019-07-11", true,
 				false, true, 1L, 400L, "cap.html",
 				2500L, 3L); 
 		return vo;
 	}
 
-	// ?ƒ?’ˆ?“±ë¡?
+	// »óÇ°µî·Ï
 	public Boolean addProduct(ProductVo vo) {
 		return vo != null;
 	}
 
-	// ?ƒ?’ˆ?ˆ˜? •
+	// »óÇ°¼öÁ¤
 	public ProductVo modifyProduct(Long no, ProductVo newVo) {
 		ProductVo resultVo = null;
 		
-		ProductVo vo1 = new ProductVo(1L, "ëª¨ì", 30000L, "2019-07-11", true,
+		ProductVo vo1 = new ProductVo(1L, "¸ğÀÚ", 30000L, "2019-07-11", true,
 				false, true, 1L, 400L, "cap.html",
 				2500L, 3L); 
-		ProductVo vo2 = new ProductVo(2L, "ëª¨ì", 30000L, "2019-07-12", true,
+		ProductVo vo2 = new ProductVo(2L, "¸ğÀÚ", 30000L, "2019-07-12", true,
 				false, true, 1L, 400L, "cap.html",
 				2500L, 3L); 
-		ProductVo vo3 = new ProductVo(3L, "ëª¨ì", 30000L, "2019-07-13", true,
+		ProductVo vo3 = new ProductVo(3L, "¸ğÀÚ", 30000L, "2019-07-13", true,
 				false, true, 1L, 400L, "cap.html",
 				2500L, 3L); 
 		
@@ -71,15 +71,15 @@ public class AdminService {
 		return resultVo;
 	}
 
-	// ?ƒ?’ˆ?‚­? œ
+	// »óÇ°»èÁ¦
 	public boolean deleteProduct(Long no) {
-		ProductVo vo1 = new ProductVo(1L, "ëª¨ì", 30000L, "2019-07-11", true,
+		ProductVo vo1 = new ProductVo(1L, "¸ğÀÚ", 30000L, "2019-07-11", true,
 				false, true, 1L, 400L, "cap.html",
 				2500L, 3L); 
-		ProductVo vo2 = new ProductVo(2L, "ëª¨ì", 30000L, "2019-07-12", true,
+		ProductVo vo2 = new ProductVo(2L, "¸ğÀÚ", 30000L, "2019-07-12", true,
 				false, true, 1L, 400L, "cap.html",
 				2500L, 3L); 
-		ProductVo vo3 = new ProductVo(3L, "ëª¨ì", 30000L, "2019-07-13", true,
+		ProductVo vo3 = new ProductVo(3L, "¸ğÀÚ", 30000L, "2019-07-13", true,
 				false, true, 1L, 400L, "cap.html",
 				2500L, 3L); 
 		
@@ -98,7 +98,7 @@ public class AdminService {
 		return listSize1 == listSize2+1;
 	}
 
-	// ?ƒ?’ˆê²??ƒ‰
+	// »óÇ°°Ë»ö
 	public List<ProductVo> getProductSearchList(String keyword) {
 		List<ProductVo> searchList = new ArrayList<ProductVo>();
 		ProductVo vo1 = new ProductVo(1L, "cap", 30000L, "2019-07-11", true,
@@ -107,7 +107,7 @@ public class AdminService {
 		ProductVo vo2 = new ProductVo(2L, "cap", 40000L, "2019-07-12", true,
 				false, true, 1L, 400L, "cap.html",
 				2500L, 3L); 
-		ProductVo vo3 = new ProductVo(3L, "ë°”ì?", 30000L, "2019-07-13", true,
+		ProductVo vo3 = new ProductVo(3L, "¹ÙÁö", 30000L, "2019-07-13", true,
 				false, true, 1L, 400L, "cap.html",
 				2500L, 3L); 
 		
@@ -119,7 +119,7 @@ public class AdminService {
 		for(int i=0; i<list.size(); i++) {
 			System.out.println("list["+i+"].name=" +list.get(i).getName());
 			if(list.get(i).getName().trim().equals(keyword)) {
-				System.out.println("ì°¾ì•˜?‹¤!");
+				System.out.println("Ã£¾Ò´Ù!");
 				searchList.add(list.get(i));
 			}
 		}
@@ -130,34 +130,34 @@ public class AdminService {
 
 	//========================================================================================================
 	
-	// ì£¼ë¬¸ê´?ë¦?
+	// ÁÖ¹®°ü¸®
 	
-	// ì£¼ë¬¸ë¦¬ìŠ¤?Š¸ ?š”ì²?
+	// ÁÖ¹®¸®½ºÆ® ¿äÃ»
 	public List<OrderVo> getOrderList() {
 		List<OrderVo> list = new ArrayList<OrderVo>();
-		list.add(new OrderVo(1L, "ë°•ì¢…?–µ", "1234", "01040287755", "whddjr2225@naver.com",
-			"?„œ?š¸?‹œ ê´??•…êµ?", "2019-07-11", "ë¹¨ë¦¬ ì¢? ë¶??ƒ?“œ? ¤?š”", 2500L, 123000L,1L));
-		list.add(new OrderVo(2L, "ë°•ì†Œ?›", "1234", "01040287755", "thdnjs9570@naver.com",
-				"?„œ?š¸?‹œ ê´‘í™”ë¬¸êµ¬", "2019-07-11", "ë¹¨ë¦¬ ì¢? ë¶??ƒ?“œ? ¤?š”", 2500L, 123000L,1L));
-		list.add(new OrderVo(3L, "?´? •??", "1234", "01040287755", "leap1004@naver.com",
-				"?„œ?š¸?‹œ ?„±ë³µêµ¬", "2019-07-11", "ë¹¨ë¦¬ ì¢? ë¶??ƒ?“œ? ¤?š”", 2500L, 123000L,1L));
+		list.add(new OrderVo(1L, "¹ÚÁ¾¾ï", "1234", "01040287755", "whddjr2225@naver.com",
+			"¼­¿ï½Ã °ü¾Ç±¸", "2019-07-11", "»¡¸® Á» ºÎÅ¹µå·Á¿ä", 2500L, 123000L,1L));
+		list.add(new OrderVo(2L, "¹Ú¼Ò¿ø", "1234", "01040287755", "thdnjs9570@naver.com",
+				"¼­¿ï½Ã ±¤È­¹®±¸", "2019-07-11", "»¡¸® Á» ºÎÅ¹µå·Á¿ä", 2500L, 123000L,1L));
+		list.add(new OrderVo(3L, "ÀÌÁ¤Àº", "1234", "01040287755", "leap1004@naver.com",
+				"¼­¿ï½Ã ¼ºº¹±¸", "2019-07-11", "»¡¸® Á» ºÎÅ¹µå·Á¿ä", 2500L, 123000L,1L));
 		return list;
 	}
 
-	// ì£¼ë¬¸?•œê°? ?š”ì²?
+	// ÁÖ¹®ÇÑ°³ ¿äÃ»
 	public OrderVo getOrderOne(Long no) {
-		OrderVo vo = new OrderVo(1L, "ë°•ì¢…?–µ", "1234", "01040287755", "whddjr2225@naver.com",
-				"?„œ?š¸?‹œ ê´??•…êµ?", "2019-07-11", "ë¹¨ë¦¬ ì¢? ë¶??ƒ?“œ? ¤?š”", 2500L, 123000L,1L);
+		OrderVo vo = new OrderVo(1L, "¹ÚÁ¾¾ï", "1234", "01040287755", "whddjr2225@naver.com",
+				"¼­¿ï½Ã °ü¾Ç±¸", "2019-07-11", "»¡¸® Á» ºÎÅ¹µå·Á¿ä", 2500L, 123000L,1L);
 		return vo;
 	}
 	
-	// ?ƒ?„¸ì£¼ë¬¸ ?š”ì²?
+	// »ó¼¼ÁÖ¹® ¿äÃ»
 	public OrderDetailVo getOrderDetail(Long no) {
 		
 		OrderDetailVo newVo = new OrderDetailVo();
-		OrderDetailVo vo1 = new OrderDetailVo(1L, "ëª¨ì", "ë¹?/L", 20000L, "ê²°ì œ??ê¸?", 100L, 3L);
-		OrderDetailVo vo2 = new OrderDetailVo(2L, "ë°”ì?", "ë¹?/L", 20000L, "ê²°ì œ??ê¸?", 100L, 3L);
-		OrderDetailVo vo3 = new OrderDetailVo(3L, "?ƒ?˜", "ë¹?/L", 20000L, "ê²°ì œ??ê¸?", 100L, 3L);
+		OrderDetailVo vo1 = new OrderDetailVo(1L, "¸ğÀÚ", "»¡/L", 20000L, "°áÁ¦´ë±â", 100L, 3L);
+		OrderDetailVo vo2 = new OrderDetailVo(2L, "¹ÙÁö", "»¡/L", 20000L, "°áÁ¦´ë±â", 100L, 3L);
+		OrderDetailVo vo3 = new OrderDetailVo(3L, "»óÀÇ", "»¡/L", 20000L, "°áÁ¦´ë±â", 100L, 3L);
 		List<OrderDetailVo> list = new ArrayList<OrderDetailVo>();
 		list.add(vo1);
 		list.add(vo2);
@@ -170,31 +170,31 @@ public class AdminService {
 		return newVo;
 	}
 
-	// ì£¼ë¬¸ ?…ê¸ˆí™•?¸ì²´í¬
+	// ÁÖ¹® ÀÔ±İÈ®ÀÎÃ¼Å©
 	public OrderDetailVo orderDepositCheck(Long no) {
-		OrderDetailVo vo = new OrderDetailVo(1L, "ëª¨ì", "ë¹?/L", 20000L, "ê²°ì œ??ê¸?", 100L, 3L);
-		vo.setShippingStatus("ê²°ì œ?™„ë£?");
+		OrderDetailVo vo = new OrderDetailVo(1L, "¸ğÀÚ", "»¡/L", 20000L, "°áÁ¦´ë±â", 100L, 3L);
+		vo.setShippingStatus("°áÁ¦¿Ï·á");
 		return vo;
 	}
 	
-	// ì£¼ë¬¸ ë°°ì†¡ì¶œë°œì²´í¬
+	// ÁÖ¹® ¹è¼ÛÃâ¹ßÃ¼Å©
 	public OrderDetailVo orderDeliveryCheck(Long no) {
-		OrderDetailVo vo = new OrderDetailVo(1L, "ëª¨ì", "ë¹?/L", 20000L, "ê²°ì œ?™„ë£?", 100L, 3L);
-		vo.setShippingStatus("ë°°ì†¡ì¤?");
+		OrderDetailVo vo = new OrderDetailVo(1L, "¸ğÀÚ", "»¡/L", 20000L, "°áÁ¦¿Ï·á", 100L, 3L);
+		vo.setShippingStatus("¹è¼ÛÁß");
 		return vo;
 	}
 
-	// ì£¼ë¬¸ê²??ƒ‰
+	// ÁÖ¹®°Ë»ö
 	public List<OrderVo> getOrderSearchList(String keyword) {
 		
 		List<OrderVo> searchList = new ArrayList<OrderVo>();
 		List<OrderVo> list = new ArrayList<OrderVo>();
-		list.add(new OrderVo(1L, "ë°•ì¢…?–µ", "1234", "01040287755", "whddjr2225@naver.com",
-			"?„œ?š¸?‹œ ê´??•…êµ?", "2019-07-11", "ë¹¨ë¦¬ ì¢? ë¶??ƒ?“œ? ¤?š”", 2500L, 123000L,1L));
-		list.add(new OrderVo(2L, "ë°•ì†Œ?›", "1234", "01012345678", "thdnjs9570@naver.com",
-				"?„œ?š¸?‹œ ê´‘í™”ë¬¸êµ¬", "2019-07-11", "ë¹¨ë¦¬ ì¢? ë¶??ƒ?“œ? ¤?š”", 2500L, 123000L,1L));
-		list.add(new OrderVo(3L, "?´? •??", "1234", "01040287755", "leap1004@naver.com",
-				"?„œ?š¸?‹œ ?„±ë³µêµ¬", "2019-07-11", "ë¹¨ë¦¬ ì¢? ë¶??ƒ?“œ? ¤?š”", 2500L, 123000L,1L));
+		list.add(new OrderVo(1L, "¹ÚÁ¾¾ï", "1234", "01040287755", "whddjr2225@naver.com",
+			"¼­¿ï½Ã °ü¾Ç±¸", "2019-07-11", "»¡¸® Á» ºÎÅ¹µå·Á¿ä", 2500L, 123000L,1L));
+		list.add(new OrderVo(2L, "¹Ú¼Ò¿ø", "1234", "01012345678", "thdnjs9570@naver.com",
+				"¼­¿ï½Ã ±¤È­¹®±¸", "2019-07-11", "»¡¸® Á» ºÎÅ¹µå·Á¿ä", 2500L, 123000L,1L));
+		list.add(new OrderVo(3L, "ÀÌÁ¤Àº", "1234", "01040287755", "leap1004@naver.com",
+				"¼­¿ï½Ã ¼ºº¹±¸", "2019-07-11", "»¡¸® Á» ºÎÅ¹µå·Á¿ä", 2500L, 123000L,1L));
 		for(int i=0; i<list.size(); i++) {
 			if(list.get(i).getPhone().equals(keyword)) {
 				searchList.add(list.get(i));
@@ -205,12 +205,12 @@ public class AdminService {
 	
 	//========================================================================================================
 	
-	// ê³ ê°ê´?ë¦?
+	// °í°´°ü¸®
 
 	public List<UserVo> getUserList() {
-		UserVo vo1 = new UserVo(1L, "whddjr2225", "1234", "ë°?", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
-		UserVo vo2 = new UserVo(2L, "whddjr2225", "1234", "ì¢?", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
-		UserVo vo3 = new UserVo(3L, "whddjr2225", "1234", "?–µ", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
+		UserVo vo1 = new UserVo(1L, "whddjr2225", "1234", "¹Ú", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
+		UserVo vo2 = new UserVo(2L, "whddjr2225", "1234", "Á¾", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
+		UserVo vo3 = new UserVo(3L, "whddjr2225", "1234", "¾ï", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
 		List<UserVo> list = new ArrayList<UserVo>();
 		list.add(vo1);
 		list.add(vo2);
@@ -224,9 +224,9 @@ public class AdminService {
 	 * @return
 	 */
 	public boolean deleteUser(Long no) {
-		UserVo vo1 = new UserVo(1L, "whddjr2225", "1234", "ë°?", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
-		UserVo vo2 = new UserVo(2L, "whddjr2225", "1234", "ì¢?", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
-		UserVo vo3 = new UserVo(3L, "whddjr2225", "1234", "?–µ", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
+		UserVo vo1 = new UserVo(1L, "whddjr2225", "1234", "¹Ú", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
+		UserVo vo2 = new UserVo(2L, "whddjr2225", "1234", "Á¾", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
+		UserVo vo3 = new UserVo(3L, "whddjr2225", "1234", "¾ï", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
 		List<UserVo> list = new ArrayList<UserVo>();
 		list.add(vo1);
 		list.add(vo2);
@@ -242,16 +242,16 @@ public class AdminService {
 	}
 
 	/**
-	 * ?šŒ?›? •ë³? ?ˆ˜? •
+	 * È¸¿øÁ¤º¸ ¼öÁ¤
 	 * @param no
 	 * @param vo
 	 * @return
 	 */
 	public UserVo modifyUser(Long no, UserVo vo) {
 		UserVo resultVo = null;
-		UserVo vo1 = new UserVo(1L, "whddjr2225", "1234", "ë°?", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
-		UserVo vo2 = new UserVo(2L, "whddjr2225", "1234", "ì¢?", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
-		UserVo vo3 = new UserVo(3L, "whddjr2225", "1234", "?–µ", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
+		UserVo vo1 = new UserVo(1L, "whddjr2225", "1234", "¹Ú", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
+		UserVo vo2 = new UserVo(2L, "whddjr2225", "1234", "Á¾", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
+		UserVo vo3 = new UserVo(3L, "whddjr2225", "1234", "¾ï", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
 		List<UserVo> list = new ArrayList<UserVo>();
 		list.add(vo1);
 		list.add(vo2);
@@ -267,15 +267,15 @@ public class AdminService {
 	}
 
 	/**
-	 * ?šŒ?›ê²??ƒ‰
+	 * È¸¿ø°Ë»ö
 	 * @param keyword
 	 * @return
 	 */
 	public List<UserVo> getUserSearchList(String keyword) {
 		List<UserVo> searchList = new ArrayList<UserVo>();
-		UserVo vo1 = new UserVo(1L, "whddjr2225", "1234", "ë°•ì¢…?–µ", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
-		UserVo vo2 = new UserVo(2L, "whddjr2225", "1234", "?´? •??", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
-		UserVo vo3 = new UserVo(3L, "whddjr2225", "1234", "ë°•ì†Œ?›", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male");
+		UserVo vo1 = new UserVo(1L, "whddjr2225", "1234", "¹ÚÁ¾¾ï", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
+		UserVo vo2 = new UserVo(2L, "whddjr2225", "1234", "ÀÌÁ¤Àº", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
+		UserVo vo3 = new UserVo(3L, "whddjr2225", "1234", "¹Ú¼Ò¿ø", "01040287755", "whddjr2225@naver.com", "1993-11-02", "male", "User");
 		List<UserVo> list = new ArrayList<UserVo>();
 		list.add(vo1);
 		list.add(vo2);
