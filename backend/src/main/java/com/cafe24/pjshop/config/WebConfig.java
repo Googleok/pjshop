@@ -24,10 +24,14 @@ import com.cafe24.security.AuthLogoutInterceptor;
 import com.cafe24.security.AuthUserHandlerMethodArgumentResolver;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+
 @Configuration
 @ComponentScan(basePackages={"com.cafe24.pjshop"})
 public class WebConfig implements WebMvcConfigurer{
-	
 
 	/**
 	 * Message Converter
@@ -131,6 +135,19 @@ public class WebConfig implements WebMvcConfigurer{
 		.excludePathPatterns("/user/auth")
 		.excludePathPatterns("/user/logout")
 		.excludePathPatterns("/assets/**");
+	}
+	
+	/**
+	 * Swagger 汲沥
+	 * @return
+	 */
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.cafe24.pjshop.controller.api"))
+				.paths(PathSelectors.any())
+				.build();
 	}
 	
 	//static 府家胶 贸府

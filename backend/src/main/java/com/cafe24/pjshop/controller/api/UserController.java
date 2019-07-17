@@ -112,24 +112,19 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(modifyResult));
 	}
 
-	// 로그아웃
-	@PostMapping("/logout")
-	public ResponseEntity<JSONResult> logout(@RequestBody UserVo vo) {
-		// 세션 끊어주기
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
-	}
-
 	// 장바구니 리스트 요청
-	@GetMapping("/cart")
-	public ResponseEntity<JSONResult> getCartList(@RequestBody UserVo vo) {
-
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+	@GetMapping({"/cart", "/cart/list"})
+	public ResponseEntity<JSONResult> getCartList() {
+		
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(null));
 	}
 
 	// 장바구니 담기
 	@PostMapping("/cart")
 	public ResponseEntity<JSONResult> addToCart(@RequestBody UserVo vo) {
-
+		
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 

@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.pjshop.config.test.WebConfig;
+import com.cafe24.pjshop.vo.CartVo;
 import com.cafe24.pjshop.vo.UserVo;
 import com.google.gson.Gson;
 
@@ -112,6 +113,16 @@ public class UserControllerTest {
 		ResultActions resultActions = mockMvc.perform(
 				put("/api/user/{updateNo}", updateNo).contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
 				.andExpect(status().isOk()).andDo(print());
+	}
+	
+	@Test
+	public void testAddToCart() throws Exception{
+		CartVo voMock = new CartVo();
+		voMock.setUserNo(6L);
+		voMock.setOptionNo(1L);
+		voMock.setCount(3L);
+		voMock.setIsMember(true);
+		
 	}
 
 }

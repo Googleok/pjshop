@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.pjshop.repository.AdminDao;
+import com.cafe24.pjshop.vo.CategoryVo;
 import com.cafe24.pjshop.vo.OrderDetailVo;
 import com.cafe24.pjshop.vo.OrderVo;
 import com.cafe24.pjshop.vo.ProductVo;
@@ -19,6 +20,28 @@ public class AdminService {
 	@Autowired
 	private AdminDao adminDao;
 
+	// 카테고리 리스트
+	public List<CategoryVo> getCagegoryList() {
+		return adminDao.getCategoryList();
+	}
+	
+	// 카테고리 등록
+	public Boolean addCategory(CategoryVo vo) {
+		return adminDao.addCategory(vo);
+	}
+
+	// 카테고리 수정
+	public Boolean modifyCategory(Long no, CategoryVo vo) {
+		return adminDao.modifyCategory(no, vo);
+	}
+	
+	// 카테고리 삭제
+	public boolean deleteCategory(Long no) {
+		return adminDao.deleteCategory(no);
+	}
+	
+	// =============================================================================================================================
+	
 	// 상품전체리스트
 	public List<ProductVo> getProductList() {
 		List<ProductVo> list = new ArrayList<ProductVo>();
@@ -287,6 +310,5 @@ public class AdminService {
 		}
 		return searchList;
 	}
-
 	
 }

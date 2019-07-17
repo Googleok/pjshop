@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.pjshop.dto.JSONResult;
 import com.cafe24.pjshop.service.AdminService;
+import com.cafe24.pjshop.vo.CategoryVo;
 import com.cafe24.pjshop.vo.OrderDetailVo;
 import com.cafe24.pjshop.vo.OrderVo;
 import com.cafe24.pjshop.vo.ProductVo;
@@ -28,6 +29,56 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
+	// 카테고리 관리
+	// category
+	
+	/**
+	 * 카테고리 리스트
+	 * @return
+	 */
+	@GetMapping({"/category", "/category/list"})
+	public ResponseEntity<JSONResult> getCategoryList(){
+		List<CategoryVo> list = adminService.getCagegoryList();
+		if(list == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("fail"));
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	}
+	
+	/**
+	 * 카테고리 등록
+	 * @param vo
+	 * @return
+	 */
+	@PostMapping("/category")
+	public ResponseEntity<JSONResult> addCategory(@RequestBody CategoryVo  vo){
+		Boolean result = adminService.addCategory(vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
+	/**
+	 * 카테고리 수정
+	 * @param no
+	 * @param vo
+	 * @return
+	 */
+	@PutMapping("/category/{no}")
+	public ResponseEntity<JSONResult> modifyCategory(@PathVariable("no") Long no, @RequestBody CategoryVo vo){
+		Boolean result = adminService.modifyCategory(no, vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
+	/**
+	 * 카테고리 삭제
+	 * @param no
+	 * @return
+	 */
+	@DeleteMapping("/category/{no}")
+	public ResponseEntity<JSONResult> deleteCategory(@PathVariable("no") Long no){
+		boolean result = adminService.deleteCategory(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
 	
 	// 상품관리 
 	// product

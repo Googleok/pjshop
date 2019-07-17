@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+	
+	<select id="getList" resultType="categoryvo">
+		<![CDATA[
+			select 
+				  no,
+				  name,
+				  depth,
+				  parents_no as parentsNo,
+				  group_no as groupNo
+			from category
+		]]>
+	</select>
+	
+	<insert id="add" parameterType="categoryvo">
+		<![CDATA[
+			insert into category 
+			values(
+				null,
+				#{name},
+				#{depth},
+				#{parentsNo},
+		]]>
+		<if test="groupNo == null">
+		<![CDATA[
+			(select ifnull(max(c.group_no)+1, 1) from category c)
+			);
+		]]>
+		</if>
+		<if test="groupNo != null">
+		<![CDATA[
+				#{groupNo}
+			); 
+		]]>
+		</if>				
+	</insert>
+	
+	<update id="modify">
+		<![CDATA[
+			update category
+		]]>
+		<trim prefix="SET" suffixOverrides=",">
+		    <if test="vo.name != null">
+    	     <![CDATA[
+		        name = #{vo.name},
+		     ]]>
+		    </if>
+		    <if test="vo.parentsNo != null">
+		     <![CDATA[
+			    parents_no = #{vo.parentsNo},
+		     ]]>
+		    </if>
+			<if test="vo.groupNo != null">
+		     <![CDATA[
+			    group_no = #{vo.groupNo}
+		     ]]>
+		    </if>
+		</trim>
+		<![CDATA[
+			where no = #{no}
+		]]>
+	</update>
+	
+	<delete id="delete">
+		<![CDATA[
+			delete from category where no = #{no}
+		]]>
+	</delete>
+</mapper>

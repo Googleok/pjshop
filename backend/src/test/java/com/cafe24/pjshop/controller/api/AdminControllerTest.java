@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.pjshop.config.test.WebConfig;
+import com.cafe24.pjshop.vo.CategoryVo;
 import com.cafe24.pjshop.vo.ProductVo;
 import com.cafe24.pjshop.vo.UserVo;
 import com.google.gson.Gson;
@@ -37,7 +39,77 @@ public class AdminControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
+	// 카테고리 리스트 Test
+	@Ignore
+	@Test
+	public void testGetCategoryList() throws Exception {
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/admin/category"))
+				.andExpect(status().isOk())
+				.andDo(print());
+
+	}
+	// 카테고리 등록 Test
+	@Ignore
+	@Test
+	public void testAddCategory() throws Exception {
+		
+		// 부모 카테고리 없는 경우
+		CategoryVo voMock = new CategoryVo(null, "상의", 1L, null, null);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/admin/category")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+				.andExpect(status().isOk())
+				.andDo(print());
+		
+		// 부모 카테고리 있는 경우
+//		voMock = new CategoryVo(null, "상의", 2L, 1L, 1L);
+//		
+//		ResultActions resultActions = 
+//				mockMvc
+//				.perform(post("/api/admin/category")
+//				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+//				.andExpect(status().isOk())
+//				.andDo(print());
+	}	
+	
+	// 카테고리 수정 Test
+	@Ignore
+	@Test
+	public void testModifyCategory() throws Exception {
+		CategoryVo voMock = new CategoryVo();
+		voMock.setName("티셔츠");
+		
+		Long modifyNo = 2L;
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(put("/api/admin/category/{modifyNo}", modifyNo)
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+				.andExpect(status().isOk())
+				.andDo(print());
+	}	
+	
+	// 카테고리 삭제 Test
+	@Ignore
+	@Test
+	public void testDeleteCategory() throws Exception {
+		Long deleteNo = 2L;
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(delete("/api/admin/category/{deleteNo}", deleteNo))
+				.andExpect(status().isOk())
+				.andDo(print());
+	}	
+	
+	
+	
 	// 상품리스트  요청 Test
+	@Ignore
 	@Test
 	public void testGetProductList() throws Exception {
 		ResultActions resultActions = 
@@ -49,6 +121,7 @@ public class AdminControllerTest {
 	}
 
 	// 상품하나만  요청 Test
+	@Ignore
 	@Test
 	public void testGetProductOne() throws Exception {
 
@@ -61,6 +134,7 @@ public class AdminControllerTest {
 	}	
 
 	// 상품등록  Test
+	@Ignore
 	@Test
 	public void testAddProduct() throws Exception {
 		ProductVo voMock = new ProductVo(1L, "모자", 30000L, "2019-07-11", true,
@@ -76,6 +150,7 @@ public class AdminControllerTest {
 	}	
 	
 	// 상품수정  Test
+	@Ignore
 	@Test
 	public void testModifyProduct() throws Exception {
 		ProductVo voMock = new ProductVo();
@@ -93,6 +168,7 @@ public class AdminControllerTest {
 	}	
 	
 	// 상품삭제  Test
+	@Ignore
 	@Test
 	public void testDeleteProduct() throws Exception {
 		Long deleteNo = 2L;
@@ -105,6 +181,7 @@ public class AdminControllerTest {
 	}	
 	
 	// 상품검색리스트  요청 Test
+	@Ignore
 	@Test
 	public void testGetProductSearchList() throws Exception {
 		String keyword = "cap";
@@ -119,6 +196,7 @@ public class AdminControllerTest {
 	// ===================================================================================================
 	
 	// 주문리스트  요청 Test
+	@Ignore
 	@Test
 	public void testGetOrderList() throws Exception {
 		ResultActions resultActions = 
@@ -130,6 +208,7 @@ public class AdminControllerTest {
 	}
 	
 	// 주문한개  요청 Test
+	@Ignore
 	@Test
 	public void testGetOrderOne() throws Exception {
 
@@ -142,6 +221,7 @@ public class AdminControllerTest {
 	}	
 	
 	// 상세주문  요청 Test
+	@Ignore
 	@Test
 	public void testGetOrderDetail() throws Exception {
 
@@ -155,6 +235,7 @@ public class AdminControllerTest {
 	
 	
 	// 입금확인체크  Test
+	@Ignore
 	@Test
 	public void testOrderDepositCheck() throws Exception {
 		Long orderDetailNo = 1L;
@@ -167,6 +248,7 @@ public class AdminControllerTest {
 	}	
 	
 	// 배송출발체크  Test
+	@Ignore
 	@Test
 	public void testOrderDeliveryCheck() throws Exception {
 		Long orderDetailNo = 1L;
@@ -179,6 +261,7 @@ public class AdminControllerTest {
 	}	
 	
 	// 주문검색리스트  요청 Test
+	@Ignore
 	@Test
 	public void testGetOrderSearchList() throws Exception {
 		String keyword = "01040287755";
@@ -195,6 +278,7 @@ public class AdminControllerTest {
 	// 회원관리
 	
 	// 회원리스트 요청 Test
+	@Ignore
 	@Test
 	public void testGetUserList() throws Exception {
 		ResultActions resultActions = 
@@ -206,6 +290,7 @@ public class AdminControllerTest {
 	}
 
 	// 회원삭제  Test
+	@Ignore
 	@Test
 	public void testDeleteUser() throws Exception {
 		Long deleteNo = 2L;
@@ -218,6 +303,7 @@ public class AdminControllerTest {
 	}	
 	
 	// 회원정보수정  Test
+	@Ignore
 	@Test
 	public void testModifyUser() throws Exception {
 		UserVo voMock = new UserVo();
@@ -235,6 +321,7 @@ public class AdminControllerTest {
 	}	
 	
 	// 회원검색리스트  요청 Test
+	@Ignore
 	@Test
 	public void testGetUserSearchList() throws Exception {
 		String keyword = "박종억";

@@ -16,17 +16,4 @@ public class BootApp {
 	public static void main(String[] args) {
 		SpringApplication.run(BootApp.class, args);
 	}
-	
-	/**
-	 * Swagger ¼³Á¤
-	 * @return
-	 */
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.cafe24.pjshop.controller.api"))
-				.paths(PathSelectors.any())
-				.build();
-	}
 }
