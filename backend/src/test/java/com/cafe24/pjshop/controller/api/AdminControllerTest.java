@@ -7,6 +7,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,14 +19,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.pjshop.config.test.WebConfig;
 import com.cafe24.pjshop.vo.CategoryVo;
+import com.cafe24.pjshop.vo.OptionNameVo;
+import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.ProductVo;
 import com.cafe24.pjshop.vo.UserVo;
 import com.google.gson.Gson;
@@ -40,7 +49,7 @@ public class AdminControllerTest {
 	}
 	
 	// 카테고리 리스트 Test
-	@Ignore
+//	@Ignore
 	@Test
 	public void testGetCategoryList() throws Exception {
 		ResultActions resultActions = 
@@ -50,23 +59,14 @@ public class AdminControllerTest {
 				.andDo(print());
 
 	}
+	
 	// 카테고리 등록 Test
-	@Ignore
+//	@Ignore
 	@Test
 	public void testAddCategory() throws Exception {
 		
 		// 부모 카테고리 없는 경우
-		CategoryVo voMock = new CategoryVo(null, "상의", 1L, null, null);
-		
-		ResultActions resultActions = 
-				mockMvc
-				.perform(post("/api/admin/category")
-				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
-				.andExpect(status().isOk())
-				.andDo(print());
-		
-		// 부모 카테고리 있는 경우
-//		voMock = new CategoryVo(null, "상의", 2L, 1L, 1L);
+//		CategoryVo voMock1 = new CategoryVo(null, "모자", 1L, null, null);
 //		
 //		ResultActions resultActions = 
 //				mockMvc
@@ -74,6 +74,16 @@ public class AdminControllerTest {
 //				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
 //				.andExpect(status().isOk())
 //				.andDo(print());
+		
+		// 부모 카테고리 있는 경우
+		CategoryVo voMock = new CategoryVo(null, "하의", 2L, 1L, 1L);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/admin/category")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+				.andExpect(status().isOk())
+				.andDo(print());
 	}	
 	
 	// 카테고리 수정 Test
@@ -94,10 +104,9 @@ public class AdminControllerTest {
 	}	
 	
 	// 카테고리 삭제 Test
-	@Ignore
 	@Test
 	public void testDeleteCategory() throws Exception {
-		Long deleteNo = 2L;
+		Long deleteNo = 6L;
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -106,10 +115,7 @@ public class AdminControllerTest {
 				.andDo(print());
 	}	
 	
-	
-	
 	// 상품리스트  요청 Test
-	@Ignore
 	@Test
 	public void testGetProductList() throws Exception {
 		ResultActions resultActions = 
@@ -121,11 +127,10 @@ public class AdminControllerTest {
 	}
 
 	// 상품하나만  요청 Test
-	@Ignore
 	@Test
 	public void testGetProductOne() throws Exception {
 
-		Long productNo = 1L;
+		Long productNo = 4L;
 		ResultActions resultActions = 
 				mockMvc
 				.perform(get("/api/admin/product/{no}", productNo))
@@ -134,12 +139,45 @@ public class AdminControllerTest {
 	}	
 
 	// 상품등록  Test
-	@Ignore
+//	@Ignore
 	@Test
 	public void testAddProduct() throws Exception {
-		ProductVo voMock = new ProductVo(1L, "모자", 30000L, "2019-07-11", true,
-				false, true, 1L, 400L, "cap.html",
+		// 옵션 없는거
+//		ProductVo voMock = new ProductVo(null, "빈티지바지", 30000L, null, true,
+//				false, true, 1L, 400L, "cap.html",
+//				2500L, 4L);
+//	
+//		ResultActions resultActions = 
+//				mockMvc
+//				.perform(post("/api/admin/product")
+//				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+//				.andExpect(status().isOk())
+//				.andDo(print());
+		
+		// 옵션 있는거
+		List<OptionNameVo> optionNameList = new ArrayList<OptionNameVo>();
+		OptionNameVo optionNameVoMock1 = new OptionNameVo(null, "색상");
+		OptionNameVo optionNameVoMock2 = new OptionNameVo(null, "사이즈");
+		optionNameList.add(optionNameVoMock1);
+		optionNameList.add(optionNameVoMock2);
+
+		List<OptionVo> optionList = new ArrayList<OptionVo>();
+		OptionVo optionVoMock1 = new OptionVo(null, "블랙", true, 1500L, null, null, "색상", 100L);
+		OptionVo optionVoMock2 = new OptionVo(null, "화이트", true, 1500L, null, null, "색상", 100L);
+		OptionVo optionVoMock3 = new OptionVo(null, "L", true, 1500L, null, null, "사이즈", 100L);
+		OptionVo optionVoMock4 = new OptionVo(null, "M", true, 1500L, null, null, "사이즈", 100L);
+		OptionVo optionVoMock5 = new OptionVo(null, "S", true, 1500L, null, null, "사이즈", 100L);
+		optionList.add(optionVoMock1);
+		optionList.add(optionVoMock2);
+		optionList.add(optionVoMock3);
+		optionList.add(optionVoMock4);
+		optionList.add(optionVoMock5);
+		
+		ProductVo voMock = new ProductVo(null, "나이키티", 30000L, null, true,
+				true, true, 1L, 400L, "nike.html",
 				2500L, 3L);
+		voMock.setOptionNameList(optionNameList);
+		voMock.setOptionList(optionList);
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -168,10 +206,10 @@ public class AdminControllerTest {
 	}	
 	
 	// 상품삭제  Test
-	@Ignore
+//	@Ignore
 	@Test
 	public void testDeleteProduct() throws Exception {
-		Long deleteNo = 2L;
+		Long deleteNo = 7L;
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -232,7 +270,6 @@ public class AdminControllerTest {
 				.andExpect(status().isOk())
 				.andDo(print());
 	}	
-	
 	
 	// 입금확인체크  Test
 	@Ignore

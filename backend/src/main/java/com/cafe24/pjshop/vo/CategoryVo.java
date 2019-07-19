@@ -1,5 +1,7 @@
 package com.cafe24.pjshop.vo;
 
+import java.util.List;
+
 public class CategoryVo {
 
 	private Long no;
@@ -7,6 +9,7 @@ public class CategoryVo {
 	private Long depth;
 	private Long parentsNo;
 	private Long groupNo;
+	private List<CategoryVo> catgoryList;
 	
 	public CategoryVo() {
 		// TODO Auto-generated constructor stub
@@ -60,11 +63,21 @@ public class CategoryVo {
 		this.groupNo = groupNo;
 	}
 
+	public List<CategoryVo> getCatgoryList() {
+		return catgoryList;
+	}
+
+	public void setCatgoryList(List<CategoryVo> catgoryList) {
+		this.catgoryList = catgoryList;
+	}
+
 	@Override
 	public String toString() {
 		return "CategoryVo [no=" + no + ", name=" + name + ", depth=" + depth + ", parentsNo=" + parentsNo
-				+ ", groupNo=" + groupNo + "]";
+				+ ", groupNo=" + groupNo + ", catgoryList=" + catgoryList + "]";
 	}
+
+
 	
 	
 }

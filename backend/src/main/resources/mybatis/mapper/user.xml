@@ -23,7 +23,7 @@
 				AES_ENCRYPT(#{email}, SHA2('7755',512)),
 				AES_ENCRYPT(#{birth}, SHA2('7755',512)),
 				#{gender},
-				#{isAdmin}
+				#{role}
 				);
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
@@ -41,7 +41,7 @@
 			convert(AES_DECRYPT(email, SHA2('7755', 512))using utf8) as email,
 			convert(AES_DECRYPT(birth, SHA2('7755', 512))using utf8) as birth,
 			gender,
-			isadmin
+			role
 			from shopdb.user
 			where id=#{id} and password=SHA2(#{password},256);
 		]]>
@@ -83,9 +83,9 @@
 		        gender = #{vo.gender},
 		     ]]>
 		    </if>
-		    <if test="vo.isAdmin != null">
+		    <if test="vo.role != null">
 		     <![CDATA[
-     		    isadmin = #{vo.isAdmin}
+     		    role = #{vo.role}
 		     ]]>
 		    </if>
 		</trim>
@@ -93,4 +93,10 @@
 			where no = #{no}
 		]]>
 	</update>
+	
+	<delete id="deleteProductInCart">
+		<![CDATA[
+			delete from cart where option_no = #{no}
+		]]>
+	</delete>
 </mapper>

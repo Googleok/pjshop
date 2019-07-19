@@ -43,15 +43,14 @@ public class UserControllerTest {
 	@Ignore
 	@Test
 	public void testJoin() throws Exception {
-		UserVo voMock = new UserVo(1L, "whddjr2225", "Whddjr129", "박종억", "01040287755", "whddjr2225@naver.com",
-				"1993-11-02", "MALE", "USER");
+		UserVo voMock = new UserVo(null, "whddjr2225", "Whddjr129", "박종억", "01040287755", "whddjr2225@naver.com",
+				"1993-11-02", "male", "user");
 
 		ResultActions resultActions = mockMvc.perform(
 				post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
 				.andExpect(status().isOk()).andDo(print());
 	}
 
-	@Ignore
 	@Test
 	public void testCheckEmail() throws Exception {
 
@@ -62,7 +61,6 @@ public class UserControllerTest {
 
 	}
 
-	@Ignore
 	@Test
 	public void testUserLogin() throws Exception {
 		UserVo userVo = new UserVo();
@@ -99,14 +97,13 @@ public class UserControllerTest {
 
 	}
 
-//	@Ignore
 	@Test
 	public void testModify() throws Exception {
 		UserVo voMock = new UserVo();
 		voMock.setName("박종억");
 		voMock.setEmail("qkrwhddjr3@gmail.com");
 		voMock.setGender("male");
-		voMock.setIsAdmin("admin");
+		voMock.setRole("admin");
 		
 		Long updateNo = 6L;
 
@@ -115,6 +112,7 @@ public class UserControllerTest {
 				.andExpect(status().isOk()).andDo(print());
 	}
 	
+	@Ignore
 	@Test
 	public void testAddToCart() throws Exception{
 		CartVo voMock = new CartVo();

@@ -1,5 +1,7 @@
 package com.cafe24.pjshop.vo;
 
+import java.util.List;
+
 public class ProductVo {
 	private Long no;
 	private String name;
@@ -13,6 +15,8 @@ public class ProductVo {
 	private String detail;
 	private Long shippingFee;
 	private Long categoryNo;
+	private List<OptionVo> optionList;  // optionName optionValue count
+	private List<OptionNameVo> optionNameList;  // optionName optionValue count
 	
 	public ProductVo() {
 		// TODO Auto-generated constructor stub
@@ -21,6 +25,7 @@ public class ProductVo {
 	public ProductVo(Long no, String name, Long price, String regDate, Boolean exhibitionAvailability,
 			Boolean optionAvailability, Boolean sailsStatus, Long exhibitionRank, Long count, String detail,
 			Long shippingFee, Long categoryNo) {
+		super();
 		this.no = no;
 		this.name = name;
 		this.price = price;
@@ -35,7 +40,24 @@ public class ProductVo {
 		this.categoryNo = categoryNo;
 	}
 
-
+	public ProductVo(Long no, String name, Long price, String regDate, Boolean exhibitionAvailability,
+			Boolean optionAvailability, Boolean sailsStatus, Long exhibitionRank, Long count, String detail,
+			Long shippingFee, Long categoryNo, List<OptionVo> optionList, List<OptionNameVo> optionNameList) {
+		this.no = no;
+		this.name = name;
+		this.price = price;
+		this.regDate = regDate;
+		this.exhibitionAvailability = exhibitionAvailability;
+		this.optionAvailability = optionAvailability;
+		this.sailsStatus = sailsStatus;
+		this.exhibitionRank = exhibitionRank;
+		this.count = count;
+		this.detail = detail;
+		this.shippingFee = shippingFee;
+		this.categoryNo = categoryNo;
+		this.optionList = optionList;
+		this.optionNameList = optionNameList;
+	}
 
 	public Long getNo() {
 		return no;
@@ -133,16 +155,30 @@ public class ProductVo {
 		this.categoryNo = categoryNo;
 	}
 
+	public List<OptionVo> getOptionList() {
+		return optionList;
+	}
+
+	public void setOptionList(List<OptionVo> optionList) {
+		this.optionList = optionList;
+	}
+
+	public List<OptionNameVo> getOptionNameList() {
+		return optionNameList;
+	}
+
+	public void setOptionNameList(List<OptionNameVo> optionNameList) {
+		this.optionNameList = optionNameList;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductVo [no=" + no + ", name=" + name + ", price=" + price + ", regDate=" + regDate
 				+ ", exhibitionAvailability=" + exhibitionAvailability + ", optionAvailability=" + optionAvailability
 				+ ", sailsStatus=" + sailsStatus + ", exhibitionRank=" + exhibitionRank + ", count=" + count
-				+ ", detail=" + detail + ", shippingFee=" + shippingFee + ", categoryNo=" + categoryNo + "]";
+				+ ", detail=" + detail + ", shippingFee=" + shippingFee + ", categoryNo=" + categoryNo + ", optionList="
+				+ optionList + ", optionNameList=" + optionNameList + "]";
 	}
-	
-	
-
 
 
 }

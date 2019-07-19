@@ -65,4 +65,10 @@
 			where no = #{no}
 		]]>
 	</update>
+		
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			delete from category where no = #{no}
+		]]>
+	</delete>
 </mapper>

@@ -13,6 +13,7 @@ public class UserService {
 	private UserDao userDao;
 	
 	public boolean join(UserVo vo) {
+		System.out.println("¼­ºñ½º");
 		return userDao.join(vo);
 	}
 	

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="optionName">
+
+	<insert id="add" parameterType="optionNameVo">
+		<![CDATA[
+			insert into option_name
+				values(null, #{optionName})
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+		        SELECT LAST_INSERT_ID()
+			]]>
+	    </selectKey>
+	</insert>
+	
+	<select id="getList" resultType="optionNameVo">
+		<![CDATA[
+			select no, option_name as optionName from option_name
+		]]>
+	</select>
+	
+	<select id="existOptionName" resultType="optionNameVo">
+		<![CDATA[
+			select no, option_name as optionName from option_name where option_name = #{optionName}
+		]]>
+	</select>
+</mapper>

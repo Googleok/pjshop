@@ -47,6 +47,7 @@ public class UserController {
 	@PostMapping("/join")
 	public ResponseEntity<JSONResult> join(@RequestBody @Valid UserVo vo, BindingResult result) {
 
+		System.out.println("회원가입");
 		// @valid 유효성 검증
 		if (result.hasErrors()) {
 			List<ObjectError> errors = result.getAllErrors();

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cafe24.pjshop.dto.JSONResult;
 import com.cafe24.pjshop.service.AdminService;
 import com.cafe24.pjshop.vo.CategoryVo;
+import com.cafe24.pjshop.vo.OptionNameVo;
+import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.OrderDetailVo;
 import com.cafe24.pjshop.vo.OrderVo;
 import com.cafe24.pjshop.vo.ProductVo;
@@ -52,7 +54,7 @@ public class AdminController {
 	 * @return
 	 */
 	@PostMapping("/category")
-	public ResponseEntity<JSONResult> addCategory(@RequestBody CategoryVo  vo){
+	public ResponseEntity<JSONResult> addCategory(@RequestBody CategoryVo vo){
 		Boolean result = adminService.addCategory(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
@@ -111,8 +113,8 @@ public class AdminController {
 	 * @return
 	 */
 	@PostMapping("/product")
-	public ResponseEntity<JSONResult> addProduct(@RequestBody ProductVo vo){
-		Boolean result = adminService.addProduct(vo);
+	public ResponseEntity<JSONResult> addProduct(@RequestBody ProductVo productVo){
+		Boolean result = adminService.addProduct(productVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 

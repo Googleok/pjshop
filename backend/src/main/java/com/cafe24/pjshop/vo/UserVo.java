@@ -33,13 +33,13 @@ public class UserVo {
 	@ValidGender
 	private String gender;
 	
-	private String isAdmin;
+	private String role;
 	
 	public UserVo() {
 	}
 
 	public UserVo(Long no, String id, String password, String name, String phone, String email, String birth,
-			String gender, String isAdimin) {
+			String gender, String role) {
 		super();
 		this.no = no;
 		this.id = id;
@@ -49,7 +49,7 @@ public class UserVo {
 		this.email = email;
 		this.birth = birth;
 		this.gender = gender;
-		this.isAdmin = isAdimin;
+		this.role = role;
 	}
 
 	public UserVo(String id, String password) {
@@ -121,18 +121,18 @@ public class UserVo {
 		this.gender = gender;
 	}
 
-	public String getIsAdmin() {
-		return isAdmin;
+	public String getRole() {
+		return role;
 	}
 
-	public void setIsAdmin(String isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", id=" + id + ", password=" + password + ", name=" + name + ", phone=" + phone
-				+ ", email=" + email + ", birth=" + birth + ", gender=" + gender + ", isAdmin=" + isAdmin + "]";
+				+ ", email=" + email + ", birth=" + birth + ", gender=" + gender + ", role=" + role + "]";
 	}
 
 	
