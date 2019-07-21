@@ -65,7 +65,7 @@ public class AdminControllerTest {
 	public void testAddCategory() throws Exception {
 		
 		// 부모 카테고리 없는 경우
-//		CategoryVo voMock1 = new CategoryVo(null, "상의", 1L, null, null);
+//		CategoryVo voMock1 = new CategoryVo(null, "하의", 1L, null, null);
 //		
 //		ResultActions resultActions = 
 //				mockMvc
@@ -75,7 +75,7 @@ public class AdminControllerTest {
 //				.andDo(print());
 		
 		// 부모 카테고리 있는 경우
-		CategoryVo voMock = new CategoryVo(null, "티셔츠", 2L, 1L, 1L);
+		CategoryVo voMock = new CategoryVo(null, "청바지", 2L, 4L, 2L);
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -139,7 +139,7 @@ public class AdminControllerTest {
 	// 상품상세요청 ( 상품정보 + 상품옵션 + 옵션이름 + 대표이미지 + 카테고리 )
 	@Test
 	public void testGetDetailProductInfo() throws Exception{
-		Long productNo = 6L;
+		Long productNo = 9L;
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -211,34 +211,92 @@ public class AdminControllerTest {
 	/**
 	 * 상품등록 (ajax - version)
 	 * 상품 카테고리 선택
+	 * 상품 등록
 	 * 상품 옵션 가져오기
 	 * 상품 옵션 이름 등록
 	 * 상품 옵션 상세 등록
 	 * 상품 이미지 등록
-	 * 상품 등록
 	 * @throws Exception
 	 */
 	@Test
 	public void testAddProductByAjax() throws Exception{
-		ProductVo voMock = new ProductVo(null, "빈티지바지", 30000L, null, true,
-		false, true, 1L, 400L, "cap.html",
-		2500L, 3L);
+		ProductVo voMock = new ProductVo(null, "빈티지청바지", 30000L, null, true,
+		true, true, 1L, 400L, "jean.html",
+		2500L, 5L);
 
 		ResultActions resultActions = 
 		mockMvc
-		.perform(post("/api/admin/product")
+		.perform(post("/api/admin/product/ajax")
 		.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
 		.andExpect(status().isOk())
 		.andDo(print());
 	}
 	@Test
-	public void testGetProductOption() throws Exception{}
+	public void testGetOptionName() throws Exception{
+		ResultActions resultActions = 
+		mockMvc
+		.perform(get("/api/admin/product/optionname"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
 	@Test
-	public void testAddProductOptionName() throws Exception{}
+	public void testAddProductOptionName() throws Exception{
+		OptionNameVo optionNameVoMock1 = new OptionNameVo(null, "발사이즈");
+		
+		ResultActions resultActions = 
+		mockMvc
+		.perform(post("/api/admin/product/optionname")
+		.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(optionNameVoMock1)))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
 	@Test
-	public void testAddProductOption() throws Exception{}
+	public void testDeleteProductOptionName() throws Exception{
+		Long deleteNo = 3L;
+		
+		ResultActions resultActions = 
+		mockMvc
+		.perform(delete("/api/admin/product/optionname/{no}", deleteNo))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
 	@Test
-	public void testAddProductImage() throws Exception{}
+	public void testAddProductOption() throws Exception{
+		OptionVo optionVoMock1 = new OptionVo(null, "진청", true, 1500L, 9L, 1L, null, 100L);
+
+		ResultActions resultActions = 
+		mockMvc
+		.perform(post("/api/admin/product/optionvalue")
+		.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(optionVoMock1)))
+		.andExpect(status().isOk())
+		.andDo(print());
+
+	}
+	@Test
+	public void testAddProductImage() throws Exception{
+		
+//		ProductImageVo productImageVoMock = new ProductImageVo(null, 9L, "image2.jpg", "sub");
+//		
+//		ResultActions resultActions = 
+//		mockMvc
+//		.perform(post("/api/admin/product/image")
+//		.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(productImageVoMock)))
+//		.andExpect(status().isOk())
+//		.andDo(print());
+		
+		List<ProductImageVo> productImageList = new ArrayList<ProductImageVo>();
+		ProductImageVo productImageVoMock1 = new ProductImageVo(null, 9L, "image1.jpg", "main");
+		ProductImageVo productImageVoMock2 = new ProductImageVo(null, 9L, "image2.jpg", "sub");
+		productImageList.add(productImageVoMock1);
+		productImageList.add(productImageVoMock2);
+		
+		ResultActions resultActions = 
+		mockMvc
+		.perform(post("/api/admin/product/imagelist")
+		.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(productImageList)))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
 	
 	// 상품수정  Test
 	@Test
@@ -246,8 +304,9 @@ public class AdminControllerTest {
 		ProductVo voMock = new ProductVo();
 		voMock.setName("가죽자켓");
 		voMock.setPrice(120000L);
-		
-		Long modifyNo = 2L;
+		voMock.setCategoryNo(2L);
+
+		Long modifyNo = 8L;
 		
 		ResultActions resultActions = 
 				mockMvc

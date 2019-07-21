@@ -34,6 +34,6 @@ public class AdminDao {
 	public boolean deleteCategory(Long no) {
 		return sqlSession.delete("category.delete", no) == 1;
 	}
-	
+
 	
 }

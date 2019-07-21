@@ -1,6 +1,8 @@
 package com.cafe24.pjshop.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,10 @@ public class AdminProductDao {
 		return sqlSession.insert("optionName.addList", optionNameVos) == optionNameVos.size();
 	}
 
+	public boolean deleteOptionName(Long no) {
+		return sqlSession.delete("optionName.deleteName", no) == 1;
+	}
+	
 	public Boolean addOption(OptionVo optionVo) {
 		return sqlSession.insert("option.add", optionVo) == 1;
 	}
@@ -56,11 +62,11 @@ public class AdminProductDao {
 		return sqlSession.insert("option.addList", optionVos) == optionVos.size();
 	}
 
-	public boolean optionNameGetCount(String optionName) {
+	public boolean getOptionNameCount(String optionName) {
 		return sqlSession.selectOne("optionName.getCount", optionName);
 	}
 
-	public List<OptionNameVo> optionNameGetList() {
+	public List<OptionNameVo> getOptionNameList() {
 		return sqlSession.selectList("optionName.getList");
 	}
 
@@ -80,4 +86,10 @@ public class AdminProductDao {
 		return sqlSession.insert("image.addProductImage", vo) == 1;
 	}
 
+	public boolean modifyProduct(Long no, ProductVo newVo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("no", no);
+		map.put("vo", newVo);
+		return sqlSession.update("product.modifyProduct", map) == 1;
+	}
 }

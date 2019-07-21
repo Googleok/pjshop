@@ -23,6 +23,7 @@
 		]]>
 	</select>
 	
+	
 	<select id="getOne" resultType="productvo" parameterType="long">
 		<![CDATA[
 			select
@@ -95,4 +96,65 @@
 		]]>
 	</delete>
 	
+	<update id="modifyProduct" parameterType="map">
+		<![CDATA[
+			update product 
+		]]>
+		<trim prefix="SET" suffixOverrides=",">
+
+		    <if test="vo.name != null">
+		     <![CDATA[
+		     	name = #{vo.name},
+		     ]]>
+		    </if>
+		    <if test="vo.price != null">
+		     <![CDATA[
+		     	price = #{vo.price},
+		     ]]>
+		    </if>
+		    <if test="vo.exhibitionAvailability != null">
+		     <![CDATA[
+		     	exhibition_availability = #{vo.exhibitionAvailability},
+		     ]]>
+		    </if>
+		    <if test="vo.optionAvailability != null">
+		     <![CDATA[
+		     	option_availability = #{vo.optionAvailability},
+		     ]]>
+		    </if>
+		    <if test="vo.sailsStatus != null">
+		     <![CDATA[
+		     	sails_status = #{vo.sailsStatus},
+		     ]]>
+		    </if>
+		    <if test="vo.exhibitionRank != null">
+		     <![CDATA[
+		     	exhibition_rank = #{vo.exhibitionRank},
+		     ]]>
+		    </if>
+		    <if test="vo.count != null">
+		     <![CDATA[
+		     	count = #{vo.count},
+		     ]]>
+		    </if>
+		    <if test="vo.detail != null">
+		     <![CDATA[
+		     	detail = #{vo.detail},
+		     ]]>
+		    </if>
+		    <if test="vo.shippingFee != null">
+		     <![CDATA[
+		     	shipping_fee = #{vo.shippingFee},
+		     ]]>
+		    </if>
+		    <if test="vo.categoryNo != null">
+		     <![CDATA[
+		     	category_no = #{vo.categoryNo},
+		     ]]>
+		    </if>
+		</trim>
+		<![CDATA[
+			where no = #{no}
+		]]>
+	</update>
 </mapper>

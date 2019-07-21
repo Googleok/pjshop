@@ -16,7 +16,6 @@ public class OptionVo {
 
 	public OptionVo(Long no, String optionValue, Boolean stockAvailability, Long additionalPrice, Long productNo,
 			Long optionNameNo, String optionName, Long productCount) {
-		super();
 		this.no = no;
 		this.optionValue = optionValue;
 		this.stockAvailability = stockAvailability;

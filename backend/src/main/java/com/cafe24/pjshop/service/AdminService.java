@@ -133,34 +133,16 @@ public class AdminService {
 		return true;
 	}
 
+	// 상품등록 ajax
+	public Long addProductByAjax(ProductVo productVo) {
+		return adminProductDao.addProduct(productVo);
+	}
+	
+
 	// 상품수정
 	public ProductVo modifyProduct(Long no, ProductVo newVo) {
-		ProductVo resultVo = null;
-		
-		ProductVo vo1 = new ProductVo(1L, "모자", 30000L, "2019-07-11", true,
-				false, true, 1L, 400L, "cap.html",
-				2500L, 3L); 
-		ProductVo vo2 = new ProductVo(2L, "모자", 30000L, "2019-07-12", true,
-				false, true, 1L, 400L, "cap.html",
-				2500L, 3L); 
-		ProductVo vo3 = new ProductVo(3L, "모자", 30000L, "2019-07-13", true,
-				false, true, 1L, 400L, "cap.html",
-				2500L, 3L); 
-		
-		List<ProductVo> list = new ArrayList<ProductVo>();
-		list.add(vo1);
-		list.add(vo2);
-		list.add(vo3);
-		
-		for(int i=0; i<list.size(); i++) {
-			if(list.get(i).getNo() == no) {
-				list.get(i).setName(newVo.getName());
-				list.get(i).setPrice(newVo.getPrice());
-				resultVo = list.get(i);
-			}
-		}
-		
-		return resultVo;
+		boolean result = adminProductDao.modifyProduct(no, newVo);
+		return result? newVo : null;
 	}
 
 	// 상품삭제
@@ -198,6 +180,34 @@ public class AdminService {
 		return searchList;
 	}
 
+	public List<OptionNameVo> getOptionNameList() {
+		return adminProductDao.getOptionNameList();
+	}
+
+	public Long addOptionName(OptionNameVo vo) {
+		Long no = adminProductDao.addOptionName(vo);
+		return no;
+	}
+	
+	public boolean deleteOptionName(Long no) {
+		return adminProductDao.deleteOptionName(no);
+	}
+	
+	public Long addOptionValue(OptionVo vo) {
+		return adminProductDao.addOption(vo)? vo.getNo() : 0L;
+	}
+	
+	public boolean addProductImage(ProductImageVo vo) {
+		return adminProductDao.addProductImage(vo);
+	}
+	
+	public boolean addProductImageList(List<ProductImageVo> list) {
+		for(ProductImageVo vo : list) {
+			adminProductDao.addProductImage(vo);
+		}
+		return true;
+	}
+	
 	//========================================================================================================
 	
 	// 주문관리
@@ -357,6 +367,10 @@ public class AdminService {
 		}
 		return searchList;
 	}
+
+
+	
+
 
 	
 }

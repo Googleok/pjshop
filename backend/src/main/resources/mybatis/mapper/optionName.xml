@@ -28,4 +28,12 @@
 			select no, option_name as optionName from option_name where option_name = #{optionName}
 		]]>
 	</select>
+
+	<delete id="deleteName" parameterType="long">
+		<![CDATA[
+			delete from option_name where no = #{no}
+		]]>
+	</delete>
+	
+	
 </mapper>

@@ -23,6 +23,7 @@ import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.OrderDetailVo;
 import com.cafe24.pjshop.vo.OrderVo;
 import com.cafe24.pjshop.vo.ProductDetailVo;
+import com.cafe24.pjshop.vo.ProductImageVo;
 import com.cafe24.pjshop.vo.ProductVo;
 import com.cafe24.pjshop.vo.UserVo;
 
@@ -129,6 +130,18 @@ public class AdminController {
 		Boolean result = adminService.addProduct(productVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
+	
+	/**
+	 * 상품등록
+	 * @param vo
+	 * @return
+	 */
+	@PostMapping("/product/ajax")
+	public ResponseEntity<JSONResult> addProductByAjax(@RequestBody ProductVo productVo){
+		Long productNo = adminService.addProductByAjax(productVo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(productNo));
+	}
+	
 
 	/**
 	 * 상품수정
@@ -152,6 +165,39 @@ public class AdminController {
 		boolean result = adminService.deleteProduct(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
+	
+	@GetMapping("/product/optionname")
+	public ResponseEntity<JSONResult> getOptionList(){
+		List<OptionNameVo> list = adminService.getOptionNameList();
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	}
+	
+	@PostMapping("/product/optionname")
+	public ResponseEntity<JSONResult> addOptionName(@RequestBody OptionNameVo vo){
+		Long insertNo = adminService.addOptionName(vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(insertNo));
+	}
+	@DeleteMapping("/product/optionname/{no}")
+	public ResponseEntity<JSONResult> deleteOptionName(@PathVariable Long no){
+		boolean result = adminService.deleteOptionName(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	@PostMapping("/product/optionvalue")
+	public ResponseEntity<JSONResult> addOptionValue(@RequestBody OptionVo vo){
+		Long insertNo = adminService.addOptionValue(vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(insertNo));
+	}
+	@PostMapping("/product/image")
+	public ResponseEntity<JSONResult> addProductImage(@RequestBody ProductImageVo vo){
+		boolean result = adminService.addProductImage(vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	@PostMapping("/product/imagelist")
+	public ResponseEntity<JSONResult> addProductImageList(@RequestBody List<ProductImageVo> list){
+		boolean result = adminService.addProductImageList(list);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
 	
 	/**
 	 * 상품검색
