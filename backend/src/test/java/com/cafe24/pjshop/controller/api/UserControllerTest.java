@@ -40,7 +40,6 @@ public class UserControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 
-	@Ignore
 	@Test
 	public void testJoin() throws Exception {
 		UserVo voMock = new UserVo(null, "whddjr2225", "Whddjr129", "╧за╬╬О", "01040287755", "whddjr2225@naver.com",
@@ -54,7 +53,7 @@ public class UserControllerTest {
 	@Test
 	public void testCheckEmail() throws Exception {
 
-		String userEmail = "qkrwhddjr3@gmail.com";
+		String userEmail = "whddjr2225@naver.com";
 
 		ResultActions resultActions = mockMvc.perform(get("/api/user/checkemail?email={email}", userEmail))
 				.andExpect(status().isOk()).andDo(print());
@@ -105,7 +104,7 @@ public class UserControllerTest {
 		voMock.setGender("male");
 		voMock.setRole("admin");
 		
-		Long updateNo = 6L;
+		Long updateNo = 1L;
 
 		ResultActions resultActions = mockMvc.perform(
 				put("/api/user/{updateNo}", updateNo).contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))

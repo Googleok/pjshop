@@ -8,6 +8,8 @@
 		<typeAlias alias="productvo" type="com.cafe24.pjshop.vo.ProductVo"/>
 		<typeAlias alias="optionnamevo" type="com.cafe24.pjshop.vo.OptionNameVo"/>
 		<typeAlias alias="optionvo" type="com.cafe24.pjshop.vo.OptionVo"/>
+		<typeAlias alias="productImageVo" type="com.cafe24.pjshop.vo.ProductImageVo"/>
+		<typeAlias alias="productDetailVo" type="com.cafe24.pjshop.vo.ProductDetailVo"/>
 		
 		<!-- 
 		<typeAlias alias="ordervo" type="com.cafe24.shoppingmall.vo.OrderVo"/>
@@ -22,5 +24,6 @@
 		<mapper resource="mybatis/mapper/product.xml" />
 		<mapper resource="mybatis/mapper/optionName.xml" />
 		<mapper resource="mybatis/mapper/option.xml" />
+		<mapper resource="mybatis/mapper/image.xml" />
 	</mappers>
 </configuration>

@@ -17,6 +17,7 @@ public class ProductVo {
 	private Long categoryNo;
 	private List<OptionVo> optionList;  // optionName optionValue count
 	private List<OptionNameVo> optionNameList;  // optionName optionValue count
+	private List<ProductImageVo> productImageList;
 	
 	public ProductVo() {
 		// TODO Auto-generated constructor stub
@@ -42,7 +43,7 @@ public class ProductVo {
 
 	public ProductVo(Long no, String name, Long price, String regDate, Boolean exhibitionAvailability,
 			Boolean optionAvailability, Boolean sailsStatus, Long exhibitionRank, Long count, String detail,
-			Long shippingFee, Long categoryNo, List<OptionVo> optionList, List<OptionNameVo> optionNameList) {
+			Long shippingFee, Long categoryNo, List<OptionVo> optionList, List<OptionNameVo> optionNameList, List<ProductImageVo> productImageList) {
 		this.no = no;
 		this.name = name;
 		this.price = price;
@@ -57,6 +58,7 @@ public class ProductVo {
 		this.categoryNo = categoryNo;
 		this.optionList = optionList;
 		this.optionNameList = optionNameList;
+		this.productImageList = productImageList;
 	}
 
 	public Long getNo() {
@@ -171,14 +173,23 @@ public class ProductVo {
 		this.optionNameList = optionNameList;
 	}
 
+	public List<ProductImageVo> getProductImageList() {
+		return productImageList;
+	}
+
+	public void setProductImageList(List<ProductImageVo> productImageList) {
+		this.productImageList = productImageList;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductVo [no=" + no + ", name=" + name + ", price=" + price + ", regDate=" + regDate
 				+ ", exhibitionAvailability=" + exhibitionAvailability + ", optionAvailability=" + optionAvailability
 				+ ", sailsStatus=" + sailsStatus + ", exhibitionRank=" + exhibitionRank + ", count=" + count
 				+ ", detail=" + detail + ", shippingFee=" + shippingFee + ", categoryNo=" + categoryNo + ", optionList="
-				+ optionList + ", optionNameList=" + optionNameList + "]";
+				+ optionList + ", optionNameList=" + optionNameList + ", productImageList=" + productImageList + "]";
 	}
-
-
+	
+	
+	
 }

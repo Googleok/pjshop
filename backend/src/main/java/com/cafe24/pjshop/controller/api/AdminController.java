@@ -22,6 +22,7 @@ import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.OrderDetailVo;
 import com.cafe24.pjshop.vo.OrderVo;
+import com.cafe24.pjshop.vo.ProductDetailVo;
 import com.cafe24.pjshop.vo.ProductVo;
 import com.cafe24.pjshop.vo.UserVo;
 
@@ -103,6 +104,17 @@ public class AdminController {
 	@GetMapping("/product/{no}")
 	public ResponseEntity<JSONResult> getProductOne(@PathVariable("no") Long no){
 		ProductVo vo = adminService.getProductOne(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+	}
+	
+	/**
+	 * 상품상세정보 
+	 * @param no
+	 * @return
+	 */
+	@GetMapping("/product/detail/{no}")
+	public ResponseEntity<JSONResult> getProductDetail(@PathVariable("no") Long no){
+		List<ProductDetailVo> vo = adminService.getProductDetail(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	

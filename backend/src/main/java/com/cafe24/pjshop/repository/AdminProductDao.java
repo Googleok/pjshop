@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
+import com.cafe24.pjshop.vo.ProductDetailVo;
+import com.cafe24.pjshop.vo.ProductImageVo;
 import com.cafe24.pjshop.vo.ProductVo;
 
 @Repository
@@ -24,6 +26,10 @@ public class AdminProductDao {
 		return sqlSession.selectOne("product.getOne", no);
 	}
 
+	public List<ProductDetailVo> getProductDetail(Long no) {
+		return sqlSession.selectList("product.getProductDetail", no);
+	}
+	
 	public Long addProduct(ProductVo vo) {
 		sqlSession.insert("product.add", vo);
 		return vo.getNo();
@@ -69,4 +75,9 @@ public class AdminProductDao {
 	public boolean deleteProductImage(Long no) {
 		return sqlSession.delete("image.deleteProductImage", no) >= 1;
 	}
+
+	public boolean addProductImage(ProductImageVo vo) {
+		return sqlSession.insert("image.addProductImage", vo) == 1;
+	}
+
 }

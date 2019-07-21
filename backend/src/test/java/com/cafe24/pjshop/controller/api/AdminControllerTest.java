@@ -31,6 +31,7 @@ import com.cafe24.pjshop.config.test.WebConfig;
 import com.cafe24.pjshop.vo.CategoryVo;
 import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
+import com.cafe24.pjshop.vo.ProductImageVo;
 import com.cafe24.pjshop.vo.ProductVo;
 import com.cafe24.pjshop.vo.UserVo;
 import com.google.gson.Gson;
@@ -49,7 +50,6 @@ public class AdminControllerTest {
 	}
 	
 	// 카테고리 리스트 Test
-//	@Ignore
 	@Test
 	public void testGetCategoryList() throws Exception {
 		ResultActions resultActions = 
@@ -61,22 +61,21 @@ public class AdminControllerTest {
 	}
 	
 	// 카테고리 등록 Test
-//	@Ignore
 	@Test
 	public void testAddCategory() throws Exception {
 		
 		// 부모 카테고리 없는 경우
-//		CategoryVo voMock1 = new CategoryVo(null, "모자", 1L, null, null);
+//		CategoryVo voMock1 = new CategoryVo(null, "상의", 1L, null, null);
 //		
 //		ResultActions resultActions = 
 //				mockMvc
 //				.perform(post("/api/admin/category")
-//				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+//				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock1)))
 //				.andExpect(status().isOk())
 //				.andDo(print());
 		
 		// 부모 카테고리 있는 경우
-		CategoryVo voMock = new CategoryVo(null, "하의", 2L, 1L, 1L);
+		CategoryVo voMock = new CategoryVo(null, "티셔츠", 2L, 1L, 1L);
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -87,13 +86,12 @@ public class AdminControllerTest {
 	}	
 	
 	// 카테고리 수정 Test
-	@Ignore
 	@Test
 	public void testModifyCategory() throws Exception {
 		CategoryVo voMock = new CategoryVo();
 		voMock.setName("티셔츠");
 		
-		Long modifyNo = 2L;
+		Long modifyNo = 1L;
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -106,7 +104,7 @@ public class AdminControllerTest {
 	// 카테고리 삭제 Test
 	@Test
 	public void testDeleteCategory() throws Exception {
-		Long deleteNo = 6L;
+		Long deleteNo = 1L;
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -114,7 +112,7 @@ public class AdminControllerTest {
 				.andExpect(status().isOk())
 				.andDo(print());
 	}	
-	
+
 	// 상품리스트  요청 Test
 	@Test
 	public void testGetProductList() throws Exception {
@@ -130,16 +128,30 @@ public class AdminControllerTest {
 	@Test
 	public void testGetProductOne() throws Exception {
 
-		Long productNo = 4L;
+		Long productNo = 3L;
 		ResultActions resultActions = 
 				mockMvc
 				.perform(get("/api/admin/product/{no}", productNo))
 				.andExpect(status().isOk())
 				.andDo(print());
 	}	
+	
+	// 상품상세요청 ( 상품정보 + 상품옵션 + 옵션이름 + 대표이미지 + 카테고리 )
+	@Test
+	public void testGetDetailProductInfo() throws Exception{
+		Long productNo = 6L;
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/admin/product/detail/{no}", productNo))
+				.andExpect(status().isOk())
+				.andDo(print());		
+	}
 
-	// 상품등록  Test
-//	@Ignore
+	/**
+	 * 페이지 전용 ( 한페이지에 모든 정보를 실어보내는 형식 )
+	 * @throws Exception
+	 */
 	@Test
 	public void testAddProduct() throws Exception {
 		// 옵션 없는거
@@ -173,11 +185,20 @@ public class AdminControllerTest {
 		optionList.add(optionVoMock4);
 		optionList.add(optionVoMock5);
 		
-		ProductVo voMock = new ProductVo(null, "나이키티", 30000L, null, true,
+		List<ProductImageVo> productImageList = new ArrayList<ProductImageVo>();
+		ProductImageVo productImageVoMock1 = new ProductImageVo(null, null, "https://image1", "main");
+		ProductImageVo productImageVoMock2 = new ProductImageVo(null, null, "https://image2", "sub");
+		ProductImageVo productImageVoMock3 = new ProductImageVo(null, null, "https://image3", "etc");
+		productImageList.add(productImageVoMock1);
+		productImageList.add(productImageVoMock2);
+		productImageList.add(productImageVoMock3);
+		
+		ProductVo voMock = new ProductVo(null, "아디다스티", 40000L, null, true,
 				true, true, 1L, 400L, "nike.html",
-				2500L, 3L);
+				2500L, 2L);
 		voMock.setOptionNameList(optionNameList);
 		voMock.setOptionList(optionList);
+		voMock.setProductImageList(productImageList);
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -187,8 +208,39 @@ public class AdminControllerTest {
 				.andDo(print());
 	}	
 	
+	/**
+	 * 상품등록 (ajax - version)
+	 * 상품 카테고리 선택
+	 * 상품 옵션 가져오기
+	 * 상품 옵션 이름 등록
+	 * 상품 옵션 상세 등록
+	 * 상품 이미지 등록
+	 * 상품 등록
+	 * @throws Exception
+	 */
+	@Test
+	public void testAddProductByAjax() throws Exception{
+		ProductVo voMock = new ProductVo(null, "빈티지바지", 30000L, null, true,
+		false, true, 1L, 400L, "cap.html",
+		2500L, 3L);
+
+		ResultActions resultActions = 
+		mockMvc
+		.perform(post("/api/admin/product")
+		.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	@Test
+	public void testGetProductOption() throws Exception{}
+	@Test
+	public void testAddProductOptionName() throws Exception{}
+	@Test
+	public void testAddProductOption() throws Exception{}
+	@Test
+	public void testAddProductImage() throws Exception{}
+	
 	// 상품수정  Test
-	@Ignore
 	@Test
 	public void testModifyProduct() throws Exception {
 		ProductVo voMock = new ProductVo();
@@ -206,10 +258,9 @@ public class AdminControllerTest {
 	}	
 	
 	// 상품삭제  Test
-//	@Ignore
 	@Test
 	public void testDeleteProduct() throws Exception {
-		Long deleteNo = 7L;
+		Long deleteNo = 5L;
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -219,7 +270,6 @@ public class AdminControllerTest {
 	}	
 	
 	// 상품검색리스트  요청 Test
-	@Ignore
 	@Test
 	public void testGetProductSearchList() throws Exception {
 		String keyword = "cap";

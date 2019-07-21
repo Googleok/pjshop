@@ -21,6 +21,8 @@ import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.OrderDetailVo;
 import com.cafe24.pjshop.vo.OrderVo;
+import com.cafe24.pjshop.vo.ProductDetailVo;
+import com.cafe24.pjshop.vo.ProductImageVo;
 import com.cafe24.pjshop.vo.ProductVo;
 import com.cafe24.pjshop.vo.UserVo;
 
@@ -74,6 +76,11 @@ public class AdminService {
 		return adminProductDao.getProductOne(no);
 	}
 
+	// 상품상세정보
+	public List<ProductDetailVo> getProductDetail(Long no) {
+		return adminProductDao.getProductDetail(no);
+	}
+	
 	// 상품등록
 	public Boolean addProduct(ProductVo productVo) {
 		List<OptionNameVo> newoptionNameList = new ArrayList<OptionNameVo>();
@@ -83,6 +90,13 @@ public class AdminService {
 		System.out.println("===============================================================");
 		System.out.println(insertProductNo);
 		System.out.println("===============================================================");
+		
+		// 상품이미지 등록
+		for(ProductImageVo vo : productVo.getProductImageList()) {
+			System.out.println("상품이미지 == "+vo);
+			vo.setProductNo(insertProductNo);
+			adminProductDao.addProductImage(vo);
+		}
 		
 		// 옵션체크 있으면
 		if(productVo.getOptionAvailability()) {
@@ -151,23 +165,7 @@ public class AdminService {
 
 	// 상품삭제
 	public boolean deleteProduct(Long no) {
-		// 장바구니 상품삭제
-		boolean deleteProductInCartResult = adminUserDao.deleteProductInCart(no);
-		// 주문옵션 상품삭제
-		boolean deleteProductInOrderResult = adminOrderDao.deleteProductInOrder(no);
-		// 상품옵션 상품삭제
-		boolean deleteProductOptionResult = adminProductDao.deleteProductOption(no);
-		// 대표이미지 상품삭제
-		boolean deleteProductImageResult = adminProductDao.deleteProductImage(no);
-		// 상품삭제
-		boolean deleteProductResult = adminProductDao.deleteProduct(no);
-
-		System.out.println(deleteProductInCartResult);
-		System.out.println(deleteProductInOrderResult);
-		System.out.println(deleteProductOptionResult);
-		System.out.println(deleteProductImageResult);
-		System.out.println(deleteProductResult);
-		return true;
+		return adminProductDao.deleteProduct(no);
 	}
 
 	// 상품검색
@@ -359,5 +357,6 @@ public class AdminService {
 		}
 		return searchList;
 	}
+
 	
 }

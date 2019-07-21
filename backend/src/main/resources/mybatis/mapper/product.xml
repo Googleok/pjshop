@@ -42,6 +42,28 @@
 		]]>
 	</select>
 	
+	<select id="getProductDetail" parameterType="long" resultType="productDetailVo">
+		<![CDATA[
+			select a.no,
+				   a.name,
+			       a.price,
+			       a.reg_date as regDate,
+			       a.exhibition_availability as exhibitionAvailability,
+			       a.option_availability as optionAvailability,
+			       a.sails_status as sailsStatus,
+			       a.exhibition_rank as exhibitionRank,
+			       a.detail,
+			       a.shipping_fee as shippingFee,
+				   b.option_value as optionValue,
+			       c.image_url as imageUrl,
+			       c.image_role as imageRole
+			from product a,option b, representative_image c
+			where a.no = b.product_no and a.no = c.product_no
+			and a.no = #{no};  
+		]]>
+	
+	</select>
+	
 	<insert id="add" parameterType="productvo">
 		<![CDATA[
 			insert into product
@@ -66,5 +88,11 @@
 			]]>
 	    </selectKey>
 	</insert>
+	
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			delete from product where no = #{no}
+		]]>
+	</delete>
 	
 </mapper>
