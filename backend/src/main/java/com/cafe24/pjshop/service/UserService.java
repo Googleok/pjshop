@@ -30,6 +30,13 @@ public class UserService {
 		return userDao.modify(no, vo);
 	}
 
+	public UserVo findId(String name, String phone) {
+		UserVo vo = new UserVo();
+		vo.setName(name);
+		vo.setPhone(phone);
+		return userDao.findId(vo);
+	}
+
 
 
 

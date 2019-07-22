@@ -46,8 +46,6 @@ public class UserController {
 	@ApiOperation(value = "회원가입")
 	@PostMapping("/join")
 	public ResponseEntity<JSONResult> join(@RequestBody @Valid UserVo vo, BindingResult result) {
-
-		System.out.println("회원가입");
 		// @valid 유효성 검증
 		if (result.hasErrors()) {
 			List<ObjectError> errors = result.getAllErrors();
@@ -69,7 +67,6 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	}
 
-	// 로그인
 	@ApiOperation(value = "로그인")
 	@PostMapping(value = "/login")
 	public ResponseEntity<JSONResult> login(@RequestBody UserVo vo) {
@@ -99,7 +96,6 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(newVo));
 	}
 
-	// 회원정보 수정
 	@ApiOperation(value = "회원정보수정")
 	@PutMapping("/{no}")
 	public ResponseEntity<JSONResult> modify(@PathVariable("no") Long no,@RequestBody UserVo vo, BindingResult result) {
@@ -115,29 +111,31 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(modifyResult));
 	}
 
-	// 장바구니 리스트 요청
+	@ApiOperation(value = "아이디 찾기")
+	@GetMapping("/find/id")
+	public ResponseEntity<JSONResult> findId(@RequestParam(value = "name") String name,
+											@RequestParam(value = "phone") String phone ) {
+	
+		UserVo findResultVo = userService.findId(name, phone);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(findResultVo));
+	}
+
+	
 	@ApiOperation(value = "장바구니 리스트")
 	@GetMapping({"/cart", "/cart/list"})
 	public ResponseEntity<JSONResult> getCartList() {
-		
-		
-		
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(null));
 	}
 
-	// 장바구니 담기
 	@ApiOperation(value = "장바구니 담기")
 	@PostMapping("/cart")
 	public ResponseEntity<JSONResult> addToCart(@RequestBody UserVo vo) {
-		
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 
-	// 장바구니 삭제
 	@ApiOperation(value = "장바구니 삭제")
 	@DeleteMapping("/cart/{no}")
 	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody UserVo vo) {
-
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 }

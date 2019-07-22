@@ -35,5 +35,9 @@ public class UserDao {
 		map.put("vo", vo);
 		return sqlSession.update("user.modify", map) == 1;
 	}
+
+	public UserVo findId(UserVo vo) {
+		return sqlSession.selectOne("user.findId", vo);
+	}
 	
 }

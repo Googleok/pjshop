@@ -94,6 +94,18 @@
 		]]>
 	</update>
 	
+	<select id="findId" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			select no,
+				   id,
+				   convert(AES_DECRYPT(name, SHA2('7755', 512))using utf8) as name,
+				   convert(AES_DECRYPT(phone, SHA2('7755', 512))using utf8) as phone
+			from user
+				 where name = AES_ENCRYPT(#{name}, SHA2('7755',512))
+				   and phone = AES_ENCRYPT(#{phone}, SHA2('7755',512))
+		]]>
+	</select>
+	
 	<delete id="deleteProductInCart">
 		<![CDATA[
 			delete from cart where option_no = #{no}

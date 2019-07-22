@@ -97,6 +97,36 @@ public class UserControllerTest {
 	}
 
 	@Test
+	public void testFindId() throws Exception {
+		// 원래는 이름과 번호를 입력하고 인증번호로 확인해야하는데 
+		// 지금은 그냥 약식으로 이름과 번호를 보내면 아이디를 보내주는것
+		String userName = "박종억";
+		String userPhone = "01040287755";
+		
+		ResultActions resultActions = 
+				mockMvc.perform(get("/api/user/find/id?name={name}&phone={phone}", userName, userPhone))
+						.andExpect(status().isOk())
+						.andDo(print());
+	}
+	
+	@Test
+	public void testFindPassword() throws Exception {
+		// 원래는 아이디를 입력하고  이메일로 새로운 비밀번호를 생성해서 보내는데
+		// 지금은 약식으로 비밀번호를 임의로 생성하고 리턴해주는 식으로 하겠음
+		UserVo voMock = new UserVo();
+		voMock.setId("whddjr2225");
+		voMock.setName("박종억");
+		voMock.setPhone("01040287755");
+		
+		ResultActions resultActions = 
+				mockMvc.perform(get("/api/user/find/password")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(new Gson().toJson(voMock)))
+						.andExpect(status().isOk())
+						.andDo(print());
+	}
+	
+	@Test
 	public void testModify() throws Exception {
 		UserVo voMock = new UserVo();
 		voMock.setName("박종억");
