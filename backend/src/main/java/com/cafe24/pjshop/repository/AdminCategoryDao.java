@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.cafe24.pjshop.vo.CategoryVo;
 
 @Repository
-public class AdminDao {
-	
+public class AdminCategoryDao {
 	@Autowired
 	private SqlSession sqlSession;
 
@@ -28,12 +27,10 @@ public class AdminDao {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("no", no);
 		map.put("vo", vo);
-		return sqlSession.update("category.modify", map) == 1 ;
+		return sqlSession.update("category.modify", map) == 1;
 	}
 
 	public boolean deleteCategory(Long no) {
 		return sqlSession.delete("category.delete", no) == 1;
 	}
-
-	
 }

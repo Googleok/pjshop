@@ -17,6 +17,8 @@ import com.cafe24.pjshop.vo.OrderDetailVo;
 import com.cafe24.pjshop.vo.OrderVo;
 import com.cafe24.pjshop.vo.PaymentVo;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController("orderAPIController")
 @RequestMapping("/api/order")
 public class OrderController {
@@ -24,51 +26,32 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 		
-	/**
-	 * 상품주문
-	 * id 같은경우는 @AuthUser 를 파라미터로 받을거기 때문에
-	 * @param orderVo
-	 * @return
-	 */
+	@ApiOperation(value = "주문 리스트")
 	@PostMapping("")
 	public ResponseEntity<JSONResult> orderProduct(@RequestBody OrderVo orderVo) {
 		OrderVo vo = orderService.orderProduct(orderVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	
-	/**
-	 * 주문내역확인
-	 * @param no
-	 * @return
-	 */
+	@ApiOperation(value = "주문 하나")
 	@GetMapping("/{id}")
 	public ResponseEntity<JSONResult> getOrderOne(@PathVariable("id") String id){
 		OrderVo vo = orderService.getOrderOne(id);
 		return  ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	
-	/**
-	 * 주문상세보기
-	 * @param no
-	 * @return
-	 */
+	@ApiOperation(value = "주문상세정보")
 	@GetMapping("/detail/{no}")
 	public ResponseEntity<JSONResult> getOrderDetail(@PathVariable("no") Long no){
 		OrderDetailVo vo = orderService.getOrderDetail(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	
-	/**
-	 * 주문결제
-	 * @param no
-	 * @return
-	 */
+	@ApiOperation(value = "결제정보")
 	@PutMapping("/payment/{no}")
 	public ResponseEntity<JSONResult> payOrder(@PathVariable("no") Long no) {
 		 PaymentVo vo = orderService.payOrder(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
-	
-	
 }
 

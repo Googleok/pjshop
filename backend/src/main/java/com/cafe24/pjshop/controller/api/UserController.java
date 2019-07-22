@@ -70,6 +70,7 @@ public class UserController {
 	}
 
 	// 로그인
+	@ApiOperation(value = "로그인")
 	@PostMapping(value = "/login")
 	public ResponseEntity<JSONResult> login(@RequestBody UserVo vo) {
 
@@ -99,6 +100,7 @@ public class UserController {
 	}
 
 	// 회원정보 수정
+	@ApiOperation(value = "회원정보수정")
 	@PutMapping("/{no}")
 	public ResponseEntity<JSONResult> modify(@PathVariable("no") Long no,@RequestBody UserVo vo, BindingResult result) {
 		
@@ -114,6 +116,7 @@ public class UserController {
 	}
 
 	// 장바구니 리스트 요청
+	@ApiOperation(value = "장바구니 리스트")
 	@GetMapping({"/cart", "/cart/list"})
 	public ResponseEntity<JSONResult> getCartList() {
 		
@@ -123,6 +126,7 @@ public class UserController {
 	}
 
 	// 장바구니 담기
+	@ApiOperation(value = "장바구니 담기")
 	@PostMapping("/cart")
 	public ResponseEntity<JSONResult> addToCart(@RequestBody UserVo vo) {
 		
@@ -130,6 +134,7 @@ public class UserController {
 	}
 
 	// 장바구니 삭제
+	@ApiOperation(value = "장바구니 삭제")
 	@DeleteMapping("/cart/{no}")
 	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody UserVo vo) {
 

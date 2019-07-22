@@ -15,6 +15,8 @@ import com.cafe24.pjshop.dto.JSONResult;
 import com.cafe24.pjshop.service.ProductService;
 import com.cafe24.pjshop.vo.ProductVo;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController("productAPIController")
 @RequestMapping("/api/product")
 public class ProductController {
@@ -22,33 +24,21 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	/**
-	 * 상품검색
-	 * @param keyword
-	 * @return
-	 * @throws Exception
-	 */
+	@ApiOperation(value = "상품검색")
 	@GetMapping("/search")
 	public JSONResult getSearchProductList(@RequestParam(value = "keyword") String keyword) throws Exception{
 		List<ProductVo> list = productService.getSearchProductList(keyword);
 		return JSONResult.success(list);
 	}
 	
-	/**
-	 * 상품목록조회
-	 * @return
-	 */
+	@ApiOperation(value = "상품 리스트")
 	@GetMapping({"", "/list"})
 	public ResponseEntity<JSONResult> getProductList(){
 		List<ProductVo> list = productService.getProductList();
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	
-	/**
-	 * 상품상세조회
-	 * @param no
-	 * @return
-	 */
+	@ApiOperation(value = "상품 하나")
 	@GetMapping("/{no}")
 	public ResponseEntity<JSONResult> getProductOne(@PathVariable("no") Long no){
 		ProductVo vo = productService.getProductOne(no);

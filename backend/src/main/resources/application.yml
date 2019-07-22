@@ -1,0 +1,27 @@
+server:
+  port: 9999
+  servlet:    context-path: /
+    
+spring:  profiles:    active: dev
+  datasource:    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/shopdb
+    username: shopdb
+    password: shopdb
+  devtools:    livereload:       enabled: true
+  mvc:    view:      prefix: /WEB-INF/views/
+      suffix: .jsp
+  http:    encoding:      charset: UTF-8
+      enabled: true
+      force: true
+      force-request: true
+      force-response: true
+  aop:    auto: true    proxy-target-class: true
+  servlet:    multipart:      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+  messages:    always-use-message-format: true
+    basename: messages/messages_ko
+    encoding: UTF-8
+      
+mybatis:  config-location: classpath:mybatis/configuration.xml
+      

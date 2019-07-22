@@ -1,7 +1,5 @@
 package com.cafe24.pjshop.vo;
 
-import java.util.List;
-
 public class ProductDetailVo {
 	private Long no;
 	private String name;
