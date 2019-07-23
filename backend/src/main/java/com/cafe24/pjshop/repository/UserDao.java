@@ -33,7 +33,7 @@ public class UserDao {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("no", no);
 		map.put("vo", vo);
-		return sqlSession.update("user.modify", map) == 1;
+		return sqlSession.update("user.modifyUser", map) == 1;
 	}
 
 	public UserVo findId(UserVo vo) {

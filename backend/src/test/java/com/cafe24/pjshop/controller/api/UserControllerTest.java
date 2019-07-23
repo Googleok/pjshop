@@ -42,7 +42,7 @@ public class UserControllerTest {
 
 	@Test
 	public void testJoin() throws Exception {
-		UserVo voMock = new UserVo(null, "whddjr2225", "Whddjr129", "박종억", "01040287755", "whddjr2225@naver.com",
+		UserVo voMock = new UserVo(null, "qkrwhddjr", "Whddjr129", "박종억", "01040287755", "whddjr2225@naver.com",
 				"1993-11-02", "male", "user");
 
 		ResultActions resultActions = mockMvc.perform(

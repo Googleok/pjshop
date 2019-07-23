@@ -42,12 +42,12 @@
 			convert(AES_DECRYPT(birth, SHA2('7755', 512))using utf8) as birth,
 			gender,
 			role
-			from shopdb.user
+			from user
 			where id=#{id} and password=SHA2(#{password},256);
 		]]>
 	</select>
 	
-	<update id="modify" parameterType="map">
+	<update id="modifyUser" parameterType="map">
 		<![CDATA[
 			update user 
 		]]>
@@ -124,4 +124,27 @@
 			delete from cart where option_no = #{no}
 		]]>
 	</delete>
+	
+	
+	<select id="getUserList" resultType="uservo">
+		<![CDATA[
+			select
+				no,
+				id,
+				convert(AES_DECRYPT(name, SHA2('7755', 512))using utf8) as name,
+				convert(AES_DECRYPT(phone, SHA2('7755', 512))using utf8) as phone,
+				convert(AES_DECRYPT(email, SHA2('7755', 512))using utf8) as email,
+				convert(AES_DECRYPT(birth, SHA2('7755', 512))using utf8) as birth,
+				gender,
+				role
+				from user
+		]]>
+	</select>
+	
+	<delete id="deleteUser" parameterType="long">
+		<![CDATA[
+			delete from user where no = #{no}
+		]]>
+	</delete>
+
 </mapper>

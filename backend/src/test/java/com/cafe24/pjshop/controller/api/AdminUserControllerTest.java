@@ -48,7 +48,6 @@ public class AdminUserControllerTest {
 	}
 
 	// 회원삭제  Test
-	@Ignore
 	@Test
 	public void testDeleteUser() throws Exception {
 		Long deleteNo = 2L;
@@ -61,14 +60,13 @@ public class AdminUserControllerTest {
 	}	
 	
 	// 회원정보수정  Test
-	@Ignore
 	@Test
 	public void testModifyUser() throws Exception {
 		UserVo voMock = new UserVo();
 		voMock.setPhone("01012345678");
 		voMock.setGender("female");
 		
-		Long modifyNo = 2L;
+		Long modifyNo = 1L;
 		
 		ResultActions resultActions = 
 					mockMvc

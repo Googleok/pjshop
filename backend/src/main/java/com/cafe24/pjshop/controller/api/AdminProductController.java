@@ -137,14 +137,14 @@ public class AdminProductController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 	
-	@ApiOperation(value = "상품이미지리스트 가져오기")
+	@ApiOperation(value = "상품이미지 삭제 (이미지번호로)")
 	@DeleteMapping("/image/{no}")
 	public ResponseEntity<JSONResult> deleteProductImage(@PathVariable(value = "no") Long imageNo){
 		boolean result = adminService.deleteProductImage(imageNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 	
-	@ApiOperation(value = "상품이미지리스트 가져오기")
+	@ApiOperation(value = "상품이미지리스트 삭제 (상품번호로)")
 	@DeleteMapping({"/image/list/{no}", "/imagelist/{no}"})
 	public ResponseEntity<JSONResult> deleteProductImageList(@PathVariable(value = "no") Long productNo){
 		boolean result = adminService.deleteProductImageList(productNo);
