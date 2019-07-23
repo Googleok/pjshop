@@ -39,5 +39,13 @@ public class UserDao {
 	public UserVo findId(UserVo vo) {
 		return sqlSession.selectOne("user.findId", vo);
 	}
+
+	public UserVo existId(String id) {
+		return sqlSession.selectOne("user.existId", id);
+	}
+
+	public Boolean updatePassword(String newPassword) {
+		return sqlSession.update("user.modifyPassword", newPassword) == 1;
+	}
 	
 }

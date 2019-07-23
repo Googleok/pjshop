@@ -119,7 +119,16 @@ public class UserController {
 		UserVo findResultVo = userService.findId(name, phone);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(findResultVo));
 	}
-
+	
+	@ApiOperation(value = "비밀번호 찾기")
+	@GetMapping("/find/password")
+	public ResponseEntity<JSONResult> findPassword(@RequestParam(value = "id") String id,
+												   @RequestParam(value = "name") String name,
+												   @RequestParam(value = "phone") String phone ) {
+	
+		String newPassword = userService.findPassword(id, name, phone);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(newPassword));
+	}
 	
 	@ApiOperation(value = "장바구니 리스트")
 	@GetMapping({"/cart", "/cart/list"})

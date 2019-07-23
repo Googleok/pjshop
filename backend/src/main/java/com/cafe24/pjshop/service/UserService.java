@@ -1,5 +1,7 @@
 package com.cafe24.pjshop.service;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,33 @@ public class UserService {
 		vo.setName(name);
 		vo.setPhone(phone);
 		return userDao.findId(vo);
+	}
+
+	public String findPassword(String id, String name, String phone) {
+		
+		UserVo existId = userDao.existId(id);
+		StringBuffer newPassword = new StringBuffer();
+		boolean result = false;
+		
+		if(existId != null) {
+			Random random = new Random();
+			for(int i = 0; i < 15; i++) {
+				if(random.nextBoolean()) {
+					if(random.nextBoolean()) {
+						newPassword.append((char)((int)(random.nextInt(26))+97));
+					}else {
+						newPassword.append((char)((int)(random.nextInt(26))+65));
+					}
+				}else {
+					newPassword.append((random.nextInt(10)));
+				}
+			}
+			result = userDao.updatePassword(newPassword.toString());
+			System.out.println(newPassword);
+			System.out.println(newPassword.toString());
+		}
+		
+		return newPassword.toString();
 	}
 
 

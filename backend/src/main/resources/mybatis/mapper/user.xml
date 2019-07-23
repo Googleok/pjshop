@@ -106,6 +106,19 @@
 		]]>
 	</select>
 	
+	<select id="existId" resultType="uservo" parameterType="string">
+		<![CDATA[
+			select no from user
+			where id = #{id}
+		]]>
+	</select>
+	
+	<update id="modifyPassword" parameterType="string">
+		<![CDATA[
+			update user set password = SHA2(#{newPassword}, 256)
+		]]>
+	</update>
+	
 	<delete id="deleteProductInCart">
 		<![CDATA[
 			delete from cart where option_no = #{no}
