@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cafe24.pjshop.dto.OptionDto;
+import com.cafe24.pjshop.dto.ProductDetailDto;
 import com.cafe24.pjshop.repository.AdminProductDao;
 import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
@@ -30,8 +32,15 @@ public class AdminProductService {
 	}
 
 	// 상품상세정보
-	public List<ProductDetailVo> getProductDetail(Long no) {
-		return adminProductDao.getProductDetail(no);
+	public ProductDetailDto getProductDetail(Long no) {
+
+		ProductVo productVo = adminProductDao.getProductOne(no);
+		List<OptionDto> optionList = adminProductDao.getProductOption(no);
+		List<ProductImageVo> productImageList = adminProductDao.getProductImageList(no);
+		
+		ProductDetailDto productDetailDto = new ProductDetailDto(productVo, optionList, productImageList);
+		
+		return productDetailDto;
 	}
 
 	// 상품등록
@@ -144,6 +153,10 @@ public class AdminProductService {
 	public Long addOptionValue(OptionVo vo) {
 		return adminProductDao.addOption(vo) ? vo.getNo() : 0L;
 	}
+	
+	public boolean deleteOptionValue(Long no) {
+		return adminProductDao.deleteOption(no);
+	}
 
 	public boolean addProductImage(ProductImageVo vo) {
 		return adminProductDao.addProductImage(vo);
@@ -155,5 +168,19 @@ public class AdminProductService {
 		}
 		return true;
 	}
+
+	public List<ProductImageVo> getProductImageList(Long productNo) {
+		return adminProductDao.getProductImageList(productNo);
+	}
+
+	public boolean deleteProductImage(Long imageNo) {
+		return adminProductDao.deleteProductImage(imageNo);
+	}
+
+	public boolean deleteProductImageList(Long productNo) {
+		return adminProductDao.deleteProductImageList(productNo);
+	}
+
+
 
 }

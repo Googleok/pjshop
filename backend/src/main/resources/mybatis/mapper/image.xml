@@ -15,4 +15,24 @@
 				)
 		]]>
 	</insert>
+	
+	<select id="getProductImageList" parameterType="long" resultType="productImageVo">
+		<![CDATA[
+			 select no,
+			 		image_url as imageUrl,
+			 		image_role as imageRole
+			  from representative_image where product_no = #{productNo}
+		]]>
+	</select>
+	
+	<delete id="deleteProductImage" parameterType="long">
+		<![CDATA[
+			delete from representative_image where no = #{imageNo}
+		]]>
+	</delete>
+	<delete id="deleteProductImageList" parameterType="long">
+		<![CDATA[
+			delete from representative_image where product_no = #{productNo}
+		]]>
+	</delete>
 </mapper>

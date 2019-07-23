@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.pjshop.dto.JSONResult;
+import com.cafe24.pjshop.dto.ProductDetailDto;
 import com.cafe24.pjshop.service.AdminProductService;
 import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
-import com.cafe24.pjshop.vo.ProductDetailVo;
 import com.cafe24.pjshop.vo.ProductImageVo;
 import com.cafe24.pjshop.vo.ProductVo;
 
@@ -49,8 +49,8 @@ public class AdminProductController {
 	@ApiOperation(value = "상품상세정보")
 	@GetMapping("/detail/{no}")
 	public ResponseEntity<JSONResult> getProductDetail(@PathVariable("no") Long no){
-		List<ProductDetailVo> vo = adminService.getProductDetail(no);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+		ProductDetailDto productDetailDto = adminService.getProductDetail(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(productDetailDto));
 	}
 	
 	@ApiOperation(value = "상품등록")
@@ -94,28 +94,60 @@ public class AdminProductController {
 		Long insertNo = adminService.addOptionName(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(insertNo));
 	}
+	
 	@ApiOperation(value = "옵션이름 삭제")
 	@DeleteMapping("/optionname/{no}")
 	public ResponseEntity<JSONResult> deleteOptionName(@PathVariable Long no){
 		boolean result = adminService.deleteOptionName(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
+	
 	@ApiOperation(value = "옵션값 추가")
 	@PostMapping("/optionvalue")
 	public ResponseEntity<JSONResult> addOptionValue(@RequestBody OptionVo vo){
 		Long insertNo = adminService.addOptionValue(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(insertNo));
 	}
+	
+	@ApiOperation(value = "옵션값 삭제")
+	@DeleteMapping("/optionvalue/{no}")
+	public ResponseEntity<JSONResult> deleteOptionValue(@PathVariable Long no){
+		boolean result = adminService.deleteOptionValue(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
+	@ApiOperation(value = "상품이미지리스트 가져오기")
+	@GetMapping("/image/{no}")
+	public ResponseEntity<JSONResult> getProductImageList(@PathVariable(value = "no") Long productNo){
+		List<ProductImageVo> productImageList = adminService.getProductImageList(productNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(productImageList));
+	}
+	
 	@ApiOperation(value = "상품이미지 추가")
 	@PostMapping("/image")
 	public ResponseEntity<JSONResult> addProductImage(@RequestBody ProductImageVo vo){
 		boolean result = adminService.addProductImage(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
+	
 	@ApiOperation(value = "상품이미지리스트 추가")
-	@PostMapping("/imagelist")
+	@PostMapping({"/image/list", "/imagelist"})
 	public ResponseEntity<JSONResult> addProductImageList(@RequestBody List<ProductImageVo> list){
 		boolean result = adminService.addProductImageList(list);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
+	@ApiOperation(value = "상품이미지리스트 가져오기")
+	@DeleteMapping("/image/{no}")
+	public ResponseEntity<JSONResult> deleteProductImage(@PathVariable(value = "no") Long imageNo){
+		boolean result = adminService.deleteProductImage(imageNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
+	@ApiOperation(value = "상품이미지리스트 가져오기")
+	@DeleteMapping({"/image/list/{no}", "/imagelist/{no}"})
+	public ResponseEntity<JSONResult> deleteProductImageList(@PathVariable(value = "no") Long productNo){
+		boolean result = adminService.deleteProductImageList(productNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 	

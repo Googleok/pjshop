@@ -58,7 +58,7 @@
 				   b.option_value as optionValue,
 			       c.image_url as imageUrl,
 			       c.image_role as imageRole
-			from product a,option b, representative_image c
+			from product a, option b, representative_image c
 			where a.no = b.product_no and a.no = c.product_no
 			and a.no = #{no};  
 		]]>

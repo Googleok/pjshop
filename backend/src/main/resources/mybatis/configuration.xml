@@ -10,6 +10,7 @@
 		<typeAlias alias="optionvo" type="com.cafe24.pjshop.vo.OptionVo"/>
 		<typeAlias alias="productImageVo" type="com.cafe24.pjshop.vo.ProductImageVo"/>
 		<typeAlias alias="productDetailVo" type="com.cafe24.pjshop.vo.ProductDetailVo"/>
+		<typeAlias alias="optionDto" type="com.cafe24.pjshop.dto.OptionDto"/>
 		
 		<!-- 
 		<typeAlias alias="ordervo" type="com.cafe24.shoppingmall.vo.OrderVo"/>

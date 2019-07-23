@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafe24.pjshop.dto.OptionDto;
 import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.ProductDetailVo;
@@ -53,35 +54,23 @@ public class AdminProductDao {
 	public boolean deleteOptionName(Long no) {
 		return sqlSession.delete("optionName.deleteName", no) == 1;
 	}
-	
-	public Boolean addOption(OptionVo optionVo) {
-		return sqlSession.insert("option.add", optionVo) == 1;
-	}
-
-	public Boolean addOptions(List<OptionVo> optionVos) {
-		return sqlSession.insert("option.addList", optionVos) == optionVos.size();
-	}
-
-	public boolean getOptionNameCount(String optionName) {
-		return sqlSession.selectOne("optionName.getCount", optionName);
-	}
-
-	public List<OptionNameVo> getOptionNameList() {
-		return sqlSession.selectList("optionName.getList");
-	}
 
 	public OptionNameVo existOptionName(String optionName) {
 		return sqlSession.selectOne("optionName.existOptionName", optionName);
 	}
-
-	public boolean deleteProductOption(Long no) {
-		return sqlSession.delete("option.deleteProductOption", no) >= 1;
+	
+	public List<OptionNameVo> getOptionNameList() {
+		return sqlSession.selectList("optionName.getList");
 	}
 
-	public boolean deleteProductImage(Long no) {
-		return sqlSession.delete("image.deleteProductImage", no) >= 1;
+	public Boolean addOption(OptionVo optionVo) {
+		return sqlSession.insert("option.add", optionVo) == 1;
 	}
 
+	public boolean deleteOption(Long no) {
+		return sqlSession.delete("option.delete", no) == 1;
+	}
+	
 	public boolean addProductImage(ProductImageVo vo) {
 		return sqlSession.insert("image.addProductImage", vo) == 1;
 	}
@@ -92,4 +81,22 @@ public class AdminProductDao {
 		map.put("vo", newVo);
 		return sqlSession.update("product.modifyProduct", map) == 1;
 	}
+
+	public List<ProductImageVo> getProductImageList(Long productNo) {
+		return sqlSession.selectList("image.getProductImageList", productNo);
+	}
+
+	public boolean deleteProductImage(Long imageNo) {
+		return sqlSession.delete("image.deleteProductImage", imageNo) == 1;
+	}
+	
+	public boolean deleteProductImageList(Long productNo) {
+		return sqlSession.delete("image.deleteProductImageList", productNo) >= 1;
+	}
+
+	public List<OptionDto> getProductOption(Long no) {
+		return sqlSession.selectList("option.getProductOptionList", no);
+	}
+
+	
 }

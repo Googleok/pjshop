@@ -17,4 +17,23 @@
 	    </selectKey>
 	</insert>
 	
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			delete from option where no = #{no}		
+		]]>
+	</delete>
+	
+	<select id="getProductOptionList" parameterType="long" resultType="optionDto">
+		<![CDATA[
+			select a.no as productNo,
+				   b.option_name as optionName,
+				   a.option_value as optionValue,
+				   a.additional_price as additionalPrice,
+				   a.stock_availability as stockAvailability
+			from option a, option_name b
+			where a.optionname_no = b.no and
+			a.product_no = #{no}
+		]]>
+	</select>
+	
 </mapper>

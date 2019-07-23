@@ -68,7 +68,7 @@ public class AdminProductControllerTest {
 	// 상품상세요청 ( 상품정보 + 상품옵션 + 옵션이름 + 대표이미지 + 카테고리 )
 	@Test
 	public void testGetDetailProductInfo() throws Exception{
-		Long productNo = 9L;
+		Long productNo = 3L;
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -191,7 +191,7 @@ public class AdminProductControllerTest {
 	}
 	@Test
 	public void testAddProductOption() throws Exception{
-		OptionVo optionVoMock1 = new OptionVo(null, "진청", true, 1500L, 9L, 1L, null, 100L);
+		OptionVo optionVoMock1 = new OptionVo(null, "S", true, 1500L, 3L, 3L, null, 100L);
 
 		ResultActions resultActions = 
 		mockMvc
@@ -200,6 +200,16 @@ public class AdminProductControllerTest {
 		.andExpect(status().isOk())
 		.andDo(print());
 
+	}
+	@Test
+	public void testDeleteProductOption() throws Exception{
+		Long deleteNo = 6L;
+		
+		ResultActions resultActions = 
+		mockMvc
+		.perform(delete("/api/admin/product/optionvalue/{no}", deleteNo))
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 	
 	@Test
@@ -217,8 +227,8 @@ public class AdminProductControllerTest {
 	@Test
 	public void testAddProductImageList() throws Exception{
 		List<ProductImageVo> productImageList = new ArrayList<ProductImageVo>();
-		ProductImageVo productImageVoMock1 = new ProductImageVo(null, 9L, "image1.jpg", "main");
-		ProductImageVo productImageVoMock2 = new ProductImageVo(null, 9L, "image2.jpg", "sub");
+		ProductImageVo productImageVoMock1 = new ProductImageVo(null, 3L, "image1.jpg", "main");
+		ProductImageVo productImageVoMock2 = new ProductImageVo(null, 3L, "image2.jpg", "sub");
 		productImageList.add(productImageVoMock1);
 		productImageList.add(productImageVoMock2);
 		
@@ -228,6 +238,39 @@ public class AdminProductControllerTest {
 		.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(productImageList)))
 		.andExpect(status().isOk())
 		.andDo(print());
+	}
+	
+	@Test
+	public void testGetProductImageList() throws Exception{
+		Long productNo = 3L;
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/admin/product/image/{no}", productNo))
+				.andExpect(status().isOk())
+				.andDo(print());
+	}
+	
+	@Test
+	public void testDeleteProductImageOne() throws Exception{
+		Long imageNo = 2L;
+		
+		ResultActions resultActions = 
+		mockMvc
+		.perform(delete("/api/admin/product/image/{no}", imageNo))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
+	@Test
+	public void testDeleteProductImageList() throws Exception{
+		Long productNo = 3L;
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(delete("/api/admin/product/imagelist/{no}", productNo))
+				.andExpect(status().isOk())
+				.andDo(print());
 	}
 	
 	// 상품수정  Test
