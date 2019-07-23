@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.pjshop.dto.OptionDto;
+import com.cafe24.pjshop.dto.ProductDetailDto;
+import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.ProductDetailVo;
@@ -96,6 +98,14 @@ public class AdminProductDao {
 
 	public List<OptionDto> getProductOption(Long no) {
 		return sqlSession.selectList("option.getProductOptionList", no);
+	}
+
+	public ProductDetailDto getDetail(Long no) {
+		return sqlSession.selectOne("product.getProductDetail", no);
+	}
+
+	public List<ProductVo> getProductSearchList(SearchDto searchDto) {
+		return sqlSession.selectList("product.getProductSearchList", searchDto);
 	}
 
 	

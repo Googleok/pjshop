@@ -157,4 +157,33 @@
 			where no = #{no}
 		]]>
 	</update>
+	
+	<select id="getProductSearchList" parameterType="searchDto" resultType="productvo">
+		<![CDATA[
+			select
+					no,
+					name,
+					price,
+					reg_date as regDate,
+					exhibition_availability as exhibitionAvailability,
+					option_availability as optionAvailability,
+					sails_status as sailsStatus,
+					exhibition_rank as exhibitionRank, 
+					count,
+					detail,
+					shipping_fee as shippingFee,
+					category_no as categoryNo
+			from product
+		]]>
+		<if test="'name'.equals(menu)">
+			<![CDATA[
+				where name like CONCAT('%', #{keyword}, '%')
+			]]>
+		</if>
+		<if test="'category'.equals(menu)">
+			<![CDATA[
+				where category_no = #{keyword}
+			]]>
+		</if>
+	</select>
 </mapper>

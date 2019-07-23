@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.pjshop.config.test.WebConfig;
+import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.ProductImageVo;
@@ -306,13 +307,14 @@ public class AdminProductControllerTest {
 	// 상품검색리스트  요청 Test
 	@Test
 	public void testGetProductSearchList() throws Exception {
-		String keyword = "cap";
+		// 1. 이름 2. 컬러 3. 옵션여부, 판매여부, 전시여부, 카운트별, 등록일순 , 가격순, 카테고리 넘버
+		SearchDto searchDto = new SearchDto("name", "아디다스");
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/admin/product/search?keyword={keyword}", keyword))
+				.perform(post("/api/admin/product/search")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(searchDto)))
 				.andExpect(status().isOk())
 				.andDo(print());
-
 	}
 
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.pjshop.dto.JSONResult;
 import com.cafe24.pjshop.dto.ProductDetailDto;
+import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.service.AdminProductService;
 import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
@@ -152,9 +153,13 @@ public class AdminProductController {
 	}
 	
 	@ApiOperation(value = "상품 검색")
-	@GetMapping("/search")
-	public ResponseEntity<JSONResult> getProductSearchList(@RequestParam(value = "keyword") String keyword){
-		List<ProductVo> list = adminService.getProductSearchList(keyword);
+	@PostMapping("/search")
+	public ResponseEntity<JSONResult> getProductSearchList(@RequestBody SearchDto searchDto){
+		List<ProductVo> list = adminService.getProductSearchList(searchDto);
+		if(list.size() == 0) {
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("일치하는 상품이 없습니다."));
+		}
+		
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 
