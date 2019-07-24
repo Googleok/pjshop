@@ -43,7 +43,7 @@
 		]]>
 	</select>
 	
-	<select id="getProductDetail" parameterType="long" resultType="productDetailVo">
+	<select id="getProductDetailOld" parameterType="long" resultType="productDetailVo">
 		<![CDATA[
 			select a.no,
 				   a.name,
@@ -62,7 +62,6 @@
 			where a.no = b.product_no and a.no = c.product_no
 			and a.no = #{no};  
 		]]>
-	
 	</select>
 	
 	<insert id="add" parameterType="productvo">
@@ -185,5 +184,104 @@
 				where category_no = #{keyword}
 			]]>
 		</if>
+	</select>
+
+<!-- ===================================================ResultMap=============================================================== -->	
+	
+	<resultMap type="productDto" id="productDtoMap">
+		<id property="no" column="no"/>
+		<result property="name" column="name"/>
+		<result property="price" column="price"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="exhibitionAvailability" column="exhibition_availability"/>
+		<result property="optionAvailability" column="option_availability"/>
+		<result property="sailsStatus" column="sails_status"/>
+		<result property="exhibitionRank" column="exhibition_rank"/>
+		<result property="count" column="count"/>
+		<result property="detail" column="detail"/>
+		<result property="shippingFee" column="shipping_fee"/>
+		<result property="categoryNo" column="category_no"/>
+		<collection property="optionDtoList" column="no" select="getOptionList"></collection>
+		<collection property="productImageVoList" column="no" select="getImageList"></collection>
+	</resultMap>
+	
+	<!-- 
+	<resultMap type="optionDto" id="productImageMap">
+		<result property="no" column="no"/>
+		<result property="productNo" column="product_no"/>
+		<result property="imageUrl" column="image_url"/>
+		<result property="imageRole" column="image_role"/>
+	</resultMap>
+	
+	<resultMap type="productImageVo" id="optionMap">
+		<result property="productNo" column="product_no"/>
+		<result property="optionName" column="option_name"/>
+		<result property="optionValue" column="option_value"/>
+		<result property="additionalPrice" column="additional_price"/>
+		<result property="stockAvailability" column="stock_availability"/>
+	</resultMap>
+	
+	<select id="getProductList" parameterType="long" resultType="productvo">
+		<![CDATA[
+			select
+					no,
+					name,
+					price,
+					reg_date as regDate,
+					exhibition_availability as exhibitionAvailability,
+					option_availability as optionAvailability,
+					sails_status as sailsStatus,
+					exhibition_rank as exhibitionRank, 
+					count,
+					detail,
+					shipping_fee as shippingFee,
+					category_no as categoryNo
+			from product where no = #{no}
+		]]>
+	</select>	
+	 -->
+	
+	<select id="getOptionList" parameterType="long" resultType="optionDto">
+		<![CDATA[
+			select 
+				   a.product_no as productNo,
+				   b.option_name as optionName,
+				   a.option_value as optionValue,
+				   a.additional_price as additionalPrice,
+				   a.stock_availability as stockAvailability
+			from option a, option_name b
+			where a.optionname_no = b.no and
+			a.product_no = #{no}
+		]]>
+	</select>
+	
+	<select id="getImageList" parameterType="long" resultType="productImageVo">
+		<![CDATA[
+			 select no,
+			 		product_no as productNo,
+			 		image_url as imageUrl,
+			 		image_role as imageRole
+			  from representative_image where product_no = #{productNo}
+		]]>
+	</select>
+	
+	<!-- 상품 상세 정보 -->
+	<select id="getProductDetail" parameterType="long" resultMap="productDtoMap">
+	<![CDATA[
+		select no,
+			   name,
+			   price,
+			   reg_date,
+			   exhibition_availability, 
+			   option_availability,
+			   sails_status,
+			   exhibition_rank,
+			   count,
+			   detail,
+			   shipping_fee,
+			   category_no
+		from product 
+		where no = #{productNo }
+	]]>
 	</select>
 </mapper>

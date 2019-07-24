@@ -13,6 +13,7 @@
 		<typeAlias alias="optionDto" type="com.cafe24.pjshop.dto.OptionDto"/>
 		<typeAlias alias="productDetailDto" type="com.cafe24.pjshop.dto.ProductDetailDto"/>
 		<typeAlias alias="searchDto" type="com.cafe24.pjshop.dto.SearchDto"/>
+		<typeAlias alias="productDto" type="com.cafe24.pjshop.dto.ProductDto"/>
 		
 		<!-- 
 		<typeAlias alias="ordervo" type="com.cafe24.shoppingmall.vo.OrderVo"/>

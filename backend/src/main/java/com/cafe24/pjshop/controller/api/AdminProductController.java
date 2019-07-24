@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.pjshop.dto.JSONResult;
 import com.cafe24.pjshop.dto.ProductDetailDto;
+import com.cafe24.pjshop.dto.ProductDto;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.service.AdminProductService;
 import com.cafe24.pjshop.vo.OptionNameVo;
@@ -50,8 +51,9 @@ public class AdminProductController {
 	@ApiOperation(value = "상품상세정보")
 	@GetMapping("/detail/{no}")
 	public ResponseEntity<JSONResult> getProductDetail(@PathVariable("no") Long no){
-		ProductDetailDto productDetailDto = adminService.getProductDetail(no);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(productDetailDto));
+//		ProductDetailDto productDetailDto = adminService.getProductDetail(no);
+		ProductDto productDto = adminService.getProductDetail(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(productDto));
 	}
 	
 	@ApiOperation(value = "상품등록")

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cafe24.pjshop.dto.OptionDto;
 import com.cafe24.pjshop.dto.ProductDetailDto;
+import com.cafe24.pjshop.dto.ProductDto;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionVo;
@@ -31,8 +32,8 @@ public class AdminProductDao {
 		return sqlSession.selectOne("product.getOne", no);
 	}
 
-	public List<ProductDetailVo> getProductDetail(Long no) {
-		return sqlSession.selectList("product.getProductDetail", no);
+	public ProductDto getProductDetail(Long no) {
+		return sqlSession.selectOne("product.getProductDetail", no);
 	}
 	
 	public Long addProduct(ProductVo vo) {
@@ -98,10 +99,6 @@ public class AdminProductDao {
 
 	public List<OptionDto> getProductOption(Long no) {
 		return sqlSession.selectList("option.getProductOptionList", no);
-	}
-
-	public ProductDetailDto getDetail(Long no) {
-		return sqlSession.selectOne("product.getProductDetail", no);
 	}
 
 	public List<ProductVo> getProductSearchList(SearchDto searchDto) {

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.pjshop.dto.JSONResult;
+import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.service.AdminUserService;
 import com.cafe24.pjshop.vo.UserVo;
 
@@ -49,9 +51,9 @@ public class AdminUserController {
 	}
 	
 	@ApiOperation(value = "회원 검색")
-	@GetMapping("/search")
-	public ResponseEntity<JSONResult> getUserSearchList(@RequestParam(value = "keyword") String keyword){
-		List<UserVo> list = adminService.getUserSearchList(keyword);
+	@PostMapping("/search")
+	public ResponseEntity<JSONResult> getUserSearchList(@RequestBody SearchDto searchDto){
+		List<UserVo> list = adminService.getUserSearchList(searchDto);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	

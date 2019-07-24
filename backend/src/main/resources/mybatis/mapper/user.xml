@@ -146,5 +146,43 @@
 			delete from user where no = #{no}
 		]]>
 	</delete>
+	
+	<select id="getUserSearchList" resultType="uservo">
+		<![CDATA[
+			select
+					no,
+					id,
+					convert(AES_DECRYPT(name, SHA2('7755', 512))using utf8) as name,
+					convert(AES_DECRYPT(phone, SHA2('7755', 512))using utf8) as phone,
+					convert(AES_DECRYPT(email, SHA2('7755', 512))using utf8) as email,
+					convert(AES_DECRYPT(birth, SHA2('7755', 512))using utf8) as birth,
+					gender,
+					role
+			from user
+		]]>
+		<if test="'name'.equals(menu)">
+			where name like CONCAT('%', AES_ENCRYPT(#{keyword}, SHA2('7755',512)), '%')
+		</if>
+		
+		<if test="'id'.equals(menu)">
+			where id like CONCAT('%', #{keyword}, '%')
+		</if>
+		
+		<if test="'no'.equals(menu)">
+			where no like CONCAT('%', #{keyword}, '%')
+		</if>
+		
+		<if test="'phone'.equals(menu)">
+			where phone like CONCAT('%', AES_ENCRYPT(#{keyword}, SHA2('7755',512)), '%')
+		</if>
+		
+		<if test="'email'.equals(menu)">
+			where email like CONCAT('%', AES_ENCRYPT(#{keyword}, SHA2('7755',512)), '%')
+		</if>
+		
+		<if test="'role'.equals(menu)">
+			where role like CONCAT('%', AES_ENCRYPT(#{keyword}, SHA2('7755',512)), '%')
+		</if>
+	</select>
 
 </mapper>

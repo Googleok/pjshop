@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cafe24.pjshop.dto.OptionDto;
 import com.cafe24.pjshop.dto.ProductDetailDto;
+import com.cafe24.pjshop.dto.ProductDto;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.repository.AdminProductDao;
 import com.cafe24.pjshop.vo.OptionNameVo;
@@ -33,15 +34,16 @@ public class AdminProductService {
 	}
 
 	// 상품상세정보
-	public ProductDetailDto getProductDetail(Long no) {
+	public ProductDto getProductDetail(Long no) {
 
-		ProductVo productVo = adminProductDao.getProductOne(no);
-		List<OptionDto> optionList = adminProductDao.getProductOption(no);
-		List<ProductImageVo> productImageList = adminProductDao.getProductImageList(no);
-		
-		ProductDetailDto productDetailDto = new ProductDetailDto(productVo, optionList, productImageList);
-		
-		return productDetailDto;
+//		ProductVo productVo = adminProductDao.getProductOne(no);
+//		List<OptionDto> optionList = adminProductDao.getProductOption(no);
+//		List<ProductImageVo> productImageList = adminProductDao.getProductImageList(no);
+//		
+//		ProductDetailDto productDetailDto = new ProductDetailDto(productVo, optionList, productImageList);
+//		
+//		return productDetailDto;
+		return adminProductDao.getProductDetail(no);
 	}
 
 	// 상품등록

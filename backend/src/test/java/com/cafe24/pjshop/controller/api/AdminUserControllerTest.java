@@ -2,6 +2,7 @@ package com.cafe24.pjshop.controller.api;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.pjshop.config.test.WebConfig;
+import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.vo.UserVo;
 import com.google.gson.Gson;
 
@@ -77,13 +79,13 @@ public class AdminUserControllerTest {
 	}	
 	
 	// 회원검색리스트  요청 Test
-	@Ignore
 	@Test
 	public void testGetUserSearchList() throws Exception {
-		String keyword = "박종억";
+		SearchDto searchDto = new SearchDto("name", "박종억");
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/admin/user/search?keyword={keyword}", keyword))
+				.perform(post("/api/admin/user/search")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(searchDto)))
 				.andExpect(status().isOk())
 				.andDo(print());
 
