@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.pjshop.dto.JSONResult;
 import com.cafe24.pjshop.service.UserService;
+import com.cafe24.pjshop.vo.CartVo;
 import com.cafe24.pjshop.vo.UserVo;
 
 import io.swagger.annotations.ApiOperation;
@@ -138,7 +139,7 @@ public class UserController {
 
 	@ApiOperation(value = "장바구니 담기")
 	@PostMapping("/cart")
-	public ResponseEntity<JSONResult> addToCart(@RequestBody UserVo vo) {
+	public ResponseEntity<JSONResult> addToCart(@RequestBody CartVo vo) {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 
