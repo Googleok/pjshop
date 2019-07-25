@@ -26,7 +26,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 		
-	@ApiOperation(value = "주문 리스트")
+	@ApiOperation(value = "주문")
 	@PostMapping("")
 	public ResponseEntity<JSONResult> orderProduct(@RequestBody OrderVo orderVo) {
 		OrderVo vo = orderService.orderProduct(orderVo);

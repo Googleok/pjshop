@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.cafe24.pjshop.dto.CartDto;
 import com.cafe24.pjshop.repository.UserDao;
+import com.cafe24.pjshop.vo.AddressVo;
 import com.cafe24.pjshop.vo.CartVo;
 import com.cafe24.pjshop.vo.UserVo;
 
@@ -78,7 +79,7 @@ public class UserService {
 			boolean result = userDao.modifyCart(vo);
 			System.out.println(result+"===============");
 		}
-		return null;
+		return vo.getNo();
 	}
 
 	public boolean deleteFromCart(Long no) {
@@ -101,6 +102,19 @@ public class UserService {
 			cartList = userDao.getCartList(nonUserNo);
 		}
 		return cartList;
+	}
+
+	public Long addAddress(AddressVo vo) {
+		boolean result = userDao.addAddress(vo);
+		return result ? vo.getNo() : 0L;
+	}
+
+	public List<AddressVo> getAddressList(Long userNo) {
+		return userDao.getAddressList(userNo);
+	}
+
+	public boolean deleteAddress(Long no) {
+		return userDao.deleteAddress(no);
 	}
 
 

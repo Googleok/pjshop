@@ -12,14 +12,14 @@ public class OrderVo {
 	private String shippingMessage;
 	private Long shippingFee;
 	private Long totalPrice;
-	private Long memberNo;
+	private Long userNo;
 	
 	public OrderVo() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public OrderVo(Long no, String name, String password, String phone, String email, String address, String regDate,
-			String shippingMessage, Long shippingFee, Long totalPrice, Long memberNo) {
+			String shippingMessage, Long shippingFee, Long totalPrice, Long userNo) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -31,7 +31,7 @@ public class OrderVo {
 		this.shippingMessage = shippingMessage;
 		this.shippingFee = shippingFee;
 		this.totalPrice = totalPrice;
-		this.memberNo = memberNo;
+		this.userNo = userNo;
 	}
 
 	public Long getNo() {
@@ -114,19 +114,19 @@ public class OrderVo {
 		this.totalPrice = totalPrice;
 	}
 
-	public Long getMemberNo() {
-		return memberNo;
+	public Long getUserNo() {
+		return userNo;
 	}
 
-	public void setMemberNo(Long memberNo) {
-		this.memberNo = memberNo;
+	public void setUserNo(Long userNo) {
+		this.userNo = userNo;
 	}
 
 	@Override
 	public String toString() {
 		return "OrderVo [no=" + no + ", name=" + name + ", password=" + password + ", phone=" + phone + ", email="
 				+ email + ", address=" + address + ", regDate=" + regDate + ", shippingMessage=" + shippingMessage
-				+ ", shippingFee=" + shippingFee + ", totalPrice=" + totalPrice + ", memberNo=" + memberNo + "]";
+				+ ", shippingFee=" + shippingFee + ", totalPrice=" + totalPrice + ", userNo=" + userNo + "]";
 	}
 	
 }

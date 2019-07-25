@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cafe24.pjshop.dto.CartDto;
 import com.cafe24.pjshop.dto.JSONResult;
 import com.cafe24.pjshop.service.UserService;
+import com.cafe24.pjshop.vo.AddressVo;
 import com.cafe24.pjshop.vo.CartVo;
 import com.cafe24.pjshop.vo.UserVo;
 
@@ -164,6 +165,27 @@ public class UserController {
 	@PutMapping("/cart/{no}")
 	public ResponseEntity<JSONResult> modifyCountFromCart(@PathVariable(value = "no") Long no, @RequestBody CartVo vo) {
 		boolean result = userService.modifyCountFromCart(no, vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
+	@ApiOperation(value = "林家 眠啊")
+	@PostMapping("/address")
+	public ResponseEntity<JSONResult> addAddress(@RequestBody AddressVo vo) {
+		Long insertNo = userService.addAddress(vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(insertNo));
+	}
+	
+	@ApiOperation(value = "林家 府胶飘")
+	@GetMapping("/address")
+	public ResponseEntity<JSONResult> getAddressList(@RequestParam(value = "userno") Long userNo) {
+		List<AddressVo> addressList = userService.getAddressList(userNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(addressList));
+	}
+	
+	@ApiOperation(value = "林家 昏力")
+	@DeleteMapping("/address/{no}")
+	public ResponseEntity<JSONResult> DeleteAddress(@PathVariable(value = "no") Long no) {
+		boolean result = userService.deleteAddress(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 }

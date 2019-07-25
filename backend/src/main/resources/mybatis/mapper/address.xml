@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="address">
+	
+	<insert id="addAddress" parameterType="addressVo">
+		<![CDATA[
+			insert into address values(
+				null,
+				AES_ENCRYPT(#{zipCode}, SHA2('7755',512)),
+				AES_ENCRYPT(#{address}, SHA2('7755',512)),
+				AES_ENCRYPT(#{entrancePassword}, SHA2('7755',512)),
+				AES_ENCRYPT(#{message}, SHA2('7755',512)),
+				#{userNo}
+			)		
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+	<select id="getAddressList" resultType="addressVo" parameterType="long">
+		<![CDATA[
+			select no,
+				   convert(AES_DECRYPT(zip_code, SHA2('7755', 512))using utf8) as zipCode,
+				   convert(AES_DECRYPT(address, SHA2('7755', 512))using utf8) as address,
+				   convert(AES_DECRYPT(entrance_password, SHA2('7755', 512))using utf8) as entrancePassword,
+				   convert(AES_DECRYPT(message, SHA2('7755', 512))using utf8) as message,
+				   user_no as userNo
+			from address
+			where user_no = #{userNo}
+		]]>
+	</select>
+	
+	<delete id="deleteAddress" parameterType="long">
+		<![CDATA[
+			delete from address where no = #{no}	
+		]]>
+	</delete>
+</mapper>

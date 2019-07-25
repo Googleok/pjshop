@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.pjshop.dto.CartDto;
+import com.cafe24.pjshop.vo.AddressVo;
 import com.cafe24.pjshop.vo.CartVo;
 import com.cafe24.pjshop.vo.UserVo;
 
@@ -80,6 +81,18 @@ public class UserDao {
 
 	public List<CartDto> getCartList(String nonUserNo) {
 		return sqlSession.selectList("user.getCartListByNonUser", nonUserNo);
+	}
+
+	public boolean addAddress(AddressVo vo) {
+		return sqlSession.insert("address.addAddress", vo) == 1;
+	}
+
+	public List<AddressVo> getAddressList(Long userNo) {
+		return sqlSession.selectList("address.getAddressList", userNo);
+	}
+
+	public boolean deleteAddress(Long no) {
+		return sqlSession.delete("address.deleteAddress", no) == 1;
 	}
 	
 }

@@ -17,6 +17,7 @@
 		<typeAlias alias="productDto" type="com.cafe24.pjshop.dto.ProductDto"/>
 		<typeAlias alias="cartVo" type="com.cafe24.pjshop.vo.CartVo"/>
 		<typeAlias alias="cartDto" type="com.cafe24.pjshop.dto.CartDto"/>
+		<typeAlias alias="addressVo" type="com.cafe24.pjshop.vo.AddressVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mapper/user.xml" />
@@ -25,5 +26,6 @@
 		<mapper resource="mybatis/mapper/optionName.xml" />
 		<mapper resource="mybatis/mapper/option.xml" />
 		<mapper resource="mybatis/mapper/image.xml" />
+		<mapper resource="mybatis/mapper/address.xml" />
 	</mappers>
 </configuration>
