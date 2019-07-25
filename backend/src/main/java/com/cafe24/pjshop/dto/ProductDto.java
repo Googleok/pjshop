@@ -2,6 +2,7 @@ package com.cafe24.pjshop.dto;
 
 import java.util.List;
 
+import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.ProductImageVo;
 
 public class ProductDto {
@@ -18,15 +19,17 @@ public class ProductDto {
 	private Long shippingFee;
 	private Long categoryNo;
 	private List<OptionDto> optionDtoList;
+	private List<OptionVo> optionList;
 	private List<ProductImageVo> productImageVoList;
 	
 	public ProductDto() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public ProductDto(Long no, String name, Long price, String regDate, Boolean exhibitionAvailability,
 			Boolean optionAvailability, Boolean sailsStatus, Long exhibitionRank, Long count, String detail,
-			Long shippingFee, Long categoryNo, List<OptionDto> optionDtoList, List<ProductImageVo> productImageVoList) {
+			Long shippingFee, Long categoryNo, List<OptionDto> optionDtoList, List<OptionVo> optionList,
+			List<ProductImageVo> productImageVoList) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -41,8 +44,12 @@ public class ProductDto {
 		this.shippingFee = shippingFee;
 		this.categoryNo = categoryNo;
 		this.optionDtoList = optionDtoList;
+		this.optionList = optionList;
 		this.productImageVoList = productImageVoList;
 	}
+
+
+
 
 	public Long getNo() {
 		return no;
@@ -140,6 +147,16 @@ public class ProductDto {
 		this.categoryNo = categoryNo;
 	}
 
+	
+	
+	public List<OptionVo> getOptionList() {
+		return optionList;
+	}
+
+	public void setOptionList(List<OptionVo> optionList) {
+		this.optionList = optionList;
+	}
+
 	public List<OptionDto> getOptionDtoList() {
 		return optionDtoList;
 	}
@@ -162,9 +179,9 @@ public class ProductDto {
 				+ ", exhibitionAvailability=" + exhibitionAvailability + ", optionAvailability=" + optionAvailability
 				+ ", sailsStatus=" + sailsStatus + ", exhibitionRank=" + exhibitionRank + ", count=" + count
 				+ ", detail=" + detail + ", shippingFee=" + shippingFee + ", categoryNo=" + categoryNo
-				+ ", optionDtoList=" + optionDtoList + ", productImageVoList=" + productImageVoList + "]";
+				+ ", optionDtoList=" + optionDtoList + ", optionList=" + optionList + ", productImageVoList="
+				+ productImageVoList + "]";
 	}
-	
-	
+
 	
 }

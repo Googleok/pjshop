@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.pjshop.config.test.WebConfig;
+import com.cafe24.pjshop.dto.SearchDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {WebConfig.class})
@@ -33,11 +34,11 @@ public class ProductControllerTest {
 	// 상품검색 Test 
 	@Test
 	public void testProductSearchList() throws Exception{
-		String keyword = "cap";
+		SearchDto searchDto = new SearchDto("name", "찢어진 청바지");
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/product/search?keyword={keyword}", keyword))
+				.perform(get("/api/product/search?menu={menu}&keyword={keyword}", searchDto.getMenu(), searchDto.getKeyword()))
 				.andExpect(status().isOk())
 				.andDo(print());
 	}
@@ -53,7 +54,7 @@ public class ProductControllerTest {
 
 	}
 	
-	// 상품상세조회  요청 Test
+	// 상품한개  요청 Test
 	@Test
 	public void testGetProductOne() throws Exception {
 
@@ -65,4 +66,15 @@ public class ProductControllerTest {
 				.andDo(print());
 	}	
 
+	// 상품상세요청 ( 상품정보 + 상품옵션 + 옵션이름 + 대표이미지 + 카테고리 )
+	@Test
+	public void testGetDetailProductInfo() throws Exception{
+		Long productNo = 1L;
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/product/detail/{no}", productNo))
+				.andExpect(status().isOk())
+				.andDo(print());		
+	}
 }

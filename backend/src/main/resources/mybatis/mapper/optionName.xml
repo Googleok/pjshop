@@ -23,9 +23,9 @@
 		]]>
 	</select>
 	
-	<select id="existOptionName" resultType="optionNameVo">
+	<select id="existOptionName" parameterType="string" resultType="optionNameVo">
 		<![CDATA[
-			select no, option_name as optionName from option_name where option_name = #{optionName}
+			select * from option_name where option_name = #{optionName}
 		]]>
 	</select>
 

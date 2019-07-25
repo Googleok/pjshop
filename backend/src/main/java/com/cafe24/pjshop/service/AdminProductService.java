@@ -103,8 +103,8 @@ public class AdminProductService {
 	}
 
 	public Long addOptionName(OptionNameVo vo) {
-		Long no = adminProductDao.addOptionName(vo);
-		return no;
+		boolean result = adminProductDao.existOptionName(vo.getOptionName()) == null ? true : false;
+		return result? adminProductDao.addOptionName(vo) : 0L;
 	}
 
 	public boolean deleteOptionName(Long no) {

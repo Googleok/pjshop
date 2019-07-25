@@ -190,7 +190,7 @@ public class AdminProductControllerTest {
 	}
 	@Test
 	public void testAddProductOptionName() throws Exception{
-		OptionNameVo optionNameVoMock1 = new OptionNameVo(null, "사이즈");
+		OptionNameVo optionNameVoMock1 = new OptionNameVo(null, "발사이즈");
 		
 		ResultActions resultActions = 
 		mockMvc
@@ -201,7 +201,7 @@ public class AdminProductControllerTest {
 	}
 	@Test
 	public void testDeleteProductOptionName() throws Exception{
-		Long deleteNo = 3L;
+		Long deleteNo = 7L;
 		
 		ResultActions resultActions = 
 		mockMvc
@@ -338,7 +338,7 @@ public class AdminProductControllerTest {
 	// 상품삭제  Test
 	@Test
 	public void testDeleteProduct() throws Exception {
-		Long deleteNo = 5L;
+		Long deleteNo = 6L;
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -354,8 +354,7 @@ public class AdminProductControllerTest {
 		SearchDto searchDto = new SearchDto("name", "아디다스");
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/admin/product/search")
-				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(searchDto)))
+				.perform(get("/api/admin/product/search?menu={menu}&keyword={keyword}", searchDto.getMenu(), searchDto.getKeyword()))
 				.andExpect(status().isOk())
 				.andDo(print());
 	}

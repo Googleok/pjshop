@@ -51,9 +51,11 @@ public class AdminUserController {
 	}
 	
 	@ApiOperation(value = "회원 검색")
-	@PostMapping("/search")
-	public ResponseEntity<JSONResult> getUserSearchList(@RequestBody SearchDto searchDto){
-		List<UserVo> list = adminService.getUserSearchList(searchDto);
+	@GetMapping("/search")
+	public ResponseEntity<JSONResult> getUserSearchList(
+			@RequestParam(value = "menu") String menu,
+			@RequestParam(value = "keyword") String keyword){
+		List<UserVo> list = adminService.getUserSearchList(new SearchDto(menu, keyword));
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	

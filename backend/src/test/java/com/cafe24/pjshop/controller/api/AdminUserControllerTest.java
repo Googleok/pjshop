@@ -84,11 +84,9 @@ public class AdminUserControllerTest {
 		SearchDto searchDto = new SearchDto("name", "╧за╬╬О");
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/admin/user/search")
-				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(searchDto)))
+				.perform(get("/api/admin/user/search?menu={menu}&keyword={keyword}", searchDto.getMenu(), searchDto.getKeyword()))
 				.andExpect(status().isOk())
 				.andDo(print());
-
 	}
 	
 }

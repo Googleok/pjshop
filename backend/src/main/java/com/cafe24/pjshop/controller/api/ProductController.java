@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.pjshop.dto.JSONResult;
+import com.cafe24.pjshop.dto.ProductDto;
+import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.service.ProductService;
 import com.cafe24.pjshop.vo.ProductVo;
 
@@ -26,8 +28,10 @@ public class ProductController {
 	
 	@ApiOperation(value = "상품검색")
 	@GetMapping("/search")
-	public JSONResult getSearchProductList(@RequestParam(value = "keyword") String keyword) throws Exception{
-		List<ProductVo> list = productService.getSearchProductList(keyword);
+	public JSONResult getSearchProductList(
+			@RequestParam(value = "menu") String menu,
+			@RequestParam(value = "keyword") String keyword) throws Exception{
+		List<ProductVo> list = productService.getSearchProductList(new SearchDto(menu, keyword));
 		return JSONResult.success(list);
 	}
 	
@@ -43,5 +47,12 @@ public class ProductController {
 	public ResponseEntity<JSONResult> getProductOne(@PathVariable("no") Long no){
 		ProductVo vo = productService.getProductOne(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+	}
+	
+	@ApiOperation(value = "상품상세정보")
+	@GetMapping("/detail/{no}")
+	public ResponseEntity<JSONResult> getProductDetail(@PathVariable("no") Long no){
+		ProductDto productDto = productService.getProductDetail(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(productDto));
 	}
 }

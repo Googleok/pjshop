@@ -58,7 +58,7 @@
 				   b.option_value as optionValue,
 			       c.image_url as imageUrl,
 			       c.image_role as imageRole
-			from product a, option b, representative_image c
+			from product a, product_option b, representative_image c
 			where a.no = b.product_no and a.no = c.product_no
 			and a.no = #{no};  
 		]]>
@@ -201,7 +201,8 @@
 		<result property="detail" column="detail"/>
 		<result property="shippingFee" column="shipping_fee"/>
 		<result property="categoryNo" column="category_no"/>
-		<collection property="optionDtoList" column="no" select="getOptionList"></collection>
+		<collection property="optionList" column="no" select="getOptionList"></collection>
+		<collection property="optionDtoList" column="no" select="getOptionDtoList"></collection>
 		<collection property="productImageVoList" column="no" select="getImageList"></collection>
 	</resultMap>
 	
@@ -241,16 +242,27 @@
 	</select>	
 	 -->
 	
-	<select id="getOptionList" parameterType="long" resultType="optionDto">
+	<select id="getOptionList" parameterType="long" resultType="optionVo">
+		<![CDATA[
+			select no,
+				   option_value as optionValue,
+				   stock_availability as stockAvailability,
+				   product_count as productCount,
+				   additional_price as additionalPrice,
+				   product_no as productNo
+			from product_option
+			where product_no = #{no}
+		]]>
+	</select>
+	
+	<select id="getOptionDtoList" parameterType="long" resultType="optionDto">
 		<![CDATA[
 			select 
 				   a.product_no as productNo,
 				   b.option_name as optionName,
-				   a.option_value as optionValue,
-				   a.additional_price as additionalPrice,
-				   a.stock_availability as stockAvailability
-			from option a, option_name b
-			where a.optionname_no = b.no and
+				   a.option_value as optionValue
+			from option_value a, option_name b
+			where a.option_name_no = b.no and
 			a.product_no = #{no}
 		]]>
 	</select>

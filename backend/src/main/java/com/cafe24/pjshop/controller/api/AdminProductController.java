@@ -170,9 +170,11 @@ public class AdminProductController {
 	}
 	
 	@ApiOperation(value = "상품 검색")
-	@PostMapping("/search")
-	public ResponseEntity<JSONResult> getProductSearchList(@RequestBody SearchDto searchDto){
-		List<ProductVo> list = adminService.getProductSearchList(searchDto);
+	@GetMapping("/search")
+	public ResponseEntity<JSONResult> getProductSearchList(
+			@RequestParam(value = "menu") String menu,
+			@RequestParam(value = "keyword") String keyword){
+		List<ProductVo> list = adminService.getProductSearchList(new SearchDto(menu, keyword));
 		if(list.size() == 0) {
 			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("일치하는 상품이 없습니다."));
 		}
