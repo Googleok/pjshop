@@ -36,8 +36,8 @@ public class AdminOrderController {
 	@ApiOperation(value = "주문 하나")
 	@GetMapping("/{no}")
 	public ResponseEntity<JSONResult> getOrderOne(@PathVariable("no") Long no){
-		OrderVo vo = adminService.getOrderOne(no);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+//		OrderVo vo = adminService.getOrderOne(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
 	}
 	
 	@ApiOperation(value = "상세주문")

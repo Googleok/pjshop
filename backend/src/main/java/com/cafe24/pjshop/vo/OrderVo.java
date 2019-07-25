@@ -1,5 +1,7 @@
 package com.cafe24.pjshop.vo;
 
+import java.util.List;
+
 public class OrderVo {
 
 	private Long no;
@@ -8,18 +10,22 @@ public class OrderVo {
 	private String phone;
 	private String email;
 	private String address;
+	private String shipping_message;
+	private String entrance_password;
 	private String regDate;
-	private String shippingMessage;
 	private Long shippingFee;
 	private Long totalPrice;
 	private Long userNo;
+	private Long productOptionNo;
+	private List<String> productOptionNoList;
+	private Long productCount;
 	
 	public OrderVo() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public OrderVo(Long no, String name, String password, String phone, String email, String address, String regDate,
-			String shippingMessage, Long shippingFee, Long totalPrice, Long userNo) {
+	public OrderVo(Long no, String name, String password, String phone, String email, String address,
+			String shipping_message, String entrance_password, String regDate, Long shippingFee, Long totalPrice,
+			Long userNo) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -27,12 +33,36 @@ public class OrderVo {
 		this.phone = phone;
 		this.email = email;
 		this.address = address;
+		this.shipping_message = shipping_message;
+		this.entrance_password = entrance_password;
 		this.regDate = regDate;
-		this.shippingMessage = shippingMessage;
 		this.shippingFee = shippingFee;
 		this.totalPrice = totalPrice;
 		this.userNo = userNo;
 	}
+
+	public OrderVo(Long no, String name, String password, String phone, String email, String address,
+			String shipping_message, String entrance_password, String regDate, Long shippingFee, Long totalPrice,
+			Long userNo, Long productOptionNo, List<String> productOptionNoList, Long productCount) {
+		super();
+		this.no = no;
+		this.name = name;
+		this.password = password;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.shipping_message = shipping_message;
+		this.entrance_password = entrance_password;
+		this.regDate = regDate;
+		this.shippingFee = shippingFee;
+		this.totalPrice = totalPrice;
+		this.userNo = userNo;
+		this.productOptionNo = productOptionNo;
+		this.productOptionNoList = productOptionNoList;
+		this.productCount = productCount;
+	}
+
+
 
 	public Long getNo() {
 		return no;
@@ -90,14 +120,6 @@ public class OrderVo {
 		this.regDate = regDate;
 	}
 
-	public String getShippingMessage() {
-		return shippingMessage;
-	}
-
-	public void setShippingMessage(String shippingMessage) {
-		this.shippingMessage = shippingMessage;
-	}
-
 	public Long getShippingFee() {
 		return shippingFee;
 	}
@@ -114,6 +136,22 @@ public class OrderVo {
 		this.totalPrice = totalPrice;
 	}
 
+	public String getShipping_message() {
+		return shipping_message;
+	}
+
+	public void setShipping_message(String shipping_message) {
+		this.shipping_message = shipping_message;
+	}
+
+	public String getEntrance_password() {
+		return entrance_password;
+	}
+
+	public void setEntrance_password(String entrance_password) {
+		this.entrance_password = entrance_password;
+	}
+
 	public Long getUserNo() {
 		return userNo;
 	}
@@ -122,11 +160,39 @@ public class OrderVo {
 		this.userNo = userNo;
 	}
 
+	public Long getProductOptionNo() {
+		return productOptionNo;
+	}
+	
+	public void setProductOptionNo(Long productOptionNo) {
+		this.productOptionNo = productOptionNo;
+	}
+
+	public List<String> getProductOptionNoList() {
+		return productOptionNoList;
+	}
+
+	public void setProductOptionNoList(List<String> productOptionNoList) {
+		this.productOptionNoList = productOptionNoList;
+	}
+
+	public Long getProductCount() {
+		return productCount;
+	}
+
+	public void setProductCount(Long productCount) {
+		this.productCount = productCount;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderVo [no=" + no + ", name=" + name + ", password=" + password + ", phone=" + phone + ", email="
-				+ email + ", address=" + address + ", regDate=" + regDate + ", shippingMessage=" + shippingMessage
-				+ ", shippingFee=" + shippingFee + ", totalPrice=" + totalPrice + ", userNo=" + userNo + "]";
+				+ email + ", address=" + address + ", shipping_message=" + shipping_message + ", entrance_password="
+				+ entrance_password + ", regDate=" + regDate + ", shippingFee=" + shippingFee + ", totalPrice="
+				+ totalPrice + ", userNo=" + userNo + ", productOptionNo=" + productOptionNo + ", productOptionNoList="
+				+ productOptionNoList + ", productCount=" + productCount + "]";
 	}
+
+
 	
 }

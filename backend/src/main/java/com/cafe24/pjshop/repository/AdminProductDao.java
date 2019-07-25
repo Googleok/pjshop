@@ -9,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.pjshop.dto.OptionDto;
-import com.cafe24.pjshop.dto.ProductDetailDto;
 import com.cafe24.pjshop.dto.ProductDto;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.vo.OptionNameVo;
 import com.cafe24.pjshop.vo.OptionValueVo;
 import com.cafe24.pjshop.vo.OptionVo;
-import com.cafe24.pjshop.vo.ProductDetailVo;
 import com.cafe24.pjshop.vo.ProductImageVo;
 import com.cafe24.pjshop.vo.ProductVo;
 

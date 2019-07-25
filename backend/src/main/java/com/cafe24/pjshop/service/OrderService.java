@@ -17,11 +17,11 @@ public class OrderService {
 	@Autowired
 	private OrderDao orderDao;
 
-	public OrderVo getOrderOne(String id) {
-		OrderVo vo = new OrderVo(1L, "박종억", "1234", "01040287755", "whddjr2225@naver.com", "서울시 관악구",
-				"2019-07-12", "빨리요!", 2500L, 185000L, 1L);
-		return vo;
-	}
+//	public OrderVo getOrderOne(String id) {
+//		OrderVo vo = new OrderVo(1L, "박종억", "1234", "01040287755", "whddjr2225@naver.com", "서울시 관악구",
+//				"2019-07-12", "빨리요!", 2500L, 185000L, 1L);
+//		return vo;
+//	}
 
 	public OrderDetailVo getOrderDetail(Long no) {
 		OrderDetailVo newVo = new OrderDetailVo();

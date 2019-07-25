@@ -18,21 +18,13 @@ public class AdminOrderService {
 	// 주문리스트 요청
 	public List<OrderVo> getOrderList() {
 		List<OrderVo> list = new ArrayList<OrderVo>();
-		list.add(new OrderVo(1L, "박종억", "1234", "01040287755", "whddjr2225@naver.com", "서울시 관악구", "2019-07-11",
-				"빨리 좀 부탁드려요", 2500L, 123000L, 1L));
-		list.add(new OrderVo(2L, "박소원", "1234", "01040287755", "thdnjs9570@naver.com", "서울시 광화문구", "2019-07-11",
-				"빨리 좀 부탁드려요", 2500L, 123000L, 1L));
-		list.add(new OrderVo(3L, "이정은", "1234", "01040287755", "leap1004@naver.com", "서울시 성복구", "2019-07-11",
-				"빨리 좀 부탁드려요", 2500L, 123000L, 1L));
 		return list;
 	}
 
 	// 주문한개 요청
-	public OrderVo getOrderOne(Long no) {
-		OrderVo vo = new OrderVo(1L, "박종억", "1234", "01040287755", "whddjr2225@naver.com", "서울시 관악구", "2019-07-11",
-				"빨리 좀 부탁드려요", 2500L, 123000L, 1L);
-		return vo;
-	}
+//	public OrderVo getOrderOne(Long no) {
+//		return vo;
+//	}
 
 	// 상세주문 요청
 	public OrderDetailVo getOrderDetail(Long no) {
@@ -72,12 +64,6 @@ public class AdminOrderService {
 
 		List<OrderVo> searchList = new ArrayList<OrderVo>();
 		List<OrderVo> list = new ArrayList<OrderVo>();
-		list.add(new OrderVo(1L, "박종억", "1234", "01040287755", "whddjr2225@naver.com", "서울시 관악구", "2019-07-11",
-				"빨리 좀 부탁드려요", 2500L, 123000L, 1L));
-		list.add(new OrderVo(2L, "박소원", "1234", "01012345678", "thdnjs9570@naver.com", "서울시 광화문구", "2019-07-11",
-				"빨리 좀 부탁드려요", 2500L, 123000L, 1L));
-		list.add(new OrderVo(3L, "이정은", "1234", "01040287755", "leap1004@naver.com", "서울시 성복구", "2019-07-11",
-				"빨리 좀 부탁드려요", 2500L, 123000L, 1L));
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getPhone().equals(keyword)) {
 				searchList.add(list.get(i));

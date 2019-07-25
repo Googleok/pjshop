@@ -22,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.cafe24.pjshop.config.test.WebConfig;
 import com.cafe24.pjshop.vo.AddressVo;
 import com.cafe24.pjshop.vo.OrderVo;
+import com.cafe24.pjshop.vo.ProductDetailVo;
 import com.google.gson.Gson;
 
 @RunWith(SpringRunner.class)
@@ -73,13 +74,14 @@ public class OrderControllerTest {
 				.andDo(print());
 	}	
 	
-	// 회원상품주문 Test
+	// 회원상품주문 바로주문하기 Test
 	@Test
 	public void testProductOrder() throws Exception {
 		Long authUser = 1L;
 		// 회원 이름, 이메일, 폰번호, 주소지 가져오기
-		OrderVo voMock = new OrderVo(null, "박종억", null, "01040287755", "whddjr2225@naver.com",
-				"서울시 관악구", "2019-07-12", "빨리요", 2500L, 185000L, authUser);
+		OrderVo voMock = new OrderVo(null, "박종억", null, "01040287755", "whddjr2225@naver.com", "서울시 관악구", "빨리요", "#1234*", "2019-07-12", 2500L, 185000L, authUser);
+		voMock.setProductOptionNo(7L);
+		voMock.setProductCount(3L);
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -128,8 +130,7 @@ public class OrderControllerTest {
 	@Test
 	public void testProductOrderFromCart() throws Exception {
 		Long authUser = 1L;
-		OrderVo voMock = new OrderVo(1L, "박종억", "1234", "01040287755", "whddjr2225@naver.com",
-				"서울시 관악구", "2019-07-12", "빨리요", 2500L, 185000L, authUser);
+		OrderVo voMock = new OrderVo();
 		
 		ResultActions resultActions = 
 				mockMvc
