@@ -1,11 +1,15 @@
 package com.cafe24.pjshop.service;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import com.cafe24.pjshop.dto.CartDto;
 import com.cafe24.pjshop.repository.UserDao;
+import com.cafe24.pjshop.vo.CartVo;
 import com.cafe24.pjshop.vo.UserVo;
 
 @Service
@@ -66,7 +70,38 @@ public class UserService {
 		return newPassword.toString();
 	}
 
+	public Long addToCart(CartVo vo) {
+		try {
+			userDao.addToCart(vo);
+		} catch (DuplicateKeyException e) {
+			e.printStackTrace();
+			boolean result = userDao.modifyCart(vo);
+			System.out.println(result+"===============");
+		}
+		return null;
+	}
 
+	public boolean deleteFromCart(Long no) {
+		return userDao.deleteFromCart(no);
+	}
+
+	public boolean deleteFromCart(List<Long> deleteNoList) {
+		return userDao.deleteFromCart(deleteNoList);
+	}
+
+	public boolean modifyCountFromCart(Long no, CartVo vo) {
+		return userDao.modifyCountFromCart(no, vo);
+	}
+
+	public List<CartDto> getCartList(Long userNo, String nonUserNo) {
+		List<CartDto> cartList = null;
+		if(userNo != null) {
+			cartList = userDao.getCartList(userNo);
+		}else {
+			cartList = userDao.getCartList(nonUserNo);
+		}
+		return cartList;
+	}
 
 
 

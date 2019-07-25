@@ -3,23 +3,20 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="uservo" type="com.cafe24.pjshop.vo.UserVo"/>
-		<typeAlias alias="categoryvo" type="com.cafe24.pjshop.vo.CategoryVo"/>
-		<typeAlias alias="productvo" type="com.cafe24.pjshop.vo.ProductVo"/>
-		<typeAlias alias="optionnamevo" type="com.cafe24.pjshop.vo.OptionNameVo"/>
-		<typeAlias alias="optionvo" type="com.cafe24.pjshop.vo.OptionVo"/>
+		<typeAlias alias="userVo" type="com.cafe24.pjshop.vo.UserVo"/>
+		<typeAlias alias="categoryVo" type="com.cafe24.pjshop.vo.CategoryVo"/>
+		<typeAlias alias="productVo" type="com.cafe24.pjshop.vo.ProductVo"/>
+		<typeAlias alias="optionNameVo" type="com.cafe24.pjshop.vo.OptionNameVo"/>
+		<typeAlias alias="optionVo" type="com.cafe24.pjshop.vo.OptionVo"/>
+		<typeAlias alias="optionValueVo" type="com.cafe24.pjshop.vo.OptionValueVo"/>
 		<typeAlias alias="productImageVo" type="com.cafe24.pjshop.vo.ProductImageVo"/>
 		<typeAlias alias="productDetailVo" type="com.cafe24.pjshop.vo.ProductDetailVo"/>
 		<typeAlias alias="optionDto" type="com.cafe24.pjshop.dto.OptionDto"/>
 		<typeAlias alias="productDetailDto" type="com.cafe24.pjshop.dto.ProductDetailDto"/>
 		<typeAlias alias="searchDto" type="com.cafe24.pjshop.dto.SearchDto"/>
 		<typeAlias alias="productDto" type="com.cafe24.pjshop.dto.ProductDto"/>
-		
-		<!-- 
-		<typeAlias alias="ordervo" type="com.cafe24.shoppingmall.vo.OrderVo"/>
-		<typeAlias alias="orderdetailvo" type="com.cafe24.shoppingmall.vo.OrderDetailVo"/>
-		 -->
-		 
+		<typeAlias alias="cartVo" type="com.cafe24.pjshop.vo.CartVo"/>
+		<typeAlias alias="cartDto" type="com.cafe24.pjshop.dto.CartDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mapper/user.xml" />

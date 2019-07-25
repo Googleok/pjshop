@@ -1,29 +1,22 @@
 package com.cafe24.pjshop.vo;
 
-import com.cafe24.pjshop.dto.OptionDto;
-
 public class CartVo {
 
 	private Long no;
-	private Long count;
 	private Long userNo;
-	private Long optionNo;
-	private boolean isMember;
-	private Long notMemberNo;
-	private OptionDto optionDto;
+	private Long productOptionNo;
+	private String nonUserId;
+	private Long count;
 	
 	public CartVo() {
 	}
 
-	public CartVo(Long no, Long count, Long userNo, Long optionNo, boolean isMember, Long notMemberNo, OptionDto optionDto) {
-		super();
+	public CartVo(Long no, Long userNo, Long productOptionNo, String nonUserId, Long count) {
 		this.no = no;
-		this.count = count;
 		this.userNo = userNo;
-		this.optionNo = optionNo;
-		this.isMember = isMember;
-		this.notMemberNo = notMemberNo;
-		this.optionDto = optionDto;
+		this.productOptionNo = productOptionNo;
+		this.nonUserId = nonUserId;
+		this.count = count;
 	}
 
 	public Long getNo() {
@@ -34,14 +27,6 @@ public class CartVo {
 		this.no = no;
 	}
 
-	public Long getCount() {
-		return count;
-	}
-
-	public void setCount(Long count) {
-		this.count = count;
-	}
-
 	public Long getUserNo() {
 		return userNo;
 	}
@@ -50,42 +35,36 @@ public class CartVo {
 		this.userNo = userNo;
 	}
 
-	public Long getOptionNo() {
-		return optionNo;
+	public Long getProductOptionNo() {
+		return productOptionNo;
 	}
 
-	public void setOptionNo(Long optionNo) {
-		this.optionNo = optionNo;
+	public void setProductOptionNo(Long productOptionNo) {
+		this.productOptionNo = productOptionNo;
 	}
 
-	public boolean isMember() {
-		return isMember;
+	public String getNonUserId() {
+		return nonUserId;
 	}
 
-	public void setMember(boolean isMember) {
-		this.isMember = isMember;
+	public void setNonUserId(String nonUserId) {
+		this.nonUserId = nonUserId;
 	}
 
-	public Long getNotMemberNo() {
-		return notMemberNo;
+	public Long getCount() {
+		return count;
 	}
 
-	public void setNotMemberNo(Long notMemberNo) {
-		this.notMemberNo = notMemberNo;
-	}
-	
-	public OptionDto getOptionDto() {
-		return optionDto;
-	}
-
-	public void setOptionDto(OptionDto optionDto) {
-		this.optionDto = optionDto;
+	public void setCount(Long count) {
+		this.count = count;
 	}
 
 	@Override
 	public String toString() {
-		return "CartVo [no=" + no + ", count=" + count + ", userNo=" + userNo + ", optionNo=" + optionNo + ", isMember="
-				+ isMember + ", notMemberNo=" + notMemberNo + ", optionDto=" + optionDto + "]";
+		return "CartVo [no=" + no + ", userNo=" + userNo + ", productOptionNo=" + productOptionNo + ", nonUserId="
+				+ nonUserId + ", count=" + count + "]";
 	}
+	
+	
 
 }

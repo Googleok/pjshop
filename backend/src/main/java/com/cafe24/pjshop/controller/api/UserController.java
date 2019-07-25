@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafe24.pjshop.dto.CartDto;
 import com.cafe24.pjshop.dto.JSONResult;
 import com.cafe24.pjshop.service.UserService;
 import com.cafe24.pjshop.vo.CartVo;
@@ -133,19 +134,36 @@ public class UserController {
 	
 	@ApiOperation(value = "장바구니 리스트")
 	@GetMapping({"/cart", "/cart/list"})
-	public ResponseEntity<JSONResult> getCartList() {
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(null));
+	public ResponseEntity<JSONResult> getCartList(@RequestParam(value = "id") Long no, @RequestParam(value = "nonUserId") String nonUserId) {
+		List<CartDto> cartList = userService.getCartList(no, nonUserId);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(cartList));
 	}
 
 	@ApiOperation(value = "장바구니 담기")
 	@PostMapping("/cart")
 	public ResponseEntity<JSONResult> addToCart(@RequestBody CartVo vo) {
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+		Long insertNo = userService.addToCart(vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(insertNo));
 	}
 
-	@ApiOperation(value = "장바구니 삭제")
+	@ApiOperation(value = "장바구니 여러개 삭제")
+	@DeleteMapping("/cart")
+	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody List<Long> deleteNoList) {
+		boolean result = userService.deleteFromCart(deleteNoList);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
+	@ApiOperation(value = "장바구니 하나씩 삭제")
 	@DeleteMapping("/cart/{no}")
-	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody UserVo vo) {
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+	public ResponseEntity<JSONResult> deleteFromCart(@PathVariable(value = "no") Long no) {
+		boolean result = userService.deleteFromCart(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
+	@ApiOperation(value = "장바구니 수량 수정")
+	@PutMapping("/cart/{no}")
+	public ResponseEntity<JSONResult> modifyCountFromCart(@PathVariable(value = "no") Long no, @RequestBody CartVo vo) {
+		boolean result = userService.modifyCountFromCart(no, vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 }

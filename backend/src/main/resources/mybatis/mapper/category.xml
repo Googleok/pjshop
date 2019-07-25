@@ -5,7 +5,7 @@
 
 <mapper namespace="category">
 	
-	<select id="getList" resultType="categoryvo">
+	<select id="getList" resultType="categoryVo">
 		<![CDATA[
 			select 
 				  no,
@@ -18,7 +18,7 @@
 		]]>
 	</select>
 	
-	<insert id="add" parameterType="categoryvo">
+	<insert id="add" parameterType="categoryVo">
 		<![CDATA[
 			insert into category 
 			values(

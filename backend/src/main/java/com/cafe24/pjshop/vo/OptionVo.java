@@ -4,29 +4,23 @@ public class OptionVo {
 	private Long no;
 	private String optionValue;
 	private Boolean stockAvailability;
+	private Long productCount;
 	private Long additionalPrice;
 	private Long productNo;
-	private Long optionNameNo;
-	private String optionName;
-	private Long productCount;
 	
 	public OptionVo() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OptionVo(Long no, String optionValue, Boolean stockAvailability, Long additionalPrice, Long productNo,
-			Long optionNameNo, String optionName, Long productCount) {
+	public OptionVo(Long no, String optionValue, Boolean stockAvailability, Long productCount, Long additionalPrice, Long productNo) {
+		super();
 		this.no = no;
 		this.optionValue = optionValue;
 		this.stockAvailability = stockAvailability;
+		this.productCount = productCount;
 		this.additionalPrice = additionalPrice;
 		this.productNo = productNo;
-		this.optionNameNo = optionNameNo;
-		this.optionName = optionName;
-		this.productCount = productCount;
 	}
-	
-	
 
 	public Long getNo() {
 		return no;
@@ -68,22 +62,6 @@ public class OptionVo {
 		this.productNo = productNo;
 	}
 
-	public Long getOptionNameNo() {
-		return optionNameNo;
-	}
-
-	public void setOptionNameNo(Long optionNameNo) {
-		this.optionNameNo = optionNameNo;
-	}
-
-	public String getOptionName() {
-		return optionName;
-	}
-
-	public void setOptionName(String optionName) {
-		this.optionName = optionName;
-	}
-
 	public Long getProductCount() {
 		return productCount;
 	}
@@ -95,12 +73,9 @@ public class OptionVo {
 	@Override
 	public String toString() {
 		return "OptionVo [no=" + no + ", optionValue=" + optionValue + ", stockAvailability=" + stockAvailability
-				+ ", additionalPrice=" + additionalPrice + ", productNo=" + productNo + ", optionNameNo=" + optionNameNo
-				+ ", optionName=" + optionName + ", productCount=" + productCount + "]";
+				+ ", productCount=" + productCount + ", additionalPrice=" + additionalPrice + ", productNo=" + productNo
+				+ "]";
 	}
-
-
-
 
 	
 }

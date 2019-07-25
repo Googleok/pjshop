@@ -1,12 +1,16 @@
 package com.cafe24.pjshop.controller.api;
 
 import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -43,7 +47,7 @@ public class UserControllerTest {
 
 	@Test
 	public void testJoin() throws Exception {
-		UserVo voMock = new UserVo(null, "qkrwhddjr", "Whddjr129", "박종억", "01040287755", "whddjr2225@naver.com",
+		UserVo voMock = new UserVo(null, "nonuser", "Nonuser123", "비회원", "01012345678", "nonuser@naver.com",
 				"1993-11-02", "male", "user");
 
 		ResultActions resultActions = mockMvc.perform(
@@ -140,14 +144,13 @@ public class UserControllerTest {
 	}
 	
 	@Test
-	public void testAddToCartByMember() throws Exception{
+	public void testAddToCartByUser() throws Exception{
 
 		// 옵션 상품 하나
 		CartVo voMock = new CartVo();
 		voMock.setUserNo(1L);
 		voMock.setCount(3L);
-		voMock.setMember(true);
-//		voMock.setOptionDto();
+		voMock.setProductOptionNo(10L);
 		
 		ResultActions resultActions = 
 				mockMvc.perform(post("/api/user/cart")
@@ -155,5 +158,84 @@ public class UserControllerTest {
 						.content(new Gson().toJson(voMock)))
 					    .andExpect(status().isOk()).andDo(print());
 	}
+	
+	@Test
+	public void testAddToCartByNotUser() throws Exception{
 
+		// 옵션 상품 하나
+		CartVo voMock = new CartVo();
+		voMock.setNonUserId("nonuser1");
+		voMock.setCount(10L);
+		voMock.setProductOptionNo(10L);
+		
+		ResultActions resultActions = 
+				mockMvc.perform(post("/api/user/cart")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(new Gson().toJson(voMock)))
+					    .andExpect(status().isOk()).andDo(print());
+	}
+	
+	@Test
+	public void testDeleteProductFromCart() throws Exception{
+		Long deleteNo = 3L;
+		
+		ResultActions resultActions = 
+		mockMvc
+		.perform(delete("/api/user/cart/{no}", deleteNo))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
+	@Test
+	public void testDeleteProductListFromCart() throws Exception{
+		List<Long> deleteNoList = new ArrayList<Long>();
+		deleteNoList.add(5L);
+		deleteNoList.add(4L);
+		ResultActions resultActions = 
+		mockMvc
+		.perform(delete("/api/user/cart")
+		.contentType(MediaType.APPLICATION_JSON)
+		.content(new Gson().toJson(deleteNoList)))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
+	@Test
+	public void testModifyCountFromCart() throws Exception{
+		
+		Long columnNo = 23L;
+		CartVo voMock = new CartVo();
+		voMock.setCount(30L);
+		ResultActions resultActions = 
+		mockMvc
+		.perform(put("/api/user/cart/{no}", columnNo)
+		.contentType(MediaType.APPLICATION_JSON)
+		.content(new Gson().toJson(voMock)))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
+	@Test
+	public void testGetCartListByUser() throws Exception {
+		
+		Long userNo = 1L;
+		String nonUserId = null;
+		
+		ResultActions resultActions = 
+				mockMvc.perform(get("/api/user/cart?id={id}&nonUserId={nonUserId}", userNo, nonUserId))
+						.andExpect(status().isOk())
+						.andDo(print());
+	}
+
+	@Test
+	public void testGetCartListByNonUser() throws Exception {
+		
+		Long userNo = null;
+		String nonUserId = "nonUser1";
+		
+		ResultActions resultActions = 
+				mockMvc.perform(get("/api/user/cart?id={id}&nonUserId={nonUserId}", userNo, nonUserId))
+						.andExpect(status().isOk())
+						.andDo(print());
+	}
 }

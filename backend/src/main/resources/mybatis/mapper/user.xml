@@ -4,14 +4,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="user">
-	<select id="getByEmail" resultType="uservo" parameterType="string">
+	<select id="getByEmail" resultType="userVo" parameterType="string">
 		<![CDATA[
 			select * from user
 			where email = AES_ENCRYPT(#{email}, SHA2('7755',512))
 		]]>
 	</select>
 	
-	<insert id="join" parameterType="uservo">
+	<insert id="join" parameterType="userVo">
 		<![CDATA[
 			insert into user 
 				values(
@@ -31,7 +31,7 @@
 		</selectKey>
 	</insert>
 	
-	<select id="login" parameterType="uservo" resultType="uservo">
+	<select id="login" parameterType="userVo" resultType="userVo">
 		<![CDATA[
 			select
 			no,
@@ -94,7 +94,7 @@
 		]]>
 	</update>
 	
-	<select id="findId" parameterType="uservo" resultType="uservo">
+	<select id="findId" parameterType="userVo" resultType="userVo">
 		<![CDATA[
 			select no,
 				   id,
@@ -106,7 +106,7 @@
 		]]>
 	</select>
 	
-	<select id="existId" resultType="uservo" parameterType="string">
+	<select id="existId" resultType="userVo" parameterType="string">
 		<![CDATA[
 			select no from user
 			where id = #{id}
@@ -126,7 +126,7 @@
 	</delete>
 	
 	
-	<select id="getUserList" resultType="uservo">
+	<select id="getUserList" resultType="userVo">
 		<![CDATA[
 			select
 				no,
@@ -147,7 +147,7 @@
 		]]>
 	</delete>
 	
-	<select id="getUserSearchList" resultType="uservo">
+	<select id="getUserSearchList" resultType="userVo">
 		<![CDATA[
 			select
 					no,
@@ -183,6 +183,101 @@
 		<if test="'role'.equals(menu)">
 			where role like CONCAT('%', AES_ENCRYPT(#{keyword}, SHA2('7755',512)), '%')
 		</if>
+	</select>
+
+	<insert id="addToCart" parameterType="cartVo">
+		<![CDATA[
+			insert into cart
+		]]>
+		<choose>
+			<when test="userNo != null">
+			<![CDATA[
+				(user_no, product_option_no, count)
+				values(#{userNo}, #{productOptionNo}, #{count})
+			]]>
+			</when>
+			<when test="nonUserId != null">
+			<![CDATA[
+				(nonuser_id, product_option_no, count)
+				values(#{nonUserId}, #{productOptionNo}, #{count})
+			]]>
+			</when>
+		</choose>
+	</insert>
+	
+	<delete id="deleteFromCart" parameterType="long">
+		<![CDATA[
+			delete from cart where no = #{no}		
+		]]>
+	</delete>
+	
+	<delete id="deleteListFromCart" parameterType="java.util.List">
+		<![CDATA[
+			delete from cart where	
+		]]>
+		<foreach collection="list" item="item" separator="or">
+		<![CDATA[
+			no = #{item} 	
+		]]>
+		</foreach>
+	</delete>
+	
+	<update id="modifyCart" parameterType="cartVo">
+		<![CDATA[
+			update cart set count = count + #{count}
+		]]>
+		<choose>
+			<when test="userNo != null">
+			<![CDATA[
+				where user_no = #{userNo} and product_option_no = #{productOptionNo}
+			]]>
+			</when>
+			<when test="nonUserId != null">
+			<![CDATA[
+				where nonuser_id = #{nonUserId} and product_option_no = #{productOptionNo}
+			]]>
+			</when>
+		</choose>
+	</update>
+
+	<update id="modifyCount" parameterType="map">
+		<![CDATA[
+			update cart set count = #{vo.count} where no = #{no}
+		]]>
+	</update>
+	
+	
+<!-- ===================================================ResultMap=============================================================== -->	
+	<select id="getCartListByUser" resultType="cartDto" parameterType="long">
+		<![CDATA[
+			 select a.no,
+				   b.option_value as optionValue, 
+			       b.additional_price as additionalPrice, 
+			       c.name as productName,
+			       c.no as productNo, 
+			       c.price, 
+			       c.shipping_fee as shippingFee, 
+			       a.count 
+			from cart a, product_option b, product c 
+			where a.product_option_no = b.no and b.product_no = c.no
+			and user_no = #{userNo};
+		]]>
+	</select>
+	
+	<select id="getCartListByNonUser" resultType="cartDto" parameterType="string">
+		<![CDATA[
+			select a.no,
+				   b.option_value as optionValue, 
+			       b.additional_price as additionalPrice, 
+			       c.name as productName,
+			       c.no as productNo, 
+			       c.price, 
+			       c.shipping_fee as shippingFee, 
+			       a.count 
+			from cart a, product_option b, product c 
+			where a.product_option_no = b.no and b.product_no = c.no
+			and nonuser_id = #{nonUserId};
+		]]>
 	</select>
 
 </mapper>

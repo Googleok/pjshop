@@ -13,6 +13,7 @@ import com.cafe24.pjshop.dto.ProductDetailDto;
 import com.cafe24.pjshop.dto.ProductDto;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.vo.OptionNameVo;
+import com.cafe24.pjshop.vo.OptionValueVo;
 import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.ProductDetailVo;
 import com.cafe24.pjshop.vo.ProductImageVo;
@@ -66,11 +67,11 @@ public class AdminProductDao {
 		return sqlSession.selectList("optionName.getList");
 	}
 
-	public Boolean addOption(OptionVo optionVo) {
-		return sqlSession.insert("option.add", optionVo) == 1;
+	public Boolean addOptionValue(OptionValueVo vo) {
+		return sqlSession.insert("option.add", vo) == 1;
 	}
 
-	public boolean deleteOption(Long no) {
+	public boolean deleteOptionValue(Long no) {
 		return sqlSession.delete("option.delete", no) == 1;
 	}
 	
@@ -103,6 +104,22 @@ public class AdminProductDao {
 
 	public List<ProductVo> getProductSearchList(SearchDto searchDto) {
 		return sqlSession.selectList("product.getProductSearchList", searchDto);
+	}
+
+	public boolean addOptionValues(List<OptionValueVo> optionValueVoList) {
+		return sqlSession.insert("option.addOptionValues", optionValueVoList) == optionValueVoList.size();
+	}
+
+	public boolean addOptions(List<OptionVo> optionVoList) {
+		return sqlSession.insert("option.addOptions", optionVoList) == optionVoList.size();
+	}
+
+	public boolean addOption(OptionVo vo) {
+		return sqlSession.insert("option.addOption", vo) == 1;
+	}
+
+	public boolean deleteOption(Long no) {
+		return sqlSession.delete("option.deleteOption", no) == 1;
 	}
 
 	

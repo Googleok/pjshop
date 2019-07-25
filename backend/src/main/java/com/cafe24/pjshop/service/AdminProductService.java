@@ -12,6 +12,7 @@ import com.cafe24.pjshop.dto.ProductDto;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.repository.AdminProductDao;
 import com.cafe24.pjshop.vo.OptionNameVo;
+import com.cafe24.pjshop.vo.OptionValueVo;
 import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.ProductDetailVo;
 import com.cafe24.pjshop.vo.ProductImageVo;
@@ -48,53 +49,32 @@ public class AdminProductService {
 
 	// 상품등록
 	public Boolean addProduct(ProductVo productVo) {
-		List<OptionNameVo> newoptionNameList = new ArrayList<OptionNameVo>();
-
 		// 상품 추가하기
-		Long insertProductNo = adminProductDao.addProduct(productVo);
+//		Long insertProductNo = adminProductDao.addProduct(productVo);
 		System.out.println("===============================================================");
-		System.out.println(insertProductNo);
+//		System.out.println(insertProductNo);
 		System.out.println("===============================================================");
 
 		// 상품이미지 등록
 		for (ProductImageVo vo : productVo.getProductImageList()) {
-			System.out.println("상품이미지 == " + vo);
-			vo.setProductNo(insertProductNo);
-			adminProductDao.addProductImage(vo);
+//			vo.setProductNo(insertProductNo);
+//			adminProductDao.addProductImage(vo);
 		}
 
+		boolean optionValueResult = false;
+		boolean optionResult = false;
 		// 옵션체크 있으면
 		if (productVo.getOptionAvailability()) {
-			List<OptionNameVo> optionNameVos = productVo.getOptionNameList();
-			List<OptionVo> optionVos = productVo.getOptionList();
-
-			for (OptionNameVo optionNameVo : optionNameVos) {
-				OptionNameVo existOptionName = adminProductDao.existOptionName(optionNameVo.getOptionName());
-				if (existOptionName == null) {
-					adminProductDao.addOptionName(optionNameVo);
-					newoptionNameList.add(optionNameVo);
-					continue;
-				}
-				newoptionNameList.add(existOptionName);
-			}
-
-			System.out.println("====================================================");
-			System.out.println(newoptionNameList);
-			System.out.println("====================================================");
-
-			for (int i = 0; i < newoptionNameList.size(); i++) {
-				for (OptionVo optionVo : optionVos) {
-					if (optionVo.getOptionName().equals(newoptionNameList.get(i).getOptionName())) {
-						optionVo.setProductNo(productVo.getNo());
-						optionVo.setOptionNameNo(newoptionNameList.get(i).getNo());
-						adminProductDao.addOption(optionVo);
-					}
-				}
-			}
-
+			List<OptionValueVo> optionValueVoList = productVo.getOptionValueList();
+			List<OptionVo> optionVoList = productVo.getOptionList();
+			
+			// 옵션밸류를 한방에 넣기
+			optionValueResult = adminProductDao.addOptionValues(optionValueVoList);
+			// 옵션풀값을 한방에 넣기
+			optionResult = adminProductDao.addOptions(optionVoList);
 		}
 
-		return true;
+		return optionValueResult && optionResult;
 	}
 
 	// 상품등록 ajax
@@ -131,12 +111,12 @@ public class AdminProductService {
 		return adminProductDao.deleteOptionName(no);
 	}
 
-	public Long addOptionValue(OptionVo vo) {
-		return adminProductDao.addOption(vo) ? vo.getNo() : 0L;
+	public Long addOptionValue(OptionValueVo vo) {
+		return adminProductDao.addOptionValue(vo) ? vo.getNo() : 0L;
 	}
 	
 	public boolean deleteOptionValue(Long no) {
-		return adminProductDao.deleteOption(no);
+		return adminProductDao.deleteOptionValue(no);
 	}
 
 	public boolean addProductImage(ProductImageVo vo) {
@@ -160,6 +140,14 @@ public class AdminProductService {
 
 	public boolean deleteProductImageList(Long productNo) {
 		return adminProductDao.deleteProductImageList(productNo);
+	}
+
+	public Long addOption(OptionVo vo) {
+		return adminProductDao.addOption(vo) ? vo.getNo() : null;
+	}
+
+	public boolean deleteOption(Long no) {
+		return adminProductDao.deleteOption(no);
 	}
 
 

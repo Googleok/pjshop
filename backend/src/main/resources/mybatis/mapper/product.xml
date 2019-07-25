@@ -4,7 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="product">
-	<select id="getList" resultType="productvo">
+	<select id="getList" resultType="productVo">
 		<![CDATA[
 			select
 					no,
@@ -24,7 +24,7 @@
 	</select>
 	
 	
-	<select id="getOne" resultType="productvo" parameterType="long">
+	<select id="getOne" resultType="productVo" parameterType="long">
 		<![CDATA[
 			select
 					no,
@@ -64,7 +64,7 @@
 		]]>
 	</select>
 	
-	<insert id="add" parameterType="productvo">
+	<insert id="add" parameterType="productVo">
 		<![CDATA[
 			insert into product
 			values(
@@ -157,7 +157,7 @@
 		]]>
 	</update>
 	
-	<select id="getProductSearchList" parameterType="searchDto" resultType="productvo">
+	<select id="getProductSearchList" parameterType="searchDto" resultType="productVo">
 		<![CDATA[
 			select
 					no,
@@ -221,7 +221,7 @@
 		<result property="stockAvailability" column="stock_availability"/>
 	</resultMap>
 	
-	<select id="getProductList" parameterType="long" resultType="productvo">
+	<select id="getProductList" parameterType="long" resultType="productVo">
 		<![CDATA[
 			select
 					no,
@@ -284,4 +284,7 @@
 		where no = #{productNo }
 	]]>
 	</select>
+	
+	
+	
 </mapper>

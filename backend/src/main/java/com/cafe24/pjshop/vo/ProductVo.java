@@ -15,8 +15,8 @@ public class ProductVo {
 	private String detail;
 	private Long shippingFee;
 	private Long categoryNo;
+	private List<OptionValueVo> optionValueList;
 	private List<OptionVo> optionList;  // optionName optionValue count
-	private List<OptionNameVo> optionNameList;  // optionName optionValue count
 	private List<ProductImageVo> productImageList;
 	
 	public ProductVo() {
@@ -43,7 +43,8 @@ public class ProductVo {
 
 	public ProductVo(Long no, String name, Long price, String regDate, Boolean exhibitionAvailability,
 			Boolean optionAvailability, Boolean sailsStatus, Long exhibitionRank, Long count, String detail,
-			Long shippingFee, Long categoryNo, List<OptionVo> optionList, List<OptionNameVo> optionNameList, List<ProductImageVo> productImageList) {
+			Long shippingFee, Long categoryNo, List<OptionValueVo> optionValueList, List<OptionVo> optionList,
+			List<ProductImageVo> productImageList) {
 		this.no = no;
 		this.name = name;
 		this.price = price;
@@ -56,8 +57,8 @@ public class ProductVo {
 		this.detail = detail;
 		this.shippingFee = shippingFee;
 		this.categoryNo = categoryNo;
+		this.optionValueList = optionValueList;
 		this.optionList = optionList;
-		this.optionNameList = optionNameList;
 		this.productImageList = productImageList;
 	}
 
@@ -165,12 +166,14 @@ public class ProductVo {
 		this.optionList = optionList;
 	}
 
-	public List<OptionNameVo> getOptionNameList() {
-		return optionNameList;
+
+
+	public List<OptionValueVo> getOptionValueList() {
+		return optionValueList;
 	}
 
-	public void setOptionNameList(List<OptionNameVo> optionNameList) {
-		this.optionNameList = optionNameList;
+	public void setOptionValueList(List<OptionValueVo> optionValueList) {
+		this.optionValueList = optionValueList;
 	}
 
 	public List<ProductImageVo> getProductImageList() {
@@ -186,10 +189,10 @@ public class ProductVo {
 		return "ProductVo [no=" + no + ", name=" + name + ", price=" + price + ", regDate=" + regDate
 				+ ", exhibitionAvailability=" + exhibitionAvailability + ", optionAvailability=" + optionAvailability
 				+ ", sailsStatus=" + sailsStatus + ", exhibitionRank=" + exhibitionRank + ", count=" + count
-				+ ", detail=" + detail + ", shippingFee=" + shippingFee + ", categoryNo=" + categoryNo + ", optionList="
-				+ optionList + ", optionNameList=" + optionNameList + ", productImageList=" + productImageList + "]";
+				+ ", detail=" + detail + ", shippingFee=" + shippingFee + ", categoryNo=" + categoryNo
+				+ ", optionValueList=" + optionValueList + ", optionList=" + optionList + ", productImageList="
+				+ productImageList + "]";
 	}
-	
 	
 	
 }

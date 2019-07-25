@@ -25,6 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.cafe24.pjshop.config.test.WebConfig;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.vo.OptionNameVo;
+import com.cafe24.pjshop.vo.OptionValueVo;
 import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.ProductImageVo;
 import com.cafe24.pjshop.vo.ProductVo;
@@ -69,7 +70,7 @@ public class AdminProductControllerTest {
 	// 상품상세요청 ( 상품정보 + 상품옵션 + 옵션이름 + 대표이미지 + 카테고리 )
 	@Test
 	public void testGetDetailProductInfo() throws Exception{
-		Long productNo = 3L;
+		Long productNo = 1L;
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -85,8 +86,8 @@ public class AdminProductControllerTest {
 	@Test
 	public void testAddProduct() throws Exception {
 		// 옵션 없는거
-//		ProductVo voMock = new ProductVo(null, "빈티지바지", 30000L, null, true,
-//				false, true, 1L, 400L, "cap.html",
+//		ProductVo voMock = new ProductVo(null, "찢어진 청바지", 30000L, null, true,
+//				false, true, 1L, 400L, "vintage.html",
 //				2500L, 4L);
 //	
 //		ResultActions resultActions = 
@@ -97,23 +98,41 @@ public class AdminProductControllerTest {
 //				.andDo(print());
 		
 		// 옵션 있는거
+		
+		// 옵션네임은 추가하면 추가하고 아니면 있는거 쓰고
 		List<OptionNameVo> optionNameList = new ArrayList<OptionNameVo>();
 		OptionNameVo optionNameVoMock1 = new OptionNameVo(null, "색상");
 		OptionNameVo optionNameVoMock2 = new OptionNameVo(null, "사이즈");
 		optionNameList.add(optionNameVoMock1);
 		optionNameList.add(optionNameVoMock2);
 
+		List<OptionValueVo> optionValueList = new ArrayList<OptionValueVo>();
+		OptionValueVo optionValueVoMock1 = new OptionValueVo(null, 1L, "블랙", 1L);
+		OptionValueVo optionValueVoMock2 = new OptionValueVo(null, 1L, "화이트", 1L);
+		OptionValueVo optionValueVoMock3 = new OptionValueVo(null, 2L, "L", 1L);
+		OptionValueVo optionValueVoMock4 = new OptionValueVo(null, 2L, "M", 1L);
+		OptionValueVo optionValueVoMock5 = new OptionValueVo(null, 2L, "S", 1L);
+		optionValueList.add(optionValueVoMock1);
+		optionValueList.add(optionValueVoMock2);
+		optionValueList.add(optionValueVoMock3);
+		optionValueList.add(optionValueVoMock4);
+		optionValueList.add(optionValueVoMock5);
+		
 		List<OptionVo> optionList = new ArrayList<OptionVo>();
-		OptionVo optionVoMock1 = new OptionVo(null, "블랙", true, 1500L, null, null, "색상", 100L);
-		OptionVo optionVoMock2 = new OptionVo(null, "화이트", true, 1500L, null, null, "색상", 100L);
-		OptionVo optionVoMock3 = new OptionVo(null, "L", true, 1500L, null, null, "사이즈", 100L);
-		OptionVo optionVoMock4 = new OptionVo(null, "M", true, 1500L, null, null, "사이즈", 100L);
-		OptionVo optionVoMock5 = new OptionVo(null, "S", true, 1500L, null, null, "사이즈", 100L);
+		
+		OptionVo optionVoMock1 = new OptionVo(null, "블랙/L", true, 100L, 1500L, 1L);
+		OptionVo optionVoMock2 = new OptionVo(null, "블랙/M", true, 100L, 1500L, 1L);
+		OptionVo optionVoMock3 = new OptionVo(null, "블랙/S", true, 100L, 1500L, 1L);
+		OptionVo optionVoMock4 = new OptionVo(null, "화이트/L", true, 100L, 1500L, 1L);
+		OptionVo optionVoMock5 = new OptionVo(null, "화이트/L", true, 100L, 1500L, 1L);
+		OptionVo optionVoMock6 = new OptionVo(null, "화이트/L", true, 100L, 1500L, 1L);
+		
 		optionList.add(optionVoMock1);
 		optionList.add(optionVoMock2);
 		optionList.add(optionVoMock3);
 		optionList.add(optionVoMock4);
 		optionList.add(optionVoMock5);
+		optionList.add(optionVoMock6);
 		
 		List<ProductImageVo> productImageList = new ArrayList<ProductImageVo>();
 		ProductImageVo productImageVoMock1 = new ProductImageVo(null, null, "https://image1", "main");
@@ -124,9 +143,9 @@ public class AdminProductControllerTest {
 		productImageList.add(productImageVoMock3);
 		
 		ProductVo voMock = new ProductVo(null, "아디다스티", 40000L, null, true,
-				true, true, 1L, 400L, "nike.html",
-				2500L, 5L);
-		voMock.setOptionNameList(optionNameList);
+				true, true, 1L, 600L, "nike.html",
+				2500L, 3L);
+		voMock.setOptionValueList(optionValueList);
 		voMock.setOptionList(optionList);
 		voMock.setProductImageList(productImageList);
 		
@@ -152,7 +171,7 @@ public class AdminProductControllerTest {
 	public void testAddProductByAjax() throws Exception{
 		ProductVo voMock = new ProductVo(null, "빈티지청바지", 30000L, null, true,
 		true, true, 1L, 400L, "jean.html",
-		2500L, 5L);
+		2500L, 4L);
 
 		ResultActions resultActions = 
 		mockMvc
@@ -171,7 +190,7 @@ public class AdminProductControllerTest {
 	}
 	@Test
 	public void testAddProductOptionName() throws Exception{
-		OptionNameVo optionNameVoMock1 = new OptionNameVo(null, "발사이즈");
+		OptionNameVo optionNameVoMock1 = new OptionNameVo(null, "사이즈");
 		
 		ResultActions resultActions = 
 		mockMvc
@@ -191,8 +210,8 @@ public class AdminProductControllerTest {
 		.andDo(print());
 	}
 	@Test
-	public void testAddProductOption() throws Exception{
-		OptionVo optionVoMock1 = new OptionVo(null, "S", true, 1500L, 3L, 3L, null, 100L);
+	public void testAddProductOptionValue() throws Exception{
+		OptionValueVo optionVoMock1 = new OptionValueVo(null, 1L, "레드", 1L);
 
 		ResultActions resultActions = 
 		mockMvc
@@ -203,8 +222,8 @@ public class AdminProductControllerTest {
 
 	}
 	@Test
-	public void testDeleteProductOption() throws Exception{
-		Long deleteNo = 6L;
+	public void testDeleteProductOptionValue() throws Exception{
+		Long deleteNo = 1L;
 		
 		ResultActions resultActions = 
 		mockMvc
@@ -212,6 +231,30 @@ public class AdminProductControllerTest {
 		.andExpect(status().isOk())
 		.andDo(print());
 	}
+	
+	@Test
+	public void testAddProductOption() throws Exception{
+		OptionVo optionVoMock1 = new OptionVo(null, "레드/L", true, 100L, 1500L, 1L);
+
+		ResultActions resultActions = 
+		mockMvc
+		.perform(post("/api/admin/product/option")
+		.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(optionVoMock1)))
+		.andExpect(status().isOk())
+		.andDo(print());
+
+	}
+	@Test
+	public void testDeleteProductOption() throws Exception{
+		Long deleteNo = 13L;
+		
+		ResultActions resultActions = 
+		mockMvc
+		.perform(delete("/api/admin/product/option/{no}", deleteNo))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
 	
 	@Test
 	public void testAddProductImage() throws Exception{

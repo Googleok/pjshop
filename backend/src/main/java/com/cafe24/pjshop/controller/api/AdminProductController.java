@@ -21,6 +21,7 @@ import com.cafe24.pjshop.dto.ProductDto;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.service.AdminProductService;
 import com.cafe24.pjshop.vo.OptionNameVo;
+import com.cafe24.pjshop.vo.OptionValueVo;
 import com.cafe24.pjshop.vo.OptionVo;
 import com.cafe24.pjshop.vo.ProductImageVo;
 import com.cafe24.pjshop.vo.ProductVo;
@@ -107,7 +108,7 @@ public class AdminProductController {
 	
 	@ApiOperation(value = "可记蔼 眠啊")
 	@PostMapping("/optionvalue")
-	public ResponseEntity<JSONResult> addOptionValue(@RequestBody OptionVo vo){
+	public ResponseEntity<JSONResult> addOptionValue(@RequestBody OptionValueVo vo){
 		Long insertNo = adminService.addOptionValue(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(insertNo));
 	}
@@ -116,6 +117,20 @@ public class AdminProductController {
 	@DeleteMapping("/optionvalue/{no}")
 	public ResponseEntity<JSONResult> deleteOptionValue(@PathVariable Long no){
 		boolean result = adminService.deleteOptionValue(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
+	@ApiOperation(value = "可记 眠啊")
+	@PostMapping("/option")
+	public ResponseEntity<JSONResult> addOption(@RequestBody OptionVo vo){
+		Long insertNo = adminService.addOption(vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(insertNo));
+	}
+	
+	@ApiOperation(value = "可记 昏力")
+	@DeleteMapping("/option/{no}")
+	public ResponseEntity<JSONResult> deleteOption(@PathVariable Long no){
+		boolean result = adminService.deleteOption(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 	

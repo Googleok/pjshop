@@ -5,10 +5,10 @@
 
 <mapper namespace="option">
 
-	<insert id="add" parameterType="optionvo">
+	<insert id="add" parameterType="optionVo">
 		<![CDATA[
-			insert into option
-				values(null, #{optionValue}, #{stockAvailability}, #{additionalPrice}, #{productNo}, #{optionNameNo})
+			insert into option_value
+				values(null, #{optionNameNo}, #{optionValue}, #{productNo})
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[
@@ -19,7 +19,7 @@
 	
 	<delete id="delete" parameterType="long">
 		<![CDATA[
-			delete from option where no = #{no}		
+			delete from option_value where no = #{no}		
 		]]>
 	</delete>
 	
@@ -36,4 +36,63 @@
 		]]>
 	</select>
 	
+	<insert id="addOptionValues" parameterType="java.util.List">
+			<![CDATA[
+			insert into option_value(no, option_name_no, option_value, product_no)
+			values
+			]]>
+		<foreach item="item" separator="," collection="list">
+			<![CDATA[
+				(
+					#{item.no},
+					#{item.optionNameNo},
+					#{item.optionValue},
+					#{item.productNo}
+				)
+			]]>
+		</foreach>
+	</insert>
+	
+	<insert id="addOptions" parameterType="java.util.List">
+		<![CDATA[
+			insert into product_option(no, option_value, stock_availability, product_count, additional_price, product_no)
+			values
+		]]>
+		<foreach item="item" separator="," collection="list">
+			<![CDATA[
+				(
+					#{item.no},
+					#{item.optionValue},
+					#{item.stockAvailability},
+					#{item.productCount},
+					#{item.additionalPrice},
+					#{item.productNo}
+				)
+			]]>
+		</foreach>
+	</insert>
+	
+	<insert id="addOption" parameterType="optionVo">
+		<![CDATA[
+			insert into product_option values(
+					null,
+					#{optionValue},
+					#{stockAvailability},
+					#{productCount},
+					#{additionalPrice},
+					#{productNo}
+			)
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+		        SELECT LAST_INSERT_ID()
+			]]>
+	    </selectKey>
+	</insert>
+	
+	<delete id="deleteOption" parameterType="long">
+		<![CDATA[
+			delete from product_option where no = #{no}
+		]]>
+	</delete>
 </mapper>
