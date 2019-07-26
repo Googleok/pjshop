@@ -140,8 +140,8 @@ public class AdminProductControllerTest {
 		OptionVo optionVoMock2 = new OptionVo(null, "블랙/M", true, 100L, 1500L, 1L);
 		OptionVo optionVoMock3 = new OptionVo(null, "블랙/S", true, 100L, 1500L, 1L);
 		OptionVo optionVoMock4 = new OptionVo(null, "화이트/L", true, 100L, 1500L, 1L);
-		OptionVo optionVoMock5 = new OptionVo(null, "화이트/L", true, 100L, 1500L, 1L);
-		OptionVo optionVoMock6 = new OptionVo(null, "화이트/L", true, 100L, 1500L, 1L);
+		OptionVo optionVoMock5 = new OptionVo(null, "화이트/M", true, 100L, 1500L, 1L);
+		OptionVo optionVoMock6 = new OptionVo(null, "화이트/S", true, 100L, 1500L, 1L);
 		
 		optionList.add(optionVoMock1);
 		optionList.add(optionVoMock2);

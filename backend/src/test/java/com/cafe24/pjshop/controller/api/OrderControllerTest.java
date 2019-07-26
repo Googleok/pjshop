@@ -83,7 +83,11 @@ public class OrderControllerTest {
 		Long authUser = 2L;
 		List<OrderProductDto> productOptionList = new ArrayList<OrderProductDto>();
 		OrderProductDto orderProductDto1 = new OrderProductDto(6L, 3L);
+		OrderProductDto orderProductDto2 = new OrderProductDto(5L, 3L);
+		OrderProductDto orderProductDto3 = new OrderProductDto(4L, 3L);
 		productOptionList.add(orderProductDto1);
+		productOptionList.add(orderProductDto2);
+		productOptionList.add(orderProductDto3);
 		// 회원 이름, 이메일, 폰번호, 주소지 가져오기
 		OrderVo voMock = new OrderVo(null, "박종억", null, "01040287755", "whddjr2225@naver.com", "서울시 관악구", "빨리요", "#1234*", "2019-07-12", 2500L, 185000L, authUser);
 		voMock.setOrderProductList(productOptionList);
