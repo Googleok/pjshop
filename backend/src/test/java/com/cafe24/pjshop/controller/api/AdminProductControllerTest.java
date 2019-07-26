@@ -79,24 +79,40 @@ public class AdminProductControllerTest {
 				.andDo(print());		
 	}
 
+	@Test
+	public void testAddNotOptionProduct() throws Exception {
+		// 옵션 없는거
+		ProductVo voMock = new ProductVo(null, "찢어진 청바지", 30000L, null, true,
+				false, true, 1L, 400L, "vintage.html",
+				2500L, 3L);
+	
+		List<ProductImageVo> productImageList = new ArrayList<ProductImageVo>();
+		ProductImageVo productImageVoMock1 = new ProductImageVo(null, null, "https://image1", "main");
+		ProductImageVo productImageVoMock2 = new ProductImageVo(null, null, "https://image2", "sub");
+		ProductImageVo productImageVoMock3 = new ProductImageVo(null, null, "https://image3", "etc");
+		productImageList.add(productImageVoMock1);
+		productImageList.add(productImageVoMock2);
+		productImageList.add(productImageVoMock3);
+		
+		voMock.setProductImageList(productImageList);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/admin/product")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+				.andExpect(status().isOk())
+				.andDo(print());
+		
+	
+	}	
+	
 	/**
 	 * 페이지 전용 ( 한페이지에 모든 정보를 실어보내는 형식 )
 	 * @throws Exception
 	 */
 	@Test
-	public void testAddProduct() throws Exception {
-		// 옵션 없는거
-//		ProductVo voMock = new ProductVo(null, "찢어진 청바지", 30000L, null, true,
-//				false, true, 1L, 400L, "vintage.html",
-//				2500L, 4L);
-//	
-//		ResultActions resultActions = 
-//				mockMvc
-//				.perform(post("/api/admin/product")
-//				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
-//				.andExpect(status().isOk())
-//				.andDo(print());
-		
+	public void testAddOptionProduct() throws Exception {
+	
 		// 옵션 있는거
 		
 		// 옵션네임은 추가하면 추가하고 아니면 있는거 쓰고
@@ -144,7 +160,7 @@ public class AdminProductControllerTest {
 		
 		ProductVo voMock = new ProductVo(null, "아디다스티", 40000L, null, true,
 				true, true, 1L, 600L, "nike.html",
-				2500L, 3L);
+				2500L, 4L);
 		voMock.setOptionValueList(optionValueList);
 		voMock.setOptionList(optionList);
 		voMock.setProductImageList(productImageList);
@@ -190,7 +206,7 @@ public class AdminProductControllerTest {
 	}
 	@Test
 	public void testAddProductOptionName() throws Exception{
-		OptionNameVo optionNameVoMock1 = new OptionNameVo(null, "발사이즈");
+		OptionNameVo optionNameVoMock1 = new OptionNameVo(null, "사이즈");
 		
 		ResultActions resultActions = 
 		mockMvc
@@ -338,7 +354,7 @@ public class AdminProductControllerTest {
 	// 상품삭제  Test
 	@Test
 	public void testDeleteProduct() throws Exception {
-		Long deleteNo = 6L;
+		Long deleteNo = 2L;
 		
 		ResultActions resultActions = 
 				mockMvc

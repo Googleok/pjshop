@@ -3,7 +3,7 @@ package com.cafe24.pjshop.vo;
 public class PaymentVo {
 
 	private Long no;
-	private String paymentStatus;
+	private Boolean paymentStatus;
 	private String paymentSystem;
 	private Long orderNo;
 	
@@ -11,7 +11,7 @@ public class PaymentVo {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public PaymentVo(Long no, String paymentStatus, String paymentSystem, Long orderNo) {
+	public PaymentVo(Long no, Boolean paymentStatus, String paymentSystem, Long orderNo) {
 		this.no = no;
 		this.paymentStatus = paymentStatus;
 		this.paymentSystem = paymentSystem;
@@ -26,11 +26,11 @@ public class PaymentVo {
 		this.no = no;
 	}
 
-	public String getPaymentStatus() {
+	public Boolean getPaymentStatus() {
 		return paymentStatus;
 	}
 
-	public void setPaymentStatus(String paymentStatus) {
+	public void setPaymentStatus(Boolean paymentStatus) {
 		this.paymentStatus = paymentStatus;
 	}
 

@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +23,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.pjshop.config.test.WebConfig;
+import com.cafe24.pjshop.dto.OrderProductDto;
 import com.cafe24.pjshop.vo.AddressVo;
 import com.cafe24.pjshop.vo.OrderVo;
-import com.cafe24.pjshop.vo.ProductDetailVo;
 import com.google.gson.Gson;
 
 @RunWith(SpringRunner.class)
@@ -77,11 +80,13 @@ public class OrderControllerTest {
 	// 회원상품주문 바로주문하기 Test
 	@Test
 	public void testProductOrder() throws Exception {
-		Long authUser = 1L;
+		Long authUser = 2L;
+		List<OrderProductDto> productOptionList = new ArrayList<OrderProductDto>();
+		OrderProductDto orderProductDto1 = new OrderProductDto(6L, 3L);
+		productOptionList.add(orderProductDto1);
 		// 회원 이름, 이메일, 폰번호, 주소지 가져오기
 		OrderVo voMock = new OrderVo(null, "박종억", null, "01040287755", "whddjr2225@naver.com", "서울시 관악구", "빨리요", "#1234*", "2019-07-12", 2500L, 185000L, authUser);
-		voMock.setProductOptionNo(7L);
-		voMock.setProductCount(3L);
+		voMock.setOrderProductList(productOptionList);
 		
 		ResultActions resultActions = 
 				mockMvc

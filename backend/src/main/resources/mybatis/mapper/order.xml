@@ -5,4 +5,73 @@
 
 <mapper namespace="order">
 
+	<insert id="orderProduct" parameterType="orderVo">
+		<![CDATA[
+			insert into product_order
+				values(
+					null,
+					AES_ENCRYPT(#{name}, SHA2('7755',512)),
+					SHA2(#{password},256),
+					AES_ENCRYPT(#{phone}, SHA2('7755',512)),
+					AES_ENCRYPT(#{email}, SHA2('7755',512)),
+					AES_ENCRYPT(#{address}, SHA2('7755',512)),
+					#{shippingMessage},
+					AES_ENCRYPT(#{entrancePassword}, SHA2('7755',512)),
+					now(),
+					#{shippingFee},
+					#{totalPrice},
+					#{userNo}
+				)
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="detailOrderProduct" parameterType="orderDetailVo"> 
+		<![CDATA[
+			insert into order_detail
+				value(
+					null,
+					#{orderNo},
+					#{shippingStatus},
+					#{count},
+					#{productName},
+					#{productPrice},
+					#{options}
+				)
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+	<insert id="orderPayment" parameterType="paymentVo">
+		<![CDATA[
+			insert into payment
+				value(
+					null,
+					#{paymentStatus},
+					#{paymentSystem},
+					#{orderNo}
+				)
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="orderAndOptionNo" parameterType="map">
+		<![CDATA[
+			insert into order_option
+				value(
+					null,
+					#{productOptionNo},
+					#{orderDetailNo}
+				)
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
 </mapper>

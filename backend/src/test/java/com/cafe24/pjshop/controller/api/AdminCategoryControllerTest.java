@@ -49,20 +49,25 @@ public class AdminCategoryControllerTest {
 	
 	// 카테고리 등록 Test
 	@Test
-	public void testAddCategory() throws Exception {
+	public void testAddParentCategory() throws Exception {
 		
 		// 부모 카테고리 없는 경우
-//		CategoryVo voMock1 = new CategoryVo(null, "상의", 1L, null, null);
-//		
-//		ResultActions resultActions = 
-//				mockMvc
-//				.perform(post("/api/admin/category")
-//				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock1)))
-//				.andExpect(status().isOk())
-//				.andDo(print());
+		CategoryVo voMock1 = new CategoryVo(null, "하의", 1L, null, null);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/admin/category")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock1)))
+				.andExpect(status().isOk())
+				.andDo(print());
+	
+	}	
+	
+	@Test
+	public void testAddChildCategory() throws Exception {
 		
 		// 부모 카테고리 있는 경우
-		CategoryVo voMock = new CategoryVo(null, "청바지", 2L, 1L, 1L);
+		CategoryVo voMock = new CategoryVo(null, "티셔츠", 2L, 1L, 1L);
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -71,6 +76,7 @@ public class AdminCategoryControllerTest {
 				.andExpect(status().isOk())
 				.andDo(print());
 	}	
+	
 	
 	// 카테고리 수정 Test
 	@Test

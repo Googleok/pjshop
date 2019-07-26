@@ -6,10 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cafe24.pjshop.dto.OrderDetailDto;
+import com.cafe24.pjshop.dto.OrderProductDto;
 import com.cafe24.pjshop.repository.OrderDao;
+import com.cafe24.pjshop.repository.ProductDao;
 import com.cafe24.pjshop.vo.OrderDetailVo;
 import com.cafe24.pjshop.vo.OrderVo;
 import com.cafe24.pjshop.vo.PaymentVo;
+import com.cafe24.pjshop.vo.ProductDetailVo;
+import com.cafe24.pjshop.vo.ProductVo;
 
 @Service
 public class OrderService {
@@ -17,6 +22,9 @@ public class OrderService {
 	@Autowired
 	private OrderDao orderDao;
 
+	@Autowired
+	private ProductDao productDao;
+	
 //	public OrderVo getOrderOne(String id) {
 //		OrderVo vo = new OrderVo(1L, "박종억", "1234", "01040287755", "whddjr2225@naver.com", "서울시 관악구",
 //				"2019-07-12", "빨리요!", 2500L, 185000L, 1L);
@@ -40,26 +48,51 @@ public class OrderService {
 		return newVo;
 	}
 
-	public OrderVo orderProduct(OrderVo vo) {
+	public OrderVo orderProduct(OrderVo orderVo) {
 		// 주문 저장 되고, 결제도 결제대기상태로 저장됨
-		return vo;
+		
+		// 주문처리 
+		boolean orderResult = orderDao.orderProduct(orderVo);
+		// 주문상세처리
+		boolean orderDetailResult = false;
+		boolean subProductCountResult = false;
+		boolean orderOptionResult = false;
+		if(orderResult) {
+			for (OrderProductDto orderProduct : orderVo.getOrderProductList()) {
+				OrderDetailDto orderDetailDto = productDao.getProductDetailByProductOptionNo(orderProduct.getProductOptionNo());
+				OrderDetailVo orderDetailVo = 
+						new OrderDetailVo(
+								null,
+								orderDetailDto.getName(),
+								orderDetailDto.getOptionValue(),
+								orderDetailDto.getPrice(),
+								"입금전",
+								orderProduct.getCount(),
+								orderVo.getNo());
+				
+				orderDetailResult = orderDao.detailOrderProduct(orderDetailVo);
+				// 상품재고 count
+				if(orderDetailResult) {
+					subProductCountResult = productDao.productCountUpdate(orderProduct.getProductOptionNo());
+				}
+				
+				// 주문 : 상품옵션 테이블에 추가
+				orderOptionResult = orderDao.orderAndOptionNo(orderProduct.getProductOptionNo(), orderDetailVo.getNo());
+			}
+			
+			// 결제상태
+			if(subProductCountResult) {
+				orderDao.orderPayment(new PaymentVo(null, false, "bank", orderVo.getNo()));
+			}
+		}
+		
+		
+		return orderVo;
 	}
 
 	public PaymentVo payOrder(Long no) {
-		PaymentVo newVo = null;
-		List<PaymentVo> list = new ArrayList<PaymentVo>();
-		list.add(new PaymentVo(1L, "결제대기", "카카오페이", 1L));
-		list.add(new PaymentVo(2L, "결제대기", "무통장입금", 2L));
-		list.add(new PaymentVo(3L, "결제대기", "신용카드", 3L));
-		
-		for(int i=0; i<list.size(); i++) {
-			if(list.get(i).getNo() == no) {
-				list.get(i).setPaymentStatus("결제완료");
-				// 결제완료 상태로 변경하면 이젠 배송상태도 변경시킨다.
-				newVo = list.get(i);
-			}
-		}
-		return newVo;
+	
+		return new PaymentVo();
 	}
 	
 	

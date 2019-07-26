@@ -1,5 +1,7 @@
 package com.cafe24.pjshop.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,7 @@ public class OrderController {
 		
 	@ApiOperation(value = "¡÷πÆ")
 	@PostMapping("")
-	public ResponseEntity<JSONResult> orderProduct(@RequestBody OrderVo orderVo) {
+	public ResponseEntity<JSONResult> orderProductOne(@RequestBody OrderVo orderVo) {
 		OrderVo vo = orderService.orderProduct(orderVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}

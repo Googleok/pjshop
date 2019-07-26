@@ -297,6 +297,20 @@
 	]]>
 	</select>
 	
+	<select id="getProductDetailByProductOptionNo" parameterType="long" resultType="orderDetailDto">
+	<![CDATA[
+		select a.name,
+			   b.option_value as optionValue,
+			  (a.price + b.additional_price) as price
+		from product a, product_option b
+		where a.no = b.product_no and b.no = #{value}; 	
+	]]>
+	</select>
 	
+	<update id="productCountUpdate" parameterType="long">
+	<![CDATA[
+		update product_option set product_count = product_count - 1 where no = #{value}
+	]]>
+	</update>
 	
 </mapper>

@@ -2,6 +2,8 @@ package com.cafe24.pjshop.vo;
 
 import java.util.List;
 
+import com.cafe24.pjshop.dto.OrderProductDto;
+
 public class OrderVo {
 
 	private Long no;
@@ -10,21 +12,22 @@ public class OrderVo {
 	private String phone;
 	private String email;
 	private String address;
-	private String shipping_message;
-	private String entrance_password;
+	private String shippingMessage;
+	private String entrancePassword;
 	private String regDate;
 	private Long shippingFee;
 	private Long totalPrice;
 	private Long userNo;
 	private Long productOptionNo;
-	private List<String> productOptionNoList;
+	private List<Long> productOptionNoList;
+	private List<OrderProductDto> orderProductList;
 	private Long productCount;
 	
 	public OrderVo() {
 	}
 
 	public OrderVo(Long no, String name, String password, String phone, String email, String address,
-			String shipping_message, String entrance_password, String regDate, Long shippingFee, Long totalPrice,
+			String shippingMessage, String entrancePassword, String regDate, Long shippingFee, Long totalPrice,
 			Long userNo) {
 		super();
 		this.no = no;
@@ -33,8 +36,8 @@ public class OrderVo {
 		this.phone = phone;
 		this.email = email;
 		this.address = address;
-		this.shipping_message = shipping_message;
-		this.entrance_password = entrance_password;
+		this.shippingMessage = shippingMessage;
+		this.entrancePassword = entrancePassword;
 		this.regDate = regDate;
 		this.shippingFee = shippingFee;
 		this.totalPrice = totalPrice;
@@ -42,8 +45,8 @@ public class OrderVo {
 	}
 
 	public OrderVo(Long no, String name, String password, String phone, String email, String address,
-			String shipping_message, String entrance_password, String regDate, Long shippingFee, Long totalPrice,
-			Long userNo, Long productOptionNo, List<String> productOptionNoList, Long productCount) {
+			String shippingMessage, String entrancePassword, String regDate, Long shippingFee, Long totalPrice,
+			Long userNo, Long productOptionNo, List<Long> productOptionNoList, List<OrderProductDto> orderProductList,Long productCount) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -51,18 +54,17 @@ public class OrderVo {
 		this.phone = phone;
 		this.email = email;
 		this.address = address;
-		this.shipping_message = shipping_message;
-		this.entrance_password = entrance_password;
+		this.shippingMessage = shippingMessage;
+		this.entrancePassword = entrancePassword;
 		this.regDate = regDate;
 		this.shippingFee = shippingFee;
 		this.totalPrice = totalPrice;
 		this.userNo = userNo;
 		this.productOptionNo = productOptionNo;
 		this.productOptionNoList = productOptionNoList;
+		this.orderProductList = orderProductList;
 		this.productCount = productCount;
 	}
-
-
 
 	public Long getNo() {
 		return no;
@@ -112,6 +114,22 @@ public class OrderVo {
 		this.address = address;
 	}
 
+	public String getShippingMessage() {
+		return shippingMessage;
+	}
+
+	public void setShippingMessage(String shippingMessage) {
+		this.shippingMessage = shippingMessage;
+	}
+
+	public String getEntrancePassword() {
+		return entrancePassword;
+	}
+
+	public void setEntrancePassword(String entrancePassword) {
+		this.entrancePassword = entrancePassword;
+	}
+
 	public String getRegDate() {
 		return regDate;
 	}
@@ -136,22 +154,6 @@ public class OrderVo {
 		this.totalPrice = totalPrice;
 	}
 
-	public String getShipping_message() {
-		return shipping_message;
-	}
-
-	public void setShipping_message(String shipping_message) {
-		this.shipping_message = shipping_message;
-	}
-
-	public String getEntrance_password() {
-		return entrance_password;
-	}
-
-	public void setEntrance_password(String entrance_password) {
-		this.entrance_password = entrance_password;
-	}
-
 	public Long getUserNo() {
 		return userNo;
 	}
@@ -163,17 +165,26 @@ public class OrderVo {
 	public Long getProductOptionNo() {
 		return productOptionNo;
 	}
-	
+
 	public void setProductOptionNo(Long productOptionNo) {
 		this.productOptionNo = productOptionNo;
 	}
 
-	public List<String> getProductOptionNoList() {
+	public List<Long> getProductOptionNoList() {
 		return productOptionNoList;
 	}
 
-	public void setProductOptionNoList(List<String> productOptionNoList) {
+	public void setProductOptionNoList(List<Long> productOptionNoList) {
 		this.productOptionNoList = productOptionNoList;
+	}
+	
+
+	public List<OrderProductDto> getOrderProductList() {
+		return orderProductList;
+	}
+
+	public void setOrderProductList(List<OrderProductDto> orderProductList) {
+		this.orderProductList = orderProductList;
 	}
 
 	public Long getProductCount() {
@@ -187,12 +198,12 @@ public class OrderVo {
 	@Override
 	public String toString() {
 		return "OrderVo [no=" + no + ", name=" + name + ", password=" + password + ", phone=" + phone + ", email="
-				+ email + ", address=" + address + ", shipping_message=" + shipping_message + ", entrance_password="
-				+ entrance_password + ", regDate=" + regDate + ", shippingFee=" + shippingFee + ", totalPrice="
+				+ email + ", address=" + address + ", shippingMessage=" + shippingMessage + ", entrancePassword="
+				+ entrancePassword + ", regDate=" + regDate + ", shippingFee=" + shippingFee + ", totalPrice="
 				+ totalPrice + ", userNo=" + userNo + ", productOptionNo=" + productOptionNo + ", productOptionNoList="
-				+ productOptionNoList + ", productCount=" + productCount + "]";
+				+ productOptionNoList + ", orderProductList=" + orderProductList + ", productCount=" + productCount
+				+ "]";
 	}
-
 
 	
 }

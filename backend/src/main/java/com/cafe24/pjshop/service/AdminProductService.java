@@ -46,15 +46,15 @@ public class AdminProductService {
 	// 상품등록
 	public Boolean addProduct(ProductVo productVo) {
 		// 상품 추가하기
-//		Long insertProductNo = adminProductDao.addProduct(productVo);
+		Long insertProductNo = adminProductDao.addProduct(productVo);
 		System.out.println("===============================================================");
-//		System.out.println(insertProductNo);
+		System.out.println(insertProductNo);
 		System.out.println("===============================================================");
 
 		// 상품이미지 등록
 		for (ProductImageVo vo : productVo.getProductImageList()) {
-//			vo.setProductNo(insertProductNo);
-//			adminProductDao.addProductImage(vo);
+			vo.setProductNo(insertProductNo);
+			adminProductDao.addProductImage(vo);
 		}
 
 		boolean optionValueResult = false;
@@ -68,9 +68,11 @@ public class AdminProductService {
 			optionValueResult = adminProductDao.addOptionValues(optionValueVoList);
 			// 옵션풀값을 한방에 넣기
 			optionResult = adminProductDao.addOptions(optionVoList);
+		
+			return optionValueResult && optionResult;
 		}
 
-		return optionValueResult && optionResult;
+		return insertProductNo != null;
 	}
 
 	// 상품등록 ajax

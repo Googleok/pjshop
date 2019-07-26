@@ -12,8 +12,7 @@ public class ProductDetailVo {
 	private Long count;
 	private String detail;
 	private Long shippingFee;
-	private String optionName;
-	private String optionValue;
+	private String option;
 	private String imageUrl;
 	private String imageRole;
 	public Long getNo() {
@@ -82,17 +81,11 @@ public class ProductDetailVo {
 	public void setShippingFee(Long shippingFee) {
 		this.shippingFee = shippingFee;
 	}
-	public String getOptionName() {
-		return optionName;
+	public String getOption() {
+		return option;
 	}
-	public void setOptionName(String optionName) {
-		this.optionName = optionName;
-	}
-	public String getOptionValue() {
-		return optionValue;
-	}
-	public void setOptionValue(String optionValue) {
-		this.optionValue = optionValue;
+	public void setOption(String option) {
+		this.option = option;
 	}
 	public String getImageUrl() {
 		return imageUrl;
@@ -111,9 +104,10 @@ public class ProductDetailVo {
 		return "ProductDetailVo [no=" + no + ", name=" + name + ", price=" + price + ", regDate=" + regDate
 				+ ", exhibitionAvailability=" + exhibitionAvailability + ", optionAvailability=" + optionAvailability
 				+ ", sailsStatus=" + sailsStatus + ", exhibitionRank=" + exhibitionRank + ", count=" + count
-				+ ", detail=" + detail + ", shippingFee=" + shippingFee + ", optionName=" + optionName
-				+ ", optionValue=" + optionValue + ", imageUrl=" + imageUrl + ", imageRole=" + imageRole + "]";
+				+ ", detail=" + detail + ", shippingFee=" + shippingFee + ", option=" + option + ", imageUrl="
+				+ imageUrl + ", imageRole=" + imageRole + "]";
 	}
+	
 	
 	
 
