@@ -17,7 +17,7 @@ public class OrderVo {
 	private String regDate;
 	private Long shippingFee;
 	private Long totalPrice;
-	private Long userNo;
+	private Long userNo = 1000L;
 	private Long productOptionNo;
 	private List<Long> productOptionNoList;
 	private List<OrderProductDto> orderProductList;
@@ -44,6 +44,23 @@ public class OrderVo {
 		this.userNo = userNo;
 	}
 
+	public OrderVo(Long no, String name, String password, String phone, String email, String address,
+			String shippingMessage, String entrancePassword, String regDate, Long shippingFee, Long totalPrice) {
+		super();
+		this.no = no;
+		this.name = name;
+		this.password = password;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.shippingMessage = shippingMessage;
+		this.entrancePassword = entrancePassword;
+		this.regDate = regDate;
+		this.shippingFee = shippingFee;
+		this.totalPrice = totalPrice;
+	}
+
+	
 	public OrderVo(Long no, String name, String password, String phone, String email, String address,
 			String shippingMessage, String entrancePassword, String regDate, Long shippingFee, Long totalPrice,
 			Long userNo, Long productOptionNo, List<Long> productOptionNoList, List<OrderProductDto> orderProductList,Long productCount) {

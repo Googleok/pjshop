@@ -35,12 +35,12 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	
-//	@ApiOperation(value = "주문 하나")
-//	@GetMapping("/{id}")
-//	public ResponseEntity<JSONResult> getOrderOne(@PathVariable("id") String id){
-//		OrderVo vo = orderService.getOrderOne(id);
-//		return  ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
-//	}
+	@ApiOperation(value = "주문 하나")
+	@GetMapping("/{no}")
+	public ResponseEntity<JSONResult> getOrderOneByNo(@PathVariable("no") Long no){
+		OrderVo vo = orderService.getOrderOneByNo(no);
+		return  ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+	}
 	
 	@ApiOperation(value = "주문상세정보")
 	@GetMapping("/detail/{no}")

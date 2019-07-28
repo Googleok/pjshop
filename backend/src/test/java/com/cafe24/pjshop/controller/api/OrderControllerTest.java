@@ -41,6 +41,18 @@ public class OrderControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 
+	// 주문내역  요청 Test (회원no)
+	@Test
+	public void testGetOrderOneByNo() throws Exception {
+		
+		Long no = 1L;
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/order/{no}", no))
+				.andExpect(status().isOk())
+				.andDo(print());
+	}
+
 	// 주문내역  요청 Test (id)
 	@Test
 	public void testGetOrderOneById() throws Exception {
@@ -52,18 +64,6 @@ public class OrderControllerTest {
 				.andExpect(status().isOk())
 				.andDo(print());
 	}	
-	
-	// 주문내역  요청 Test (회원no)
-	@Test
-	public void testGetOrderOneByNo() throws Exception {
-
-		Long no = 1L;
-		ResultActions resultActions = 
-				mockMvc
-				.perform(get("/api/order/{no}", no))
-				.andExpect(status().isOk())
-				.andDo(print());
-	}
 	
 	// 상세주문  요청 Test
 	@Test
@@ -79,8 +79,8 @@ public class OrderControllerTest {
 	
 	// 회원상품주문 바로주문하기 Test
 	@Test
-	public void testProductOrder() throws Exception {
-		Long authUser = 2L;
+	public void testProductOrderByUser() throws Exception {
+		Long authUser = 1L;
 		List<OrderProductDto> productOptionList = new ArrayList<OrderProductDto>();
 		OrderProductDto orderProductDto1 = new OrderProductDto(6L, 3L);
 		OrderProductDto orderProductDto2 = new OrderProductDto(5L, 3L);
@@ -90,6 +90,28 @@ public class OrderControllerTest {
 		productOptionList.add(orderProductDto3);
 		// 회원 이름, 이메일, 폰번호, 주소지 가져오기
 		OrderVo voMock = new OrderVo(null, "박종억", null, "01040287755", "whddjr2225@naver.com", "서울시 관악구", "빨리요", "#1234*", "2019-07-12", 2500L, 185000L, authUser);
+		voMock.setOrderProductList(productOptionList);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/order")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+				.andExpect(status().isOk())
+				.andDo(print());
+	}
+	
+	// 비회원 상품주문 Test
+	@Test
+	public void testProductOrderByNonUser() throws Exception {
+		List<OrderProductDto> productOptionList = new ArrayList<OrderProductDto>();
+		OrderProductDto orderProductDto1 = new OrderProductDto(6L, 3L);
+		OrderProductDto orderProductDto2 = new OrderProductDto(5L, 3L);
+		OrderProductDto orderProductDto3 = new OrderProductDto(4L, 3L);
+		productOptionList.add(orderProductDto1);
+		productOptionList.add(orderProductDto2);
+		productOptionList.add(orderProductDto3);
+		// 회원 이름, 이메일, 폰번호, 주소지 가져오기
+		OrderVo voMock = new OrderVo(null, "박종억", "1234", "01040287755", "whddjr2225@naver.com", "서울시 관악구", "빨리요", "#1234*", "2019-07-12", 2500L, 185000L, null);
 		voMock.setOrderProductList(productOptionList);
 		
 		ResultActions resultActions = 

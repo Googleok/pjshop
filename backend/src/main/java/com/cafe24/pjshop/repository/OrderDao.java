@@ -35,4 +35,8 @@ public class OrderDao {
 		map.put("orderDetailNo", orderDetailNo);
 		return sqlSession.insert("order.orderAndOptionNo", map) == 1;
 	}
+
+	public OrderVo getOrderOneByNo(Long no) {
+		return sqlSession.selectOne("order.getOrderOneByNo", no);
+	}
 }

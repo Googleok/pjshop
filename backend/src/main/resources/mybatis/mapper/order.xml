@@ -74,4 +74,22 @@
 			select last_insert_id()
 		</selectKey>
 	</insert>
+	
+	<select id="getOrderOneByNo" parameterType="long" resultType="orderVo">
+		<![CDATA[
+			select  no,
+					convert(AES_DECRYPT(name, SHA2('7755', 512))using utf8) as name,
+					convert(AES_DECRYPT(phone, SHA2('7755', 512))using utf8) as phone,
+					convert(AES_DECRYPT(email, SHA2('7755', 512))using utf8) as email,
+					convert(AES_DECRYPT(address, SHA2('7755', 512))using utf8) as address,
+					shipping_message as shippingMessage,
+					convert(AES_DECRYPT(entrance_password, SHA2('7755', 512))using utf8) as address,
+					reg_date as regDate,
+					shipping_fee as shippingFee,
+					total_price as totalPrice,
+					user_no as userNo
+			from product_order
+			where no = #{no}
+		]]>
+	</select>
 </mapper>

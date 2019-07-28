@@ -50,8 +50,12 @@ public class UserControllerTest {
 		UserVo voMock = new UserVo(null, "whddjr2225", "Whddjr129", "박종억", "01040287755", "whddjr2225@naver.com",
 				"1993-11-02", "male", "admin");
 
+		UserVo voMock2 = new UserVo(null, "nonuser", "Nonuser123", "비회원", "01040287755", "whddjr2225@naver.com",
+				"1993-11-02", "male", "user");
+
+		
 		ResultActions resultActions = mockMvc.perform(
-				post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+				post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock2)))
 				.andExpect(status().isOk()).andDo(print());
 	}
 

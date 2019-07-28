@@ -53,6 +53,7 @@ public class OrderService {
 		
 		// 林巩贸府 
 		boolean orderResult = orderDao.orderProduct(orderVo);
+		System.out.println(orderVo.getNo());
 		// 林巩惑技贸府
 		boolean orderDetailResult = false;
 		boolean subProductCountResult = false;
@@ -93,6 +94,10 @@ public class OrderService {
 	public PaymentVo payOrder(Long no) {
 	
 		return new PaymentVo();
+	}
+
+	public OrderVo getOrderOneByNo(Long no) {
+		return orderDao.getOrderOneByNo(no);
 	}
 	
 	
