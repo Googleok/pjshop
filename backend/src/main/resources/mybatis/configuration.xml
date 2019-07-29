@@ -20,7 +20,7 @@
 		<typeAlias alias="addressVo" type="com.cafe24.pjshop.vo.AddressVo"/>
 		<typeAlias alias="orderVo" type="com.cafe24.pjshop.vo.OrderVo"/>
 		<typeAlias alias="orderDetailDto" type="com.cafe24.pjshop.dto.OrderDetailDto"/>
-		<typeAlias alias="orderDetailVo" type="com.cafe24.pjshop.dto.OrderDetailDto"/>
+		<typeAlias alias="orderDetailVo" type="com.cafe24.pjshop.vo.OrderDetailVo"/>
 		<typeAlias alias="paymentVo" type="com.cafe24.pjshop.vo.PaymentVo"/>
 	</typeAliases>
 	<mappers>

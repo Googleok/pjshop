@@ -84,7 +84,7 @@ public class AdminProductControllerTest {
 		// 옵션 없는거
 		ProductVo voMock = new ProductVo(null, "찢어진 청바지", 30000L, null, true,
 				false, true, 1L, 400L, "vintage.html",
-				2500L, 4L);
+				2500L, 3L);
 	
 		List<ProductImageVo> productImageList = new ArrayList<ProductImageVo>();
 		ProductImageVo productImageVoMock1 = new ProductImageVo(null, null, "https://image1", "main");
@@ -123,11 +123,11 @@ public class AdminProductControllerTest {
 		optionNameList.add(optionNameVoMock2);
 
 		List<OptionValueVo> optionValueList = new ArrayList<OptionValueVo>();
-		OptionValueVo optionValueVoMock1 = new OptionValueVo(null, 1L, "블랙", 3L);
-		OptionValueVo optionValueVoMock2 = new OptionValueVo(null, 1L, "화이트", 3L);
-		OptionValueVo optionValueVoMock3 = new OptionValueVo(null, 2L, "L", 3L);
-		OptionValueVo optionValueVoMock4 = new OptionValueVo(null, 2L, "M", 3L);
-		OptionValueVo optionValueVoMock5 = new OptionValueVo(null, 2L, "S", 3L);
+		OptionValueVo optionValueVoMock1 = new OptionValueVo(null, 1L, "블랙", null);
+		OptionValueVo optionValueVoMock2 = new OptionValueVo(null, 1L, "화이트", null);
+		OptionValueVo optionValueVoMock3 = new OptionValueVo(null, 2L, "L", null);
+		OptionValueVo optionValueVoMock4 = new OptionValueVo(null, 2L, "M", null);
+		OptionValueVo optionValueVoMock5 = new OptionValueVo(null, 2L, "S", null);
 		optionValueList.add(optionValueVoMock1);
 		optionValueList.add(optionValueVoMock2);
 		optionValueList.add(optionValueVoMock3);
@@ -136,12 +136,12 @@ public class AdminProductControllerTest {
 		
 		List<OptionVo> optionList = new ArrayList<OptionVo>();
 		
-		OptionVo optionVoMock1 = new OptionVo(null, "블랙/L", true, 100L, 1500L, 3L);
-		OptionVo optionVoMock2 = new OptionVo(null, "블랙/M", true, 100L, 1500L, 3L);
-		OptionVo optionVoMock3 = new OptionVo(null, "블랙/S", true, 100L, 1500L, 3L);
-		OptionVo optionVoMock4 = new OptionVo(null, "화이트/L", true, 100L, 1500L, 3L);
-		OptionVo optionVoMock5 = new OptionVo(null, "화이트/M", true, 100L, 1500L, 3L);
-		OptionVo optionVoMock6 = new OptionVo(null, "화이트/S", true, 100L, 1500L, 3L);
+		OptionVo optionVoMock1 = new OptionVo(null, "블랙/L", true, 100L, 1500L, null);
+		OptionVo optionVoMock2 = new OptionVo(null, "블랙/M", true, 100L, 1500L, null);
+		OptionVo optionVoMock3 = new OptionVo(null, "블랙/S", true, 100L, 1500L, null);
+		OptionVo optionVoMock4 = new OptionVo(null, "화이트/L", true, 100L, 1500L, null);
+		OptionVo optionVoMock5 = new OptionVo(null, "화이트/M", true, 100L, 1500L, null);
+		OptionVo optionVoMock6 = new OptionVo(null, "화이트/S", true, 100L, 1500L, null);
 		
 		optionList.add(optionVoMock1);
 		optionList.add(optionVoMock2);
@@ -160,7 +160,7 @@ public class AdminProductControllerTest {
 		
 		ProductVo voMock = new ProductVo(null, "아디다스티", 40000L, null, true,
 				true, true, 1L, 600L, "nike.html",
-				2500L, 3L);
+				2500L, 4L);
 		voMock.setOptionValueList(optionValueList);
 		voMock.setOptionList(optionList);
 		voMock.setProductImageList(productImageList);

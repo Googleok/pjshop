@@ -42,17 +42,29 @@ public class OrderControllerTest {
 	}
 
 	// 주문내역  요청 Test (회원no)
+//	@Test
+//	public void testGetOrderOneByNo() throws Exception {
+//		
+//		Long no = 1L;
+//		ResultActions resultActions = 
+//				mockMvc
+//				.perform(get("/api/order/{no}", no))
+//				.andExpect(status().isOk())
+//				.andDo(print());
+//	}
+
+	// 주문내역  요청 Test (회원no)
 	@Test
-	public void testGetOrderOneByNo() throws Exception {
+	public void testGetOrderOneByUserNo() throws Exception {
 		
-		Long no = 1L;
+		Long userNo = 1L;
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/order/{no}", no))
+				.perform(get("/api/order/{userno}", userNo))
 				.andExpect(status().isOk())
 				.andDo(print());
 	}
-
+	
 	// 주문내역  요청 Test (id)
 	@Test
 	public void testGetOrderOneById() throws Exception {

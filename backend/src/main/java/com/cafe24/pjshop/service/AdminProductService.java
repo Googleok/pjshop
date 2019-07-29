@@ -65,9 +65,9 @@ public class AdminProductService {
 			List<OptionVo> optionVoList = productVo.getOptionList();
 			
 			// 옵션밸류를 한방에 넣기
-			optionValueResult = adminProductDao.addOptionValues(optionValueVoList);
+			optionValueResult = adminProductDao.addOptionValues(optionValueVoList, insertProductNo);
 			// 옵션풀값을 한방에 넣기
-			optionResult = adminProductDao.addOptions(optionVoList);
+			optionResult = adminProductDao.addOptions(optionVoList, insertProductNo);
 		
 			return optionValueResult && optionResult;
 		}

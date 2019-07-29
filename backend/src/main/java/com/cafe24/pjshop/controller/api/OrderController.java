@@ -28,17 +28,24 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 		
-	@ApiOperation(value = "주문")
+	@ApiOperation(value = "주문신청")
 	@PostMapping("")
 	public ResponseEntity<JSONResult> orderProductOne(@RequestBody OrderVo orderVo) {
 		OrderVo vo = orderService.orderProduct(orderVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	
+//	@ApiOperation(value = "주문 하나")
+//	@GetMapping("/{no}")
+//	public ResponseEntity<JSONResult> getOrderOneByNo(@PathVariable("no") Long no){
+//		OrderVo vo = orderService.getOrderOneByNo(no);
+//		return  ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+//	}
+	
 	@ApiOperation(value = "주문 하나")
-	@GetMapping("/{no}")
-	public ResponseEntity<JSONResult> getOrderOneByNo(@PathVariable("no") Long no){
-		OrderVo vo = orderService.getOrderOneByNo(no);
+	@GetMapping("/{userno}")
+	public ResponseEntity<JSONResult> getOrderOneByUserNo(@PathVariable("userno") Long userNo){
+		List<OrderVo> vo = orderService.getOrderOneByUserNo(userNo);
 		return  ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	

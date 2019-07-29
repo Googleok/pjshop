@@ -104,12 +104,18 @@ public class AdminProductDao {
 		return sqlSession.selectList("product.getProductSearchList", searchDto);
 	}
 
-	public boolean addOptionValues(List<OptionValueVo> optionValueVoList) {
-		return sqlSession.insert("option.addOptionValues", optionValueVoList) == optionValueVoList.size();
+	public boolean addOptionValues(List<OptionValueVo> optionValueVoList, Long insertProductNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", optionValueVoList);
+		map.put("productNo", insertProductNo);
+		return sqlSession.insert("option.addOptionValues", map) == optionValueVoList.size();
 	}
 
-	public boolean addOptions(List<OptionVo> optionVoList) {
-		return sqlSession.insert("option.addOptions", optionVoList) == optionVoList.size();
+	public boolean addOptions(List<OptionVo> optionVoList, Long insertProductNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", optionVoList);
+		map.put("productNo", insertProductNo);
+		return sqlSession.insert("option.addOptions", map) == optionVoList.size();
 	}
 
 	public boolean addOption(OptionVo vo) {

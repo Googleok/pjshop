@@ -52,7 +52,7 @@ public class AdminCategoryControllerTest {
 	public void testAddParentCategory() throws Exception {
 		
 		// 부모 카테고리 없는 경우
-		CategoryVo voMock1 = new CategoryVo(null, "아우터", 1L, null, null);
+		CategoryVo voMock1 = new CategoryVo(null, "하의", 1L, null, null);
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -67,7 +67,7 @@ public class AdminCategoryControllerTest {
 	public void testAddChildCategory() throws Exception {
 		
 		// 부모 카테고리 있는 경우
-		CategoryVo voMock = new CategoryVo(null, "청바지", 2L, 2L, 2L);
+		CategoryVo voMock = new CategoryVo(null, "티셔츠", 2L, 1L, 1L);
 		
 		ResultActions resultActions = 
 				mockMvc

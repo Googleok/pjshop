@@ -1,6 +1,7 @@
 package com.cafe24.pjshop.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -38,5 +39,13 @@ public class OrderDao {
 
 	public OrderVo getOrderOneByNo(Long no) {
 		return sqlSession.selectOne("order.getOrderOneByNo", no);
+	}
+
+	public List<OrderVo> getOrderOneByUserNo(Long userNo) {
+		return sqlSession.selectList("order.getOrderByUserNo", userNo);
+	}
+
+	public OrderDetailVo getOrderDetail(Long no) {
+		return sqlSession.selectOne("order.getOrderDetail", no);
 	}
 }
