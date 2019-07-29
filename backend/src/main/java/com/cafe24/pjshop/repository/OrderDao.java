@@ -52,4 +52,12 @@ public class OrderDao {
 	public Boolean payOrder(Long no) {
 		return sqlSession.update("order.payOrder", no) == 1;
 	}
+
+	public List<OrderDetailVo> getOrderDetailList(Long no) {
+		return sqlSession.selectList("order.getOrderDetailList", no);
+	}
+
+	public boolean orderDepositCheck(Long no) {
+		return sqlSession.update("order.orderDepositCheck", no) >= 1;
+	}
 }

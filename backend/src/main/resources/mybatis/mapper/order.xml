@@ -125,7 +125,96 @@
 		]]>
 	</select>
 	
+	<select id="getOrderDetailList" parameterType="long" resultType="orderDetailVo">
+		<![CDATA[
+			select  no,
+					product_name as productName, 
+					options,
+					product_price as productPrice,
+					shipping_status as shippingStatus,
+					count,
+					order_no as orderNo
+			from order_detail
+			where order_no = #{no}
+		]]>
+	</select>
+	
 	<update id="payOrder" parameterType="long">
 		update payment set payment_status = 1 where order_no = #{no}
 	</update>
+	
+	<select id="getOrderList" resultType="orderVo">
+		<![CDATA[
+			select  no,
+					convert(AES_DECRYPT(name, SHA2('7755', 512))using utf8) as name,
+					convert(AES_DECRYPT(phone, SHA2('7755', 512))using utf8) as phone,
+					convert(AES_DECRYPT(email, SHA2('7755', 512))using utf8) as email,
+					convert(AES_DECRYPT(address, SHA2('7755', 512))using utf8) as address,
+					shipping_message as shippingMessage,
+					convert(AES_DECRYPT(entrance_password, SHA2('7755', 512))using utf8) as address,
+					reg_date as regDate,
+					shipping_fee as shippingFee,
+					total_price as totalPrice,
+					user_no as userNo
+			from product_order
+		]]>
+	</select>
+	
+	<update id="orderDepositCheck" parameterType="long">
+		<![CDATA[
+			update order_detail set shipping_status = '배송준비중' where order_no = #{no}
+		]]>
+	</update>
+	
+	<update id="orderDeliveryDepartureCheck" parameterType="long">
+		<![CDATA[
+			update order_detail set shipping_status = '배송중' where order_no = #{no}
+		]]>
+	</update>
+	
+	<update id="orderDeliveryCompleteCheck" parameterType="long">
+		<![CDATA[
+			update order_detail set shipping_status = '배송완료' where order_no = #{no}
+		]]>
+	</update>
+	
+	<select id="getOrderSearchList" parameterType="searchDto" resultType="orderVo">
+		<![CDATA[
+			select  no,
+					convert(AES_DECRYPT(name, SHA2('7755', 512))using utf8) as name,
+					convert(AES_DECRYPT(phone, SHA2('7755', 512))using utf8) as phone,
+					convert(AES_DECRYPT(email, SHA2('7755', 512))using utf8) as email,
+					convert(AES_DECRYPT(address, SHA2('7755', 512))using utf8) as address,
+					shipping_message as shippingMessage,
+					convert(AES_DECRYPT(entrance_password, SHA2('7755', 512))using utf8) as address,
+					reg_date as regDate,
+					shipping_fee as shippingFee,
+					total_price as totalPrice,
+					user_no as userNo
+			from product_order
+		]]>
+		<if test="'name'.equals(menu)">
+			where name like CONCAT('%', AES_ENCRYPT(#{keyword}, SHA2('7755',512)), '%')
+		</if>
+	
+		<if test="'no'.equals(menu)">
+			where no like CONCAT('%', #{keyword}, '%')
+		</if>
+		
+		<if test="'phone'.equals(menu)">
+			where phone like CONCAT('%', AES_ENCRYPT(#{keyword}, SHA2('7755',512)), '%')
+		</if>
+		
+		<if test="'email'.equals(menu)">
+			where email like CONCAT('%', AES_ENCRYPT(#{keyword}, SHA2('7755',512)), '%')
+		</if>
+		
+		<if test="'address'.equals(menu)">
+			where role like CONCAT('%', AES_ENCRYPT(#{keyword}, SHA2('7755',512)), '%')
+		</if>
+		
+		<if test="'userNo'.equals(menu)">
+			where user_no like CONCAT('%', AES_ENCRYPT(#{keyword}, SHA2('7755',512)), '%')
+		</if>
+	</select>
 </mapper>

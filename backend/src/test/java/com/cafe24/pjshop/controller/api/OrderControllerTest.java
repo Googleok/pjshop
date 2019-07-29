@@ -81,10 +81,22 @@ public class OrderControllerTest {
 	@Test
 	public void testGetOrderDetail() throws Exception {
 
+		Long detailOrderNo = 2L;
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/order/detail/{no}", detailOrderNo))
+				.andExpect(status().isOk())
+				.andDo(print());
+	}	
+	
+	// 상세주문리스트 리스트
+	@Test
+	public void testGetOrderDetailList() throws Exception {
+
 		Long orderNo = 2L;
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/order/detail/{no}", orderNo))
+				.perform(get("/api/order/detail/list/{no}", orderNo))
 				.andExpect(status().isOk())
 				.andDo(print());
 	}	
@@ -171,7 +183,7 @@ public class OrderControllerTest {
 	// 상품결제 Test
 	@Test
 	public void testPayOrder() throws Exception {
-		Long orderNo = 2L;
+		Long orderNo = 1L;
 		
 		ResultActions resultActions = 
 				mockMvc

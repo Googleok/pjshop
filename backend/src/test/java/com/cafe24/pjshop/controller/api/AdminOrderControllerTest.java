@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.pjshop.config.test.WebConfig;
+import com.cafe24.pjshop.dto.SearchDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {WebConfig.class})
@@ -33,7 +34,6 @@ public class AdminOrderControllerTest {
 	}
 
 	// 주문리스트  요청 Test
-	@Ignore
 	@Test
 	public void testGetOrderList() throws Exception {
 		ResultActions resultActions = 
@@ -41,11 +41,9 @@ public class AdminOrderControllerTest {
 				.perform(get("/api/admin/order"))
 				.andExpect(status().isOk())
 				.andDo(print());
-
 	}
 	
 	// 주문한개  요청 Test
-	@Ignore
 	@Test
 	public void testGetOrderOne() throws Exception {
 
@@ -58,20 +56,30 @@ public class AdminOrderControllerTest {
 	}	
 	
 	// 상세주문  요청 Test
-	@Ignore
 	@Test
 	public void testGetOrderDetail() throws Exception {
+
+		Long detailOrderNo = 2L;
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/admin/order/detail/{no}", detailOrderNo))
+				.andExpect(status().isOk())
+				.andDo(print());
+	}	
+	
+	// 상세주문리스트  요청 Test
+	@Test
+	public void testGetOrderDetailList() throws Exception {
 
 		Long orderNo = 2L;
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/admin/order/detail/{no}", orderNo))
+				.perform(get("/api/admin/order/detail/list/{no}", orderNo))
 				.andExpect(status().isOk())
 				.andDo(print());
 	}	
 	
 	// 입금확인체크  Test
-	@Ignore
 	@Test
 	public void testOrderDepositCheck() throws Exception {
 		Long orderDetailNo = 1L;
@@ -84,29 +92,38 @@ public class AdminOrderControllerTest {
 	}	
 	
 	// 배송출발체크  Test
-	@Ignore
 	@Test
 	public void testOrderDeliveryCheck() throws Exception {
-		Long orderDetailNo = 1L;
+		Long orderNo = 1L;
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(put("/api/admin/order/deliverycheck/{orderDetailNo}", orderDetailNo))
+				.perform(put("/api/admin/order/deliverydeparturecheck/{orderNo}", orderNo))
+				.andExpect(status().isOk())
+				.andDo(print());
+	}	
+	
+	// 배송완료체크  Test
+	@Test
+	public void testOrderDeliveryCompleteCheck() throws Exception {
+		Long orderNo = 1L;
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(put("/api/admin/order/deliverycompletecheck/{orderNo}", orderNo))
 				.andExpect(status().isOk())
 				.andDo(print());
 	}	
 	
 	// 주문검색리스트  요청 Test
-	@Ignore
 	@Test
 	public void testGetOrderSearchList() throws Exception {
-		String keyword = "01040287755";
+		SearchDto searchDto = new SearchDto("phone", "01040287755");
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/admin/order/search?keyword={keyword}", keyword))
+				.perform(get("/api/admin/order/search?menu={menu}&keyword={keyword}", searchDto.getMenu(), searchDto.getKeyword()))
 				.andExpect(status().isOk())
 				.andDo(print());
-
 	}
 	
 }

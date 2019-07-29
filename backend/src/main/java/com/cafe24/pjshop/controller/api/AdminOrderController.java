@@ -36,8 +36,8 @@ public class AdminOrderController {
 	@ApiOperation(value = "주문 하나")
 	@GetMapping("/{no}")
 	public ResponseEntity<JSONResult> getOrderOne(@PathVariable("no") Long no){
-//		OrderVo vo = adminService.getOrderOne(no);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
+		OrderVo vo = adminService.getOrderOne(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	
 	@ApiOperation(value = "상세주문")
@@ -46,25 +46,41 @@ public class AdminOrderController {
 		OrderDetailVo vo = adminService.getOrderDetail(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
+	
+	@ApiOperation(value = "상세주문")
+	@GetMapping("/detail/list/{no}")
+	public ResponseEntity<JSONResult> getOrderDetailList(@PathVariable("no") Long no){
+		List<OrderDetailVo> vo = adminService.getOrderDetailList(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+	}
 
-	@ApiOperation(value = "입금확인")
+	@ApiOperation(value = "입금체크")
 	@PutMapping("/depositcheck/{no}")
 	public ResponseEntity<JSONResult> orderDepositCheck(@PathVariable("no") Long no){
-		OrderDetailVo newVo = adminService.orderDepositCheck(no);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(newVo));
+		Boolean result = adminService.orderDepositCheck(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 	
-	@ApiOperation(value = "배송출발")
-	@PutMapping("/deliverycheck/{no}")
-	public ResponseEntity<JSONResult> orderDeliveryCheck(@PathVariable("no") Long no){
-		OrderDetailVo newVo = adminService.orderDeliveryCheck(no);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(newVo));
+	@ApiOperation(value = "배송출발체크")
+	@PutMapping("/deliverydeparturecheck/{no}")
+	public ResponseEntity<JSONResult> orderDeliveryDepartureCheck(@PathVariable("no") Long no){
+		Boolean result = adminService.orderDeliveryDepartureCheck(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
+	@ApiOperation(value = "배송완료체크")
+	@PutMapping("/deliverycompletecheck/{no}")
+	public ResponseEntity<JSONResult> orderDeliveryCompleteCheck(@PathVariable("no") Long no){
+		Boolean result = adminService.orderDeliveryCompleteCheck(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 	
 	@ApiOperation(value = "주문검색")
 	@GetMapping("/search")
-	public ResponseEntity<JSONResult> getOrderSearchList(@RequestParam(value = "keyword") String keyword){
-		List<OrderVo> list = adminService.getOrderSearchList(keyword);
+	public ResponseEntity<JSONResult> getOrderSearchList(
+			@RequestParam(value = "menu") String menu,
+			@RequestParam(value = "keyword") String keyword){
+		List<OrderVo> list = adminService.getOrderSearchList(menu, keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	

@@ -80,8 +80,8 @@ public class OrderService {
 	}
 
 	public Boolean payOrder(Long no) {
-	
-		return orderDao.payOrder(no);
+		
+		return orderDao.payOrder(no) ? orderDao.orderDepositCheck(no) : false;
 	}
 
 	public OrderVo getOrderOneByNo(Long no) {
@@ -90,6 +90,10 @@ public class OrderService {
 
 	public List<OrderVo> getOrderOneByUserNo(Long userNo) {
 		return orderDao.getOrderOneByUserNo(userNo);
+	}
+
+	public List<OrderDetailVo> getOrderDetailList(Long no) {
+		return orderDao.getOrderDetailList(no);
 	}
 	
 	
