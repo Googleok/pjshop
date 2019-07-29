@@ -124,4 +124,8 @@
 			where no = #{no}
 		]]>
 	</select>
+	
+	<update id="payOrder" parameterType="long">
+		update payment set payment_status = 1 where order_no = #{no}
+	</update>
 </mapper>

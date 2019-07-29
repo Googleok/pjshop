@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.pjshop.dto.OrderDetailDto;
@@ -78,9 +79,9 @@ public class OrderService {
 		return orderVo;
 	}
 
-	public PaymentVo payOrder(Long no) {
+	public Boolean payOrder(Long no) {
 	
-		return new PaymentVo();
+		return orderDao.payOrder(no);
 	}
 
 	public OrderVo getOrderOneByNo(Long no) {

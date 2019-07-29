@@ -168,23 +168,6 @@ public class OrderControllerTest {
 				.andDo(print());
 	}
 
-	
-	// 장바구니 상품주문 Test
-	@Test
-	public void testProductOrderFromCart() throws Exception {
-		Long authUser = 1L;
-		OrderVo voMock = new OrderVo();
-		
-		ResultActions resultActions = 
-				mockMvc
-				.perform(post("/api/order")
-						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
-				.andExpect(status().isOk())
-				.andDo(print());
-	}
-	
-	
-	
 	// 상품결제 Test
 	@Test
 	public void testPayOrder() throws Exception {
@@ -192,7 +175,7 @@ public class OrderControllerTest {
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(put("/api/order/payment/{orderNo}", orderNo))
+				.perform(put("/api/order/payment/{no}", orderNo))
 				.andExpect(status().isOk())
 				.andDo(print());
 	}

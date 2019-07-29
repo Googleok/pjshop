@@ -48,4 +48,8 @@ public class OrderDao {
 	public OrderDetailVo getOrderDetail(Long no) {
 		return sqlSession.selectOne("order.getOrderDetail", no);
 	}
+
+	public Boolean payOrder(Long no) {
+		return sqlSession.update("order.payOrder", no) == 1;
+	}
 }

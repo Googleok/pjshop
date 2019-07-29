@@ -59,8 +59,8 @@ public class OrderController {
 	@ApiOperation(value = "결제정보")
 	@PutMapping("/payment/{no}")
 	public ResponseEntity<JSONResult> payOrder(@PathVariable("no") Long no) {
-		 PaymentVo vo = orderService.payOrder(no);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+		 Boolean result = orderService.payOrder(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 }
 
