@@ -64,8 +64,10 @@ public class UserControllerTest {
 
 		String userEmail = "whddjr2225@naver.com";
 
-		ResultActions resultActions = mockMvc.perform(get("/api/user/checkemail?email={email}", userEmail))
-				.andExpect(status().isOk()).andDo(print());
+		ResultActions resultActions =
+				mockMvc.perform(get("/api/user/checkemail?email={email}", userEmail))
+					.andExpect(status().isOk())
+					.andDo(print());
 
 	}
 
@@ -133,7 +135,7 @@ public class UserControllerTest {
 	}
 	
 	@Test
-	public void testModify() throws Exception {
+	public void testUserModify() throws Exception {
 		UserVo voMock = new UserVo();
 		voMock.setName("╧за╬╬О");
 		voMock.setEmail("qkrwhddjr3@gmail.com");

@@ -56,14 +56,14 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	
-	@ApiOperation(value = "주문상세정보")
+	@ApiOperation(value = "주문상세정보 리스트")
 	@GetMapping("/detail/list/{no}")
 	public ResponseEntity<JSONResult> getOrderDetailList(@PathVariable("no") Long no){
 		List<OrderDetailVo> voList = orderService.getOrderDetailList(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(voList));
 	}
 	
-	@ApiOperation(value = "결제정보")
+	@ApiOperation(value = "결제요청")
 	@PutMapping("/payment/{no}")
 	public ResponseEntity<JSONResult> payOrder(@PathVariable("no") Long no) {
 		 Boolean result = orderService.payOrder(no);

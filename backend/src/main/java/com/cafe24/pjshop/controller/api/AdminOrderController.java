@@ -40,14 +40,14 @@ public class AdminOrderController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	
-	@ApiOperation(value = "상세주문")
+	@ApiOperation(value = "상세주문 하나")
 	@GetMapping("/detail/{no}")
 	public ResponseEntity<JSONResult> getOrderDetail(@PathVariable("no") Long no){
 		OrderDetailVo vo = adminService.getOrderDetail(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	
-	@ApiOperation(value = "상세주문")
+	@ApiOperation(value = "상세주문 리스트")
 	@GetMapping("/detail/list/{no}")
 	public ResponseEntity<JSONResult> getOrderDetailList(@PathVariable("no") Long no){
 		List<OrderDetailVo> vo = adminService.getOrderDetailList(no);

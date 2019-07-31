@@ -58,7 +58,6 @@ public class UserController {
 		}
 
 		boolean returnResult = userService.join(vo);
-		System.out.println("returnResult : " + returnResult);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(returnResult));
 	}
 

@@ -183,7 +183,7 @@ public class OrderControllerTest {
 	// 상품결제 Test
 	@Test
 	public void testPayOrder() throws Exception {
-		Long orderNo = 1L;
+		Long orderNo = 3L;
 		
 		ResultActions resultActions = 
 				mockMvc
