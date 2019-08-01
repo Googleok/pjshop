@@ -156,7 +156,7 @@ public class UserControllerTest {
 		CartVo voMock = new CartVo();
 		voMock.setUserNo(1L);
 		voMock.setCount(3L);
-		voMock.setProductOptionNo(6L);
+		voMock.setProductOptionNo(3L);
 		
 		ResultActions resultActions = 
 				mockMvc.perform(post("/api/user/cart")

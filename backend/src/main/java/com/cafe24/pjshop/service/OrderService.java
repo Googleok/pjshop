@@ -74,8 +74,6 @@ public class OrderService {
 				orderDao.orderPayment(new PaymentVo(null, false, "bank", orderVo.getNo()));
 			}
 		}
-		
-		
 		return orderVo;
 	}
 
