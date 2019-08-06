@@ -19,10 +19,17 @@ public class MainController {
 	private ProductService productService;
 	
 	
-	@RequestMapping( {"/", "/main"} )
+	@RequestMapping("/")
+	public String welcome() {
+		return "main/welcome";
+	}
+	
+	@RequestMapping( {"/main"} )
 	public String main(Model model) {
 		System.out.println("∏ﬁ¿Œ");
 		productService.getMainPage(model, 3L);
 		return "main/index";
 	}
+	
+	
 }

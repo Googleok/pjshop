@@ -7,7 +7,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 	<div class="container">
-		<a class="navbar-brand" href="#">&nbsp;</a>
+		<a class="navbar-brand" href="#">Eok's Shop</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -18,7 +18,7 @@
 					<c:when test='${param.active == "login" }'>
 						<sec:authorize access="isAuthenticated()">
 							<li class="nav-item">
-								<a class="nav-link" href="${pageContext.servletContext.contextPath }/">홈</a>
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/main">홈</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
@@ -29,7 +29,7 @@
 						</sec:authorize>
 						<sec:authorize access="!isAuthenticated()">
 							<li class="nav-item">
-								<a class="nav-link" href="${pageContext.servletContext.contextPath }/">홈</a>
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/main">홈</a>
 							</li>
 							<li class="nav-item active">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/login">로그인<span class="sr-only">(current)</span></a>
@@ -45,7 +45,7 @@
 					<c:when test='${param.active == "join" }'>
 						<sec:authorize access="isAuthenticated()">
 							<li class="nav-item">
-								<a class="nav-link" href="${pageContext.servletContext.contextPath }/">홈</a>
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/main">홈</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
@@ -56,7 +56,7 @@
 						</sec:authorize>
 						<sec:authorize access="!isAuthenticated()">
 							<li class="nav-item">
-								<a class="nav-link" href="${pageContext.servletContext.contextPath }/">홈</a>
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/main">홈</a>
 							</li>
 							<li class="nav-item active">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/login">로그인<span class="sr-only">(current)</span></a>
@@ -73,7 +73,7 @@
 					<c:when test='${param.active == "cs" }'>
 						<sec:authorize access="isAuthenticated()">
 							<li class="nav-item">
-								<a class="nav-link" href="${pageContext.servletContext.contextPath }/">홈</a>
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/main">홈</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
@@ -84,7 +84,7 @@
 						</sec:authorize>
 						<sec:authorize access="!isAuthenticated()">
 							<li class="nav-item">
-								<a class="nav-link" href="${pageContext.servletContext.contextPath }/">홈</a>
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/main">홈</a>
 							</li>
 							<li class="nav-item active">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/login">로그인<span class="sr-only">(current)</span></a>
@@ -101,7 +101,7 @@
 					<c:otherwise>
 					<sec:authorize access="isAuthenticated()">
 							<li class="nav-item">
-								<a class="nav-link" href="${pageContext.servletContext.contextPath }/">홈</a>
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/main">홈</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
@@ -112,7 +112,7 @@
 						</sec:authorize>
 						<sec:authorize access="!isAuthenticated()">
 							<li class="nav-item">
-								<a class="nav-link" href="${pageContext.servletContext.contextPath }/">홈</a>
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/main">홈</a>
 							</li>
 							<li class="nav-item active">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/login">로그인<span class="sr-only">(current)</span></a>

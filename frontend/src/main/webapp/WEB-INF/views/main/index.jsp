@@ -26,7 +26,11 @@
 		<div class="row">
 
 			<div class="col-lg-3">
-				<h1 class="my-4">Eok's Shop</h1>
+				<div style="width: 255px; height: 200px">
+					<c:import url='/WEB-INF/views/includes/logo.jsp'>
+					</c:import>
+				</div>
+
 				<div class="list-group">
 				<c:forEach items="${categoryList }" var = "vo" varStatus="status">
 					<a href="${pageContext.servletContext.contextPath }/product/list?category_no=${vo.no }" class="list-group-item">${vo.name }</a>
@@ -98,6 +102,7 @@
 		<!-- /.row -->
 	</div>
 	<!-- /.container -->
+	
 
 	<!-- Footer -->
 	<c:import url='/WEB-INF/views/includes/footer.jsp' />
