@@ -31,12 +31,40 @@
 					</c:import>
 				</div>
 
-				<div class="list-group">
+				<div class="list-group" id="accordion">
 				<c:forEach items="${categoryList }" var = "vo" varStatus="status">
-					<a href="${pageContext.servletContext.contextPath }/product/list?category_no=${vo.no }" class="list-group-item">${vo.name }</a>
+	                <c:if test="${vo.depth == 1}">
+	                <div class="panel panel-default">
+	                    <div class="panel-heading">
+	                        <h4 class="panel-title category-class">
+	                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse${vo.no }" class="list-group-item category-name"><span class="glyphicon glyphicon-folder-close">
+	                            </span>${vo.name }</a>
+	                        </h4>
+	                    </div>
+	                    
+	                    <div id="collapse${vo.no }" class="panel-collapse collapse in">
+	                        <div class="panel-body">
+	                            <table class="table">
+	                            	<c:set var="parentsNo" value="${vo.no }"></c:set>
+									<c:forEach items="${categoryList }" var = "vo" varStatus="status">
+									<c:if test="${vo.depth > 1 && vo.parentsNo == parentsNo}">
+	                                <tr>
+	                                    <td class="category-class">
+	                                        <span class="glyphicon glyphicon-pencil text-primary"></span><a href="${pageContext.servletContext.contextPath }/product/list?category_no=${vo.no }" class="category-name">${vo.name }</a>
+	                                    </td>
+	                                </tr>
+	                                </c:if>
+									</c:forEach>
+	                            </table>
+	                        </div>
+	                    </div>
+	                </div>
+	                </c:if>
 				</c:forEach>
-				</div>
+	            </div>
+	            
 			</div>
+			
 			<!-- /.col-lg-3 -->
 
 			<div class="col-lg-9">
