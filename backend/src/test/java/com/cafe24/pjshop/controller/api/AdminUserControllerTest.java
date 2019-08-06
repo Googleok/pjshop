@@ -46,7 +46,6 @@ public class AdminUserControllerTest {
 				.perform(get("/api/admin/user"))
 				.andExpect(status().isOk())
 				.andDo(print());
-
 	}
 
 	// 회원삭제  Test

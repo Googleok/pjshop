@@ -23,6 +23,9 @@
 							<li class="nav-item">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a>
+							</li>
 						</sec:authorize>
 						<sec:authorize access="!isAuthenticated()">
 							<li class="nav-item">
@@ -37,7 +40,6 @@
 							<li class="nav-item">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
 							</li>
-							
 						</sec:authorize>
 					</c:when>
 					<c:when test='${param.active == "join" }'>
@@ -47,6 +49,9 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a>
 							</li>
 						</sec:authorize>
 						<sec:authorize access="!isAuthenticated()">
@@ -73,6 +78,9 @@
 							<li class="nav-item">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a>
+							</li>
 						</sec:authorize>
 						<sec:authorize access="!isAuthenticated()">
 							<li class="nav-item">
@@ -97,6 +105,9 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a>
 							</li>
 						</sec:authorize>
 						<sec:authorize access="!isAuthenticated()">

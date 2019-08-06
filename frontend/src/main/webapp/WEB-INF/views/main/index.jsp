@@ -22,7 +22,6 @@
 	</c:import>
 	<!-- /.Navigation -->
 	
-	${authUser}
 	<div class="container">
 		<div class="row">
 
