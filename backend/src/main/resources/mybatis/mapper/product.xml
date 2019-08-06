@@ -23,6 +23,29 @@
 		]]>
 	</select>
 	
+	<select id="getListByCategory" parameterType="long" resultType="productVo">
+		<![CDATA[
+			select
+					no,
+					name,
+					price,
+					reg_date as regDate,
+					exhibition_availability as exhibitionAvailability,
+					option_availability as optionAvailability,
+					sails_status as sailsStatus,
+					exhibition_rank as exhibitionRank, 
+					count,
+					detail,
+					shipping_fee as shippingFee,
+					category_no as categoryNo
+			from product
+		]]>
+		<if test="value != null">
+			<![CDATA[
+				where category_no = #{value}
+			]]>
+		</if>			
+	</select>
 	
 	<select id="getOne" resultType="productVo" parameterType="long">
 		<![CDATA[

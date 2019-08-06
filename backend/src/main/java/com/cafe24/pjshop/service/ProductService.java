@@ -23,6 +23,10 @@ public class ProductService {
 	public List<ProductVo> getProductList() {
 		return productDao.getProductList();
 	}
+	
+	public List<ProductVo> getProductList(Long categoryNo) {
+		return productDao.getProductList(categoryNo);
+	}
 
 	public ProductVo getProductOne(Long no) {
 		return productDao.getProductOne(no);

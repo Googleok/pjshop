@@ -17,12 +17,18 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JacksonJsonParser;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.codec.Base64;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.pjshop.config.test.WebConfig;
@@ -33,6 +39,7 @@ import com.google.gson.Gson;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { WebConfig.class })
+@AutoConfigureMockMvc
 public class UserControllerTest {
 
 	private MockMvc mockMvc;
@@ -40,14 +47,45 @@ public class UserControllerTest {
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 
+    @Autowired
+    private FilterChainProxy springSecurityFilterChain;
+    
+    private String accessToken;  //= "ec9d4b8c-2d03-4ba3-9968-13967318d7ac";
+
+	
 	@Before
-	public void setup() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+	public void setup() throws Exception {
+		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilter(springSecurityFilterChain).build();
+	
+		// Access Token
+        if(accessToken != null) {
+        	return;
+        }
+        
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        
+        params.add("grant_type", "client_credentials");
+        params.add("scope", "read");
+        params.add("scope", "write");
+        
+        ResultActions result = mockMvc
+            	.perform( post("/oauth/token")
+            				.params(params)
+                    		.header("Authorization", "Basic " + new String(Base64.encode(("pjshop:1234").getBytes())))
+                            .accept("application/json; charset=UTF-8")
+                            .contentType(MediaType.APPLICATION_JSON))
+    			.andDo(print())
+    			.andExpect(status().isOk());            	
+
+        String resultString = result.andReturn().getResponse().getContentAsString();
+
+        JacksonJsonParser jsonParser = new JacksonJsonParser();
+        accessToken = jsonParser.parseMap(resultString).get("access_toke" + "n").toString();
 	}
 
 	@Test
 	public void testJoin() throws Exception {
-		UserVo voMock = new UserVo(null, "whddjr2225", "Whddjr129", "박종억", "01040287755", "whddjr2225@naver.com",
+		UserVo voMock = new UserVo(null, "test", "test1234", "박종억", "01040287755", "whddjr2225@naver.com",
 				"1993-11-02", "male", "admin");
 
 		UserVo voMock2 = new UserVo(null, "nonuser", "Nonuser123", "비회원", "01040287755", "whddjr2225@naver.com",
@@ -55,7 +93,7 @@ public class UserControllerTest {
 
 		
 		ResultActions resultActions = mockMvc.perform(
-				post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock2)))
+				post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)).header("Authorization", "Bearer " + accessToken))
 				.andExpect(status().isOk()).andDo(print());
 	}
 
@@ -65,7 +103,8 @@ public class UserControllerTest {
 		String userEmail = "whddjr2225@naver.com";
 
 		ResultActions resultActions =
-				mockMvc.perform(get("/api/user/checkemail?email={email}", userEmail))
+				mockMvc.perform(get("/api/user/checkemail?email={email}", userEmail)
+						.header("Authorization", "Bearer " + accessToken))
 					.andExpect(status().isOk())
 					.andDo(print());
 
@@ -76,11 +115,11 @@ public class UserControllerTest {
 		UserVo userVo = new UserVo();
 
 		// 1. Normal User's Login Data
-		userVo.setId("whddjr2225");
-		userVo.setPassword("i0613011m9J2YV6");
+		userVo.setId("test");
+		userVo.setPassword("test1234");
 
 		ResultActions resultActions = mockMvc.perform(
-				post("/api/user/login").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo))); // 없는
+				post("/api/user/login").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)).header("Authorization", "Bearer " + accessToken)); // 없는
 																														// url
 
 		resultActions.andExpect(status().isOk()).andDo(print());
@@ -115,7 +154,7 @@ public class UserControllerTest {
 		String userPhone = "01040287755";
 		
 		ResultActions resultActions = 
-				mockMvc.perform(get("/api/user/find/id?name={name}&phone={phone}", userName, userPhone))
+				mockMvc.perform(get("/api/user/find/id?name={name}&phone={phone}", userName, userPhone).header("Authorization", "Bearer " + accessToken))
 						.andExpect(status().isOk())
 						.andDo(print());
 	}
@@ -129,7 +168,7 @@ public class UserControllerTest {
 		String phone = "01040287755";
 		
 		ResultActions resultActions = 
-				mockMvc.perform(get("/api/user/find/password?id={id}&name={name}&phone={phone}", id, name, phone))
+				mockMvc.perform(get("/api/user/find/password?id={id}&name={name}&phone={phone}", id, name, phone).header("Authorization", "Bearer " + accessToken))
 						.andExpect(status().isOk())
 						.andDo(print());
 	}
@@ -145,7 +184,7 @@ public class UserControllerTest {
 		Long updateNo = 1L;
 
 		ResultActions resultActions = mockMvc.perform(
-				put("/api/user/{updateNo}", updateNo).contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
+				put("/api/user/{updateNo}", updateNo).contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)).header("Authorization", "Bearer " + accessToken))
 				.andExpect(status().isOk()).andDo(print());
 	}
 	
@@ -161,7 +200,7 @@ public class UserControllerTest {
 		ResultActions resultActions = 
 				mockMvc.perform(post("/api/user/cart")
 						.contentType(MediaType.APPLICATION_JSON)
-						.content(new Gson().toJson(voMock)))
+						.content(new Gson().toJson(voMock)).header("Authorization", "Bearer " + accessToken))
 					    .andExpect(status().isOk()).andDo(print());
 	}
 	
@@ -177,7 +216,7 @@ public class UserControllerTest {
 		ResultActions resultActions = 
 				mockMvc.perform(post("/api/user/cart")
 						.contentType(MediaType.APPLICATION_JSON)
-						.content(new Gson().toJson(voMock)))
+						.content(new Gson().toJson(voMock)).header("Authorization", "Bearer " + accessToken))
 					    .andExpect(status().isOk()).andDo(print());
 	}
 	
@@ -187,7 +226,7 @@ public class UserControllerTest {
 		
 		ResultActions resultActions = 
 		mockMvc
-		.perform(delete("/api/user/cart/{no}", deleteNo))
+		.perform(delete("/api/user/cart/{no}", deleteNo).header("Authorization", "Bearer " + accessToken))
 		.andExpect(status().isOk())
 		.andDo(print());
 	}
@@ -201,7 +240,7 @@ public class UserControllerTest {
 		mockMvc
 		.perform(delete("/api/user/cart")
 		.contentType(MediaType.APPLICATION_JSON)
-		.content(new Gson().toJson(deleteNoList)))
+		.content(new Gson().toJson(deleteNoList)).header("Authorization", "Bearer " + accessToken))
 		.andExpect(status().isOk())
 		.andDo(print());
 	}
@@ -216,7 +255,7 @@ public class UserControllerTest {
 		mockMvc
 		.perform(put("/api/user/cart/{no}", columnNo)
 		.contentType(MediaType.APPLICATION_JSON)
-		.content(new Gson().toJson(voMock)))
+		.content(new Gson().toJson(voMock)).header("Authorization", "Bearer " + accessToken))
 		.andExpect(status().isOk())
 		.andDo(print());
 	}
@@ -228,7 +267,7 @@ public class UserControllerTest {
 		String nonUserId = null;
 		
 		ResultActions resultActions = 
-				mockMvc.perform(get("/api/user/cart?id={id}&nonUserId={nonUserId}", userNo, nonUserId))
+				mockMvc.perform(get("/api/user/cart?id={id}&nonUserId={nonUserId}", userNo, nonUserId).header("Authorization", "Bearer " + accessToken))
 						.andExpect(status().isOk())
 						.andDo(print());
 	}
@@ -240,7 +279,7 @@ public class UserControllerTest {
 		String nonUserId = "nonUser1";
 		
 		ResultActions resultActions = 
-				mockMvc.perform(get("/api/user/cart?id={id}&nonUserId={nonUserId}", userNo, nonUserId))
+				mockMvc.perform(get("/api/user/cart?id={id}&nonUserId={nonUserId}", userNo, nonUserId).header("Authorization", "Bearer " + accessToken))
 						.andExpect(status().isOk())
 						.andDo(print());
 	}

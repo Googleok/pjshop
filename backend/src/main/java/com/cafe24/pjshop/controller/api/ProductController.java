@@ -35,10 +35,17 @@ public class ProductController {
 		return JSONResult.success(list);
 	}
 	
+//	@ApiOperation(value = "상품 리스트")
+//	@GetMapping({"", "/list"})
+//	public ResponseEntity<JSONResult> getProductList(){
+//		List<ProductVo> list = productService.getProductList();
+//		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+//	}
+	
 	@ApiOperation(value = "상품 리스트")
 	@GetMapping({"", "/list"})
-	public ResponseEntity<JSONResult> getProductList(){
-		List<ProductVo> list = productService.getProductList();
+	public ResponseEntity<JSONResult> getProductListByCategoryNo(@RequestParam(value = "category", defaultValue = "") Long categoryNo){
+		List<ProductVo> list = productService.getProductList(categoryNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	
