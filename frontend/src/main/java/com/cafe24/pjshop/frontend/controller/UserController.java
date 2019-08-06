@@ -80,6 +80,6 @@ public class UserController {
 			return "/user/login";
 		}
 		model.addAttribute("authUser", authUser);
-		return "main/index";
+		return "redirect: /";
 	}
 }

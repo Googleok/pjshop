@@ -21,6 +21,7 @@ public class MainController {
 	
 	@RequestMapping( {"/", "/main"} )
 	public String main(Model model) {
+		System.out.println("∏ﬁ¿Œ");
 		productService.getMainPage(model, 3L);
 		return "main/index";
 	}

@@ -22,6 +22,7 @@
 	</c:import>
 	<!-- /.Navigation -->
 	
+	${authUser}
 	<div class="container">
 		<div class="row">
 
@@ -46,15 +47,15 @@
 					</ol>
 					<div class="carousel-inner" role="listbox">
 						<div class="carousel-item active">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350"
+							<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }/assets/images/goods/jean-main.jpg" style="width: 900px; height: 500px;"
 								alt="First slide">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350"
+							<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }/assets/images/goods/adidas-tee-main.jpg" style="width: 900px; height: 500px;"
 								alt="Second slide">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350"
+							<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }/assets/images/goods/nike-tee_main.jpg" style="width: 900px; height: 500px;"
 								alt="Third slide">
 						</div>
 					</div>
@@ -73,10 +74,10 @@
 					<c:forEach items="${productList }" var="vo" varStatus="status">
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card h-100">
-								<a href="${pageContext.servletContext.contextPath }/product/${vo.no }"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+								<a href="${pageContext.servletContext.contextPath }/product/detail/${vo.no }"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 								<div class="card-body">
 									<h4 class="card-title">
-										<a href="${pageContext.servletContext.contextPath }/product/${vo.no }">${vo.name }</a>
+										<a href="${pageContext.servletContext.contextPath }/product/detail/${vo.no }">${vo.name }</a>
 									</h4>
 									<h5>${vo.price }원</h5>
 									<p class="card-text">Lorem ipsum dolor sit amet, consectetur

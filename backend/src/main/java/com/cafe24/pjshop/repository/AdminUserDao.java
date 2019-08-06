@@ -39,6 +39,10 @@ public class AdminUserDao {
 	public List<UserVo> getUserSearchList(SearchDto searchDto) {
 		return sqlSession.selectList("user.getUserSearchList", searchDto);
 	}
+
+	public UserVo getUser(String id) {
+		return sqlSession.selectOne("user.getUser", id);
+	}
 	
 	
 }

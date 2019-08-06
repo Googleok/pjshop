@@ -14,6 +14,25 @@
 	<link href="${pageContext.servletContext.contextPath }/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
 	<link href="${pageContext.servletContext.contextPath }/assets/css/shop-item.css" rel="stylesheet">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(function () {
+		$('#option-dropdown .dropdown-menu a').bind('click', function (e) {
+		    var html = $(this).html();
+		    $('#option-dropdown button.dropdown-toggle').html(html + ' <span class="caret"></span>');
+			
+		    var rowHtml = '<div>';
+		    
+		    rowHtml += html;
+		    
+		    rowHtml += '<input type="text" style="display: inline; width: 50px; margin-left: 100px;" class="form-control" value="1"/>'
+		    rowHtml += '<button type="button" class="btn btn-light" style="width: 50px;">+</button>'
+		    rowHtml += '<button type="button" class="btn btn-light" style="width: 50px;">-</button>'
+		    rowHtml += '</div>'
+		    $('#temp-list').append(rowHtml);		    
+		});
+	});
+	</script>
 </head>
 
 <body>
@@ -46,6 +65,21 @@
 					<div class="card-body">
 						<h3 class="card-title">${productDetail.name }</h3>
 						<h4>${productDetail.price }원</h4>
+						<div class="btn-group" id="option-dropdown">
+						  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Option <span class="caret"></span>
+						  </button>
+						  <div class="dropdown-menu">
+							  	<c:forEach items="${productDetail.optionList }" var="vo" varStatus="status">
+								    <a class="dropdown-item" href="javascript:void(0)">${vo.optionValue }</a>
+							  	</c:forEach>
+						  </div>
+						</div>
+						
+						<div id="temp-list" style="height: 100px; background-color: red;">
+						</div>
+						
+						<button type="button" class="btn btn-warning">Go Cart</button>
 						<p class="card-text">
 							Lorem ipsum dolor sit amet, consectetur
 							adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque

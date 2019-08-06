@@ -23,7 +23,7 @@ public class ProductController {
 		return "main/index";
 	}
 	
-	@GetMapping("/{no}")
+	@GetMapping("/detail/{no}")
 	public String productDetail(@PathVariable(value = "no") Long productNo , Model model) {
 		productService.getProductDetail(productNo, model);
 		return "goods/item";

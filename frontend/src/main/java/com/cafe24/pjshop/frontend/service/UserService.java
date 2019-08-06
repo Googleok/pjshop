@@ -26,8 +26,14 @@ public class UserService {
 		JSONResultLogin jsonResult = restTemplate.postForObject("http://localhost:9999/v1/api/user/login", vo, JSONResultLogin.class);
 		return jsonResult.getData();
 	}
+
+	public UserVo get(String id) {
+		JSONResultGetUser jsonResult = restTemplate.getForObject("http://localhost:9999/v1/api/admin/user?id="+id, JSONResultGetUser.class);
+		return jsonResult.getData();
+	}
 	
 	// DTO Class
 	private static class JSONResultJoin extends JSONResult<Boolean> {}
 	private static class JSONResultLogin extends JSONResult<UserVo> {}
+	private static class JSONResultGetUser extends JSONResult<UserVo> {}
 }

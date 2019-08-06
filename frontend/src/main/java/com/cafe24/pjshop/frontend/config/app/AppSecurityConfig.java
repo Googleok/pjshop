@@ -10,11 +10,12 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.cafe24.pjshop.frontend.security.CustomPasswordEncoder;
 import com.cafe24.pjshop.frontend.security.CustomUrlAuthenticationSuccessHandler;
 
 @Configuration
@@ -39,12 +40,12 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         http
         	.authorizeRequests()
         		// 인증이 되었을 경우
-        		.antMatchers("/user/update", "/user/logout").authenticated()
-        		.antMatchers("/board/write", "/board/modify", "/board/modify/**").authenticated()
+//        		.antMatchers("/user/update", "/user/logout").authenticated()
+//        		.antMatchers("/board/write", "/board/modify", "/board/modify/**").authenticated()
         		// ADMIN 권한
         		// .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
         		// .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN");
-        		.antMatchers("/admin", "/admin/**").hasRole("ADMIN")
+//        		.antMatchers("/admin", "/admin/**").hasRole("ADMIN")
         	
         		// 모두 허용
         		.anyRequest().permitAll()
@@ -56,7 +57,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         		.loginProcessingUrl("/user/auth")
         		.failureUrl("/user/login")
         		.successHandler(authenticationSuccessHandler())
-        		.usernameParameter("email")
+        		.usernameParameter("id")
         		.passwordParameter("password")
         
         // LogoutConfigurer
@@ -106,7 +107,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	// BCrypt Password Encoder(with Random Salt)
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
+	    return new CustomPasswordEncoder();
 	}
 	
 	@Bean
@@ -114,7 +115,6 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 	    authProvider.setUserDetailsService(userDetailsService);
 	    authProvider.setPasswordEncoder(passwordEncoder());
-	    
 	    return authProvider;
 	}	
 }

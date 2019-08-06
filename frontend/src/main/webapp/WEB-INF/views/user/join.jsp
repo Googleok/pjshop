@@ -16,7 +16,14 @@
 	<!-- Bootstrap core CSS -->
 	<link href="${pageContext.servletContext.contextPath }/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
-	<link href="${pageContext.servletContext.contextPath }/assets/css/shop-login.css" rel="stylesheet">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link href="${pageContext.servletContext.contextPath }/assets/css/shop-join.css" rel="stylesheet">
+	<script src="${pageContext.servletContext.contextPath }/assets/js/user/shop-join.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(function () {
+		$('#id').focus();
+	})
+	</script>
 </head>
 <body>
 	<!-- Navigation -->
@@ -26,15 +33,21 @@
 	<!-- /.Navigation -->
 	
 	<div id="container">
-		<div id="card card-container">
-			<div id="user">
+		<div class="card card-container">
 				<form:form modelAttribute="userVo" id="join-form" name="joinForm" method="post" action="${pageContext.servletContext.contextPath }/user/join" >
 					<label class="block-label" for="id">아이디</label>
-					<form:input path="id"/>
+					<input type="button" id="check-button" value="체크" class="btn btn-light">
+					<img style="display:none" id="check-image" src="${pageContext.servletContext.contextPath }/assets/images/check.png" />
+					<p style="font-weight:bold; color:#f00; text-align:left; padding:0; margin:0 ">
+						<form:errors path="id" />
+					</p>
+					<form:input path="id" id="id" class="form-control"/>
+					
 					<label class="block-label">패스워드</label>
-					<form:password path="password" />
+					<form:password path="password" id="password" class="form-control"/>
+					
 					<label class="block-label" for="name">이름</label>
-					<input id="name" name="name" type="text" value="">
+					<input id="name" name="name" type="text" value="" class="form-control">
 					<spring:hasBindErrors name="userVo">
 					    <c:if test="${errors.hasFieldErrors('name') }">
 							<p style="font-weight:bold; color:red; text-align:left; padding:0">
@@ -46,21 +59,17 @@
 					</spring:hasBindErrors>
 					
 					<label class="block-label" for="phone">전화번호</label>
-					<form:input path="phone"/>
+					<form:input path="phone" id="phone" class="form-control"/>
 					
 					<label class="block-label" for="email">이메일</label>
-					<form:input path="email" />
-					<input type="button" id="check-button" value="체크">
-					<img style="display:none" id="check-image" src="${pageContext.servletContext.contextPath }/assets/images/check.png" />
-					<p style="font-weight:bold; color:#f00; text-align:left; padding:0; margin:0 ">
-						<form:errors path="email" />
-					</p>
+					<form:input path="email" id="email" class="form-control"/>
+				
 					
 					<label class="block-label" for="birth">생일</label>
-					<form:input path="birth"/>
+					<form:input path="birth" id="birth" class="form-control"/>
 					
 					<fieldset>
-						<legend>성별</legend>
+						<label class="block-label" for="gender">성별</label><br>
 						<label>여</label> <form:radiobutton path="gender" value="female" checked="checked" />
 						<label>남</label> <form:radiobutton path="gender" value="male" />
 					</fieldset>
@@ -72,10 +81,9 @@
 						<label>서비스 약관에 동의합니다.</label>
 					</fieldset>
 					
-					<input type="submit" value="가입하기">
+					<input type="submit" value="가입하기" class="btn btn-lg btn-primary btn-block btn-join">
 					
 				</form:form>
-			</div>
 		</div>
 	</div>
 	<c:import url="/WEB-INF/views/includes/footer.jsp" />

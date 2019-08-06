@@ -141,6 +141,23 @@
 		]]>
 	</select>
 	
+	<select id="getUser" parameterType="string" resultType="userVo">
+		<![CDATA[
+			select
+				no,
+				id,
+				password,
+				convert(AES_DECRYPT(name, SHA2('7755', 512))using utf8) as name,
+				convert(AES_DECRYPT(phone, SHA2('7755', 512))using utf8) as phone,
+				convert(AES_DECRYPT(email, SHA2('7755', 512))using utf8) as email,
+				convert(AES_DECRYPT(birth, SHA2('7755', 512))using utf8) as birth,
+				gender,
+				role
+				from user
+				where id=#{value}
+		]]>
+	</select>
+	
 	<delete id="deleteUser" parameterType="long">
 		<![CDATA[
 			delete from user where no = #{no}

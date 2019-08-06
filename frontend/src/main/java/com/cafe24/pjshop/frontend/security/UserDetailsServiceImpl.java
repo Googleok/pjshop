@@ -10,21 +10,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.cafe24.pjshop.frontend.repository.UserDao;
+import com.cafe24.pjshop.frontend.service.UserService;
 import com.cafe24.pjshop.frontend.vo.UserVo;
-
-
-
 
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
 	@Autowired
-	private UserDao userDao;
+	private UserService userService;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		UserVo userVo = userDao.get(email);
-		
+	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+		UserVo userVo = userService.get(id);
+		System.out.println(userVo);
 		SecurityUser securityUser = new SecurityUser();
 		
 		if(userVo != null) {

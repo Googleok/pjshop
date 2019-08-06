@@ -26,7 +26,7 @@ public class CustomUrlAuthenticationSuccessHandler extends SimpleUrlAuthenticati
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-    	
+    	System.out.println("Ä¿½ºÅÒ");
     	SavedRequest savedRequest = requestCache.getRequest( request, response );
         
         if ( savedRequest != null ) {
@@ -43,10 +43,11 @@ public class CustomUrlAuthenticationSuccessHandler extends SimpleUrlAuthenticati
 				securityUser = (SecurityUser) principal;
 			}
 		}
-		
+		System.out.println("Ä¿½ºÅÒ ¾ÆÀÌµð¤¤");
 		
     	if( accept == null || accept.matches( ".*application/json.*" ) == false ) {
-    		request.getSession(true).setAttribute("loginNow", true);
+    		
+    		request.getSession(true).setAttribute("authUser", true);
             getRedirectStrategy().sendRedirect( request, response, "/" );
     		return;
     	}

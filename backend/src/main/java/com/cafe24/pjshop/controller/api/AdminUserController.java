@@ -30,11 +30,19 @@ public class AdminUserController {
 	private AdminUserService adminService;
 	 
 	@ApiOperation(value = "회원 리스트")
-	@GetMapping({"", "/list"})
+	@GetMapping({"/list"})
 	public ResponseEntity<JSONResult> getUserList(){
 		List<UserVo> list = adminService.getUserList();
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
+	
+	@ApiOperation(value = "한 회원")
+	@GetMapping({""})
+	public ResponseEntity<JSONResult> getUser(@RequestParam(value = "id") String id){
+		UserVo list = adminService.getUser(id);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	}
+	
 	
 	@ApiOperation(value = "회원 삭제")
 	@DeleteMapping("/{no}")

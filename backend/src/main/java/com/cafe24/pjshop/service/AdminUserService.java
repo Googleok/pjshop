@@ -20,6 +20,10 @@ public class AdminUserService {
 	public List<UserVo> getUserList() {
 		return adminUserDao.getUserList();
 	}
+	
+	public UserVo getUser(String id) {
+		return adminUserDao.getUser(id);
+	}
 
 	/**
 	 * 
@@ -51,5 +55,7 @@ public class AdminUserService {
 	public List<UserVo> getUserSearchList(SearchDto searchDto) {
 		return adminUserDao.getUserSearchList(searchDto);
 	}
+
+	
 
 }
