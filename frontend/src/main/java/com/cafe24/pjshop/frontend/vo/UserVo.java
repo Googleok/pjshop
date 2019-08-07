@@ -33,7 +33,7 @@ public class UserVo {
 	@ValidGender
 	private String gender;
 	
-	private String role = "user";
+	private String role = "ROLE_USER";
 	
 	public UserVo() {
 	}

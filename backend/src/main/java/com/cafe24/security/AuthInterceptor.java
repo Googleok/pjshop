@@ -48,7 +48,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		
 		// 7. admin일 경우
 		String role = auth.role().toString();
-		if("ADMIN".equals(role)) {
+		if("ROLE_ADMIN".equals(role)) {
 			// admin임을 알 수 있는 조건을 작성한다.
 			// ex ) 서비스의 id가 admin이면 admin이다.
 			if("admin".equals(authUser.getId()) == false) {

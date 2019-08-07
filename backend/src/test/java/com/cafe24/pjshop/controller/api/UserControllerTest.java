@@ -86,7 +86,7 @@ public class UserControllerTest {
 	@Test
 	public void testJoin() throws Exception {
 		UserVo voMock = new UserVo(null, "test", "test1234", "박종억", "01040287755", "whddjr2225@naver.com",
-				"1993-11-02", "male", "admin");
+				"1993-11-02", "male", "ROLE_ADMIN");
 
 		UserVo voMock2 = new UserVo(null, "nonuser", "Nonuser123", "비회원", "01040287755", "whddjr2225@naver.com",
 				"1993-11-02", "male", "user");

@@ -40,6 +40,9 @@
             <a href="javascript:loginForm.submit();" class="forgot-password">
                 비밀번호를 잊으셨습니까?
             </a>
+            <a href="${pageContext.servletContext.contextPath }/admin/login" class="forgot-password">
+            관리자 모드
+            </a>
         </div>
         <!-- /.card-container -->
 	</div>

@@ -33,7 +33,6 @@ public class UserController {
 	
 	@PostMapping("/join")
 	public String join(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model) {
-		vo.setRole("user");
 		// @valid 유효성 검증
 		if (result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
@@ -75,11 +74,10 @@ public class UserController {
 		}
 		
 		UserVo authUser = userService.login(vo);
-		
 		if(authUser == null) {
 			return "/user/login";
 		}
 		model.addAttribute("authUser", authUser);
-		return "redirect: /";
+		return "redirect: /main";
 	}
 }

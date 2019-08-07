@@ -12,6 +12,11 @@ public class AdminController {
 		return "admin/index";
 	}
 	
+	@RequestMapping({"/main2"})
+	public String adminMain2() {
+		return "admin/index2";
+	}
+	
 	@RequestMapping({"/login"})
 	public String adminLogin() {
 		return "admin/login";

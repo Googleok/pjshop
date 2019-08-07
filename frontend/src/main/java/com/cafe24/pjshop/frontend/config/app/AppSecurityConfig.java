@@ -12,9 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.cafe24.pjshop.frontend.security.CustomAuthenticationFailureHandler;
 import com.cafe24.pjshop.frontend.security.CustomPasswordEncoder;
 import com.cafe24.pjshop.frontend.security.CustomUrlAuthenticationSuccessHandler;
 
@@ -43,9 +45,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 //        		.antMatchers("/user/update", "/user/logout").authenticated()
 //        		.antMatchers("/board/write", "/board/modify", "/board/modify/**").authenticated()
         		// ADMIN 권한
-        		// .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-        		// .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN");
-//        		.antMatchers("/admin", "/admin/**").hasRole("ADMIN")
+//        		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+//        		.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+        		.antMatchers("/admin").hasRole("ADMIN")
         	
         		// 모두 허용
         		.anyRequest().permitAll()
@@ -56,6 +58,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         		.loginPage("/user/login")
         		.loginProcessingUrl("/user/auth")
         		.failureUrl("/user/login")
+//        		.failureHandler(authenticationFailureHandler())
         		.successHandler(authenticationSuccessHandler())
         		.usernameParameter("id")
         		.passwordParameter("password")
@@ -101,6 +104,11 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public AuthenticationSuccessHandler authenticationSuccessHandler() {
 	    return new CustomUrlAuthenticationSuccessHandler();
+	}
+
+	@Bean
+	public AuthenticationFailureHandler authenticationFailureHandler() {
+		return new CustomAuthenticationFailureHandler();
 	}
 	
 	// Encode the Password on Authentication
