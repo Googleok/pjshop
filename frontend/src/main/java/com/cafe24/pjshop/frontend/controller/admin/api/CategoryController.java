@@ -29,8 +29,15 @@ public class CategoryController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult2.success(list));
 	}
 	
+	@GetMapping({"/list/child"})
+	public ResponseEntity<JSONResult2> getCategoryChildList() {
+		List<CategoryVo> list = categoryService.getChildCategoryList();
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult2.success(list));
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<JSONResult2> registerCategory(@ModelAttribute CategoryVo vo) {
+		System.out.println(vo);
 		Boolean result = categoryService.registerCategory(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult2.success(result));
 	}

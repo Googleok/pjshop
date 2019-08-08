@@ -1,0 +1,14 @@
+<%
+for(var i=0; i<data.length; i++){
+    var vo = data[i]
+%>    
+<tr>
+    <td><%=vo.no %></td>
+    <td><%=vo.name %></td>
+    <td><%=vo.depth %></td>
+    <td><%=vo.parentsNo %></td>
+    <td><%=vo.groupNo %></td>
+</tr>
+<%
+}
+%>

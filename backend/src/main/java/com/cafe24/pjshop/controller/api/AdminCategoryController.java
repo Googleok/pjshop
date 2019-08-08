@@ -38,6 +38,16 @@ public class AdminCategoryController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	
+	@ApiOperation(value = "하위카테고리 리스트")
+	@GetMapping({"/list/child"})
+	public ResponseEntity<JSONResult> getChildCategoryList(){
+		List<CategoryVo> list = adminService.getChildCagegoryList();
+		if(list == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("fail"));
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	}
+	
 	@ApiOperation(value = "카테고리 등록")
 	@PostMapping("")
 	public ResponseEntity<JSONResult> addCategory(@RequestBody CategoryVo vo){

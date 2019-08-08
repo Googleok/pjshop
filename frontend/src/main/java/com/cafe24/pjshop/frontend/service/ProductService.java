@@ -13,6 +13,7 @@ import com.cafe24.pjshop.frontend.dto.JSONResult;
 import com.cafe24.pjshop.frontend.dto.ProductDto;
 import com.cafe24.pjshop.frontend.repository.ProductDao;
 import com.cafe24.pjshop.frontend.vo.CategoryVo;
+import com.cafe24.pjshop.frontend.vo.OptionNameVo;
 import com.cafe24.pjshop.frontend.vo.ProductVo;
 
 @Service
@@ -42,8 +43,15 @@ public class ProductService {
 		model.addAttribute("productDetail", jsonResultProductDetail.getData());
 	}
 
+	public List<OptionNameVo> getOptionnameList() {
+		// 카테고리
+		JSONResult<List<OptionNameVo>> jsonResultOptionname = restTemplate.getForObject("http://localhost:9999/v1/api/admin/product/optionname", JSONResultOptionnameList.class);
+		return jsonResultOptionname.getData();
+	}
+
 	// DTO Class
 	private static class JSONResultCategoryList extends JSONResult<List<CategoryVo>> {}
+	private static class JSONResultOptionnameList extends JSONResult<List<OptionNameVo>> {}
 	private static class JSONResultProductList extends JSONResult<List<ProductVo>> {}
 	private static class JSONResultProductDetail extends JSONResult<ProductDto> {}
 }

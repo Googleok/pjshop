@@ -18,6 +18,20 @@
 		]]>
 	</select>
 	
+	<select id="getChildList" resultType="categoryVo">
+		<![CDATA[
+			select 
+				  no,
+				  name,
+				  depth,
+				  parents_no as parentsNo,
+				  group_no as groupNo
+			from category
+			where depth > 1
+			order by group_no, depth, name
+		]]>
+	</select>
+	
 	<insert id="add" parameterType="categoryVo">
 		<![CDATA[
 			insert into category 

@@ -58,12 +58,12 @@
 			      <div class="card-header">Register an Category</div>
 			      <div class="card-body">
 			      
-			        <form method="post" action="/admin/category">
+			        <form method="post" action="${pageContext.servletContext.contextPath }/api/admin/category">
 			          <div class="form-group">
 			            <div class="form-row">
 			              <div class="col-md-6">
 			                <div class="form-label-group">
-			                  <input type="text" id="parents-category-name" class="form-control" placeholder="Category name" required="required" autofocus="autofocus">
+			                  <input type="text" name="name" id="parents-category-name" class="form-control" placeholder="Category name" required="required" autofocus="autofocus">
 			                  <label for="parents-category-name">Category name</label>
 			                </div>
 			              </div>
@@ -73,7 +73,7 @@
 			            <div class="form-row">
 			              <div class="col-md-6">
 			                <div class="form-label-group">
-			                  <input type="text" id="parents-depth" class="form-control" placeholder="Depth" required="required">
+			                  <input type="text" name="depth" id="parents-depth" class="form-control" placeholder="Depth" required="required">
 			                  <label for="parents-depth">Depth</label>
 			                </div>
 			              </div>
@@ -84,12 +84,12 @@
 			        
 			        <br>
 			        
-			         <form method="post" action="/admin/category">
+			         <form method="post" action="${pageContext.servletContext.contextPath }/api/admin/category">
 			          <div class="form-group">
 			            <div class="form-row">
 			              <div class="col-md-6">
 			                <div class="form-label-group">
-			                  <input type="text" id="child-category-name" class="form-control" placeholder="Category name" required="required" autofocus="autofocus">
+			                  <input type="text" name="name" id="child-category-name" class="form-control" placeholder="Category name" required="required" autofocus="autofocus">
 			                  <label for="child-category-name">Category name</label>
 			                </div>
 			              </div>
@@ -99,7 +99,7 @@
 			            <div class="form-row">
 			              <div class="col-md-6">
 			                <div class="form-label-group">
-			                  <input type="text" id="child-depth" class="form-control" placeholder="Depth" required="required">
+			                  <input type="text" name="depth" id="child-depth" class="form-control" placeholder="Depth" required="required">
 			                  <label for="child-depth">Depth</label>
 			                </div>
 			              </div>
@@ -109,7 +109,7 @@
 			            <div class="form-row">
 			              <div class="col-md-6">
 			                <div class="form-label-group">
-			                  <input type="text" id="parents-no" class="form-control" placeholder="Parents no" required="required">
+			                  <input type="text" name="parentsNo" id="parents-no" class="form-control" placeholder="Parents no" required="required">
 			                  <label for="parents-no">Parents no</label>
 			                </div>
 			              </div>
@@ -119,7 +119,7 @@
 			            <div class="form-row">
 			              <div class="col-md-6">
 			                <div class="form-label-group">
-			                  <input type="text" id="group-no" class="form-control" placeholder="Group no" required="required">
+			                  <input type="text" name="groupNo" id="group-no" class="form-control" placeholder="Group no" required="required">
 			                  <label for="group-no">Group no</label>
 			                </div>
 			              </div>
@@ -229,6 +229,71 @@
 		src="${pageContext.servletContext.contextPath }/assets/js/admin/demo/datatables-demo.js"></script>
 	<script
 		src="${pageContext.servletContext.contextPath }/assets/js/admin/demo/chart-area-demo.js"></script>
+
+
+
+
+
+
+
+	<script type="text/javascript">
+	
+	$(function () {
+		
+		var render = function(vo, mode){
+		      // 실제로는 template library를 사용한다. (html 렌더링 라이브러리)
+		      // -> ejs, underscore, mustache
+		/*       var html =  "<li data-no='"+ vo.no +"'>"+
+		                  "<strong>"+vo.name+"</strong>"+
+		                                    // 이 문자열의 모든(g)거에 다 적용해라 . \n -> <br>
+		                  "<p>"+ vo.contents.replace(/</gi, "&lt;").replace(/>/gi, "&gt;").replace(/\n/gi, "<br>") + "</p><br>"+
+		                  "<strong></strong>"+
+		                  "<a href='#' data-no='"+ vo.no +"'>삭제</a>"+ 
+		               "</li>"; */ 
+		               
+		      var html =  listItemTemplate.render(vo);
+		      
+		      if(mode){         
+		         $("#list-guestbook").prepend(html);          
+		      }else{
+		         $("#list-guestbook").append(html);      
+		      }
+		} 
+		
+		$.ajax({
+			url : 	,
+			type: 	,
+			contentType: "application/json" ,
+			dataType: "json",
+			data: "",
+			success: function(response){
+		            if(response.result != "success"){
+		               console.error(response.message); 
+		               return;
+		            }
+		            
+		            rendering
+		            $.each(response.data, render); 
+		            $.each(response.data, function(index, vo){
+		               render(vo); 
+		            });
+		            var html = listTemplate.render(response);
+		            $("#list-guestbook").append(html);
+		            
+		         },            // jqeury XML Http Request
+		         error : function(jqXHR, status, e){
+		            console.error(status + " : " + e);
+		         }
+		})
+		console.log('test')
+	});
+	
+	</script>
+
+
+
+
+
 
 </body>
 

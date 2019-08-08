@@ -9,7 +9,6 @@ public class OptionVo {
 	private Long productNo;
 	
 	public OptionVo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public OptionVo(Long no, String optionValue, Boolean stockAvailability, Long productCount, Long additionalPrice, Long productNo) {

@@ -33,4 +33,8 @@ public class AdminCategoryDao {
 	public boolean deleteCategory(Long no) {
 		return sqlSession.delete("category.delete", no) == 1;
 	}
+
+	public List<CategoryVo> getChildCategoryList() {
+		return sqlSession.selectList("category.getChildList");
+	}
 }

@@ -43,8 +43,6 @@ public class CustomUrlAuthenticationSuccessHandler extends SimpleUrlAuthenticati
 			}
 		}
 		
-		System.out.println(securityUser+"=====================");
-		
     	if( accept == null || accept.matches( ".*application/json.*" ) == false ) {
     		
     		if(securityUser.getAuthorities().toString().equals("[ROLE_ADMIN]")) {

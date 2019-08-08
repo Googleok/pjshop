@@ -37,6 +37,11 @@ public class CategoryService {
 		JSONResultCategoryList jsonResultCategoryList = restTemplate.getForObject("http://localhost:9999/v1/api/admin/category/list", JSONResultCategoryList.class);
 		return jsonResultCategoryList.getData();
 	}
+
+	public List<CategoryVo> getChildCategoryList() {
+		JSONResultCategoryList jsonResultCategoryList = restTemplate.getForObject("http://localhost:9999/v1/api/admin/category/list/child", JSONResultCategoryList.class);
+		return jsonResultCategoryList.getData();
+	}
 	
 	// DTO Class
 	private static class JSONResultCategoryList extends JSONResult<List<CategoryVo>> {}

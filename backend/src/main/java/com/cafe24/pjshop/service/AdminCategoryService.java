@@ -34,4 +34,8 @@ public class AdminCategoryService {
 	public boolean deleteCategory(Long no) {
 		return adminCategoryDao.deleteCategory(no);
 	}
+
+	public List<CategoryVo> getChildCagegoryList() {
+		return adminCategoryDao.getChildCategoryList();
+	}
 }

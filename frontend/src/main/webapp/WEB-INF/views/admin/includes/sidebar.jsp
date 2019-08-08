@@ -51,7 +51,7 @@
 					<div class="dropdown-divider"></div>
 					<h6 class="dropdown-header">상품 관리:</h6>
 					<a class="dropdown-item"
-						href="${pageContext.servletContext.contextPath }/admin/login">상품등록</a>
+						href="${pageContext.servletContext.contextPath }/admin/product/register">상품등록</a>
 					<a class="dropdown-item"
 						href="${pageContext.servletContext.contextPath }/admin/register">상품목록</a>
 					<div class="dropdown-divider"></div>
