@@ -27,6 +27,11 @@ public class AdminController {
 		return "admin/register";
 	}
 	
+	@RequestMapping({"/product/register/upload"})
+	public String adminProductRegister() {
+		return "admin/manage/product/product-list";
+	}
+	
 	@RequestMapping({"/forgot/password"})
 	public String adminForgotPassword() {
 		return "admin/forgot-password";

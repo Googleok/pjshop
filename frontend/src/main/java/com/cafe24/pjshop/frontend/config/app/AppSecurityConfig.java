@@ -32,6 +32,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		web
 			.ignoring()
 			.antMatchers("/assets/**")
+			.antMatchers("/shop-uploads/**")
+			.antMatchers("/image/**")
 			.antMatchers("/favicon.ico");
 	}
 
