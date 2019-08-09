@@ -31,6 +31,12 @@
 <!-- Editor - SummerNote -->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 
+<!-- FileUpload UI -->
+<link
+	href="${pageContext.servletContext.contextPath }/assets/css/admin/imageUpload.css"
+	rel="stylesheet">
+
+
 <style type="text/css">
 
 #dataTable2 tr:hover {
@@ -42,6 +48,7 @@
 	background-color: #00FF7F;
 	cursor:pointer;
 }
+
 
 </style>
 
@@ -146,7 +153,28 @@
 							          </div>
 							      </td>
 							    </tr>
+							   
+							    <tr>
+							      <th scope="row" style="width: 15%;">
+							      	이미지
+							      </th>
+							      <td style="width: 85%">
+							          <div class="form-group">
+							            <div class="form-row">
+										   <div class="col-sm-3 imgUp">
+										   <h5 class="mb-3 ml-1">대표이미지</h5>
+										     <div class="imagePreview"></div>
+										     <label class="btn btn-primary btn-upload col-md-12">
+										       Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+											 </label>
+										   </div><!-- col-2 -->
+										   <i class="fa fa-plus imgAdd" style="line-height: 2;margin-top: 37px;margin-left: 6px;"></i>
+							            </div>
+							          </div>
+							      </td>
+							    </tr>
 							    
+							     
 							    <tr>
 							      <th scope="row" style="width: 15%;">
 							      	상품설명
@@ -271,7 +299,7 @@
 							        <div class="form-group">
 							        	<input type="hidden" name="categoryNo" id="selected-category-no" value="">
 										<div class="row">
-											<h2 class="mb-3">Select Product's Category</h2>
+											<h2 class="mb-3">✅ Select Product's Category</h2>
 										</div>
 							            <div class="form-row mb-5">
 											<div class="col-md-12">
@@ -302,11 +330,11 @@
 										</div>
 										
 										<div class="row">
-											<h2 class="mb-3">Select Product's Category</h2>
+											<h2 class="mb-3">➕ Add Category</h2>
 										</div>
 										
 							            <div class="form-row">
-							              <div class="col-md-6">
+							              <div class="col-md-7">
 								              <div class="table-responsive">
 												<table class="table table-bordered" id="dataTable1" width="100%"
 													cellspacing="0">
@@ -345,7 +373,7 @@
 							              
 							              
 							              </div>
-							              <div class="col-md-6">
+							              <div class="col-md-5" style="margin-top: 50px;">
 									          <div class="form-group">
 									            <div class="form-row">
 									              <div class="col-md-12">
@@ -633,6 +661,9 @@
 
 	<!-- EJS -->
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
+
+	<!-- FileUpload UI -->
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/admin/imageUpload.js"></script>
 
 	<script type="text/javascript">
 	 $('#summernote').summernote({

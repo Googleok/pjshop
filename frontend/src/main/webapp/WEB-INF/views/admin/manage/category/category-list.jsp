@@ -56,12 +56,13 @@
 
 			    <div class="card mb-3">
 			      <div class="card-header">Register an Category</div>
-			      <div class="card-body">
+			      <div class="card-body row">
 			      
-			        <form method="post" action="${pageContext.servletContext.contextPath }/api/admin/category">
+			        <form method="post" action="${pageContext.servletContext.contextPath }/api/admin/category" class="form-group col-md-6">
+			       	  <h5 class="row mb-4 ml-1">✅ Parents Category</h5>
 			          <div class="form-group">
 			            <div class="form-row">
-			              <div class="col-md-6">
+			              <div class="col-md-11">
 			                <div class="form-label-group">
 			                  <input type="text" name="name" id="parents-category-name" class="form-control" placeholder="Category name" required="required" autofocus="autofocus">
 			                  <label for="parents-category-name">Category name</label>
@@ -71,7 +72,7 @@
 			          </div>
 			          <div class="form-group">
 			            <div class="form-row">
-			              <div class="col-md-6">
+			              <div class="col-md-11">
 			                <div class="form-label-group">
 			                  <input type="text" name="depth" id="parents-depth" class="form-control" placeholder="Depth" required="required">
 			                  <label for="parents-depth">Depth</label>
@@ -79,15 +80,16 @@
 			              </div>
 			            </div>
 			          </div>
-			           <input class="btn btn-primary btn-block col-md-6" type="submit" value="add Parents_Category"/>
+			           <input class="btn btn-primary btn-block col-md-11" type="submit" value="add Parents_Category"/>
 			        </form>
 			        
 			        <br>
 			        
-			         <form method="post" action="${pageContext.servletContext.contextPath }/api/admin/category">
+			         <form method="post" action="${pageContext.servletContext.contextPath }/api/admin/category" class="form-group col-md-6">
+			          <h5 class="row mb-4 ml-1">✅ Child Category</h5>
 			          <div class="form-group">
 			            <div class="form-row">
-			              <div class="col-md-6">
+			              <div class="col-md-11">
 			                <div class="form-label-group">
 			                  <input type="text" name="name" id="child-category-name" class="form-control" placeholder="Category name" required="required" autofocus="autofocus">
 			                  <label for="child-category-name">Category name</label>
@@ -97,7 +99,7 @@
 			          </div>
 			          <div class="form-group">
 			            <div class="form-row">
-			              <div class="col-md-6">
+			              <div class="col-md-11">
 			                <div class="form-label-group">
 			                  <input type="text" name="depth" id="child-depth" class="form-control" placeholder="Depth" required="required">
 			                  <label for="child-depth">Depth</label>
@@ -107,7 +109,7 @@
 			          </div>
 			          <div class="form-group">
 			            <div class="form-row">
-			              <div class="col-md-6">
+			              <div class="col-md-11">
 			                <div class="form-label-group">
 			                  <input type="text" name="parentsNo" id="parents-no" class="form-control" placeholder="Parents no" required="required">
 			                  <label for="parents-no">Parents no</label>
@@ -117,7 +119,7 @@
 			          </div>
 			          <div class="form-group">
 			            <div class="form-row">
-			              <div class="col-md-6">
+			              <div class="col-md-11">
 			                <div class="form-label-group">
 			                  <input type="text" name="groupNo" id="group-no" class="form-control" placeholder="Group no" required="required">
 			                  <label for="group-no">Group no</label>
@@ -125,7 +127,7 @@
 			              </div>
 			            </div>
 			          </div>
-			          <input class="btn btn-warning btn-block col-md-6" type="submit" value="add Child_Category"/>
+			          <input class="btn btn-warning btn-block col-md-11" type="submit" value="add Child_Category"/>
 			        </form>
 			       
 			      </div>
