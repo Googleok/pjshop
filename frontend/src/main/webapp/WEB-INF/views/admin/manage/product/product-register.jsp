@@ -38,6 +38,11 @@
 	cursor:pointer;
 }
 
+#dataTable3 tr:hover {
+	background-color: #00FF7F;
+	cursor:pointer;
+}
+
 </style>
 
 </head>
@@ -466,14 +471,14 @@
 													cellspacing="0">
 													<thead>
 														<tr>
-															<th>No</th>
-															<th>Name</th>
+															<th style="width: 20%;">No</th>
+															<th style="width: 80%;">Name</th>
 														</tr>
 													</thead>
 													<tfoot>
 														<tr>
-															<th>No</th>
-															<th>Name</th>
+															<th style="width: 20%;">No</th>
+															<th style="width: 80%;">Name</th>
 														</tr>
 													</tfoot>
 													<tbody id="optionname-list">
@@ -484,55 +489,20 @@
 							          </div>
 							          <h5>추가할 옵션</h5>
 							          <div class="form-group" id="hidden-option">
-							          
-							            <div class="form-row">
-							              <div class="col-md-3">
-							                <div class="form-label-group">
-							                  <input type="text" name="optionName" id="option-name" class="form-control" placeholder="Option name">
-							                  <label for="option-name">Option name</label>
-							                </div>
-							              </div>
-							              <div class="col-md-8">
-							                <div class="form-label-group">
-							                  <input type="text" name="optionValue" id="option-value" class="form-control" placeholder="Option value">
-							                  <label for="option-value">Option value</label>
-							                </div>
-							              </div>
-							              
-							              <div class="col-md-1">
-							              	<button type="button" class="btn btn-primary btn-lg" id="option-plus">+</button>
-							              </div>
-							            </div>
-							             <div class="form-row">
-							              <div class="col-md-3">
-							                <div class="form-label-group">
-							                  <input type="text" name="optionName" id="option-name-2" class="form-control" placeholder="Option name">
-							                  <label for="option-name-2">Option name</label>
-							                </div>
-							              </div>
-							              <div class="col-md-8">
-							                <div class="form-label-group">
-							                  <input type="text" name="optionValue" id="option-value-2" class="form-control" placeholder="Option value">
-							                  <label for="option-value-2">Option value</label>
-							                </div>
-							              </div>
-							              
-							              <div class="col-md-1">
-							              	<button type="button" class="btn btn-primary btn-lg" id="option-plus">+</button>
-							              </div>
-							            </div>
+
 							          </div>
 							          
-							          
+							          <div id="view-addOption"></div>
 							          <div class="form-group">
 							          	<div class="form-row">
 								          <div class="col-md-12">
 											<table class="table table-bordered" id="dataTable4" width="100%"
-														cellspacing="0">
+														cellspacing="0" style="display: none;">
 												<thead>
 													<tr>
+														<th style="width: 20%;">Optionname No</th>
 														<th style="width: 25%;">Name</th>
-														<th style="width: 75%;">Value</th>
+														<th style="width: 55%;">Value</th>
 													</tr>
 												</thead>
 												<tbody id="optionAdd-list">
@@ -545,11 +515,12 @@
 							          	<div class="form-row">
 								          <div class="col-md-12">
 											<table class="table table-bordered" id="dataTable5" width="100%"
-														cellspacing="0">
+														cellspacing="0" style="display: none;">
 												<thead>
 													<tr>
+														<th style="width: 20%;">Optionname No</th>
 														<th style="width: 25%;">Name</th>
-														<th style="width: 75%;">Value</th>
+														<th style="width: 55%;">Value</th>
 													</tr>
 												</thead>
 												<tbody id="optionAdd-list-2">
@@ -558,9 +529,9 @@
 										  </div>
 										</div>
 									 </div>
-									 <div class="form-group pull-right">
-									 	<div class="form-row">
-											<button type="button" class="btn btn-primary btn-lg" id="option-cartesian">Option-Cartesian</button>									 	
+									 <div class="form-group">
+									 	<div class="form-row" style="float: right;">
+											<button type="button" class="btn btn-primary btn-lg" id="option-cartesian">옵션품목 만들기</button>									 	
 									 	</div>
 									 </div>
 							      </td>
@@ -679,10 +650,23 @@
 		 var listTemplate = new EJS({
 		     url : '${pageContext.request.contextPath }/assets/js/ejs-templates/category-list.ejs' 
 		 });
+		 var optionTemplate = new EJS({
+		     url : '${pageContext.request.contextPath }/assets/js/ejs-templates/addOption.ejs' 
+		 });
+		 
 		 //////////////////////////////////////////////////////////////////
 		    
 		 var render = function(vo, mode){
 		    var html =  listItemTemplate.render(vo);
+		      
+		    if(mode){         
+		       $("#category-list").prepend(html);          
+		    }else{
+		       $("#category-list").append(html);      
+		    }
+	    }
+		var renderOption = function(no, mode){
+		    var html =  optionTemplate.render(no);
 		      
 		    if(mode){         
 		       $("#category-list").prepend(html);          
@@ -779,32 +763,53 @@
 		};
 		
 	$(function () {
+		$('#dataTable3 tbody').on('click', 'tr', function () {
+			var tr = $(this);
+			var td = tr.children();
+			var optionNo = td[0].innerHTML;
+			var optionName = td[1].innerHTML;
+			
+			$('#dataTable3 tbody tr').css('background-color', '#FFFFFF');
+			
+			tr.css('background-color', '#00FF7F');
+			
+			var html = optionTemplate.render({'optionNo' : optionNo, 'optionName' : optionName});
+	        $("#hidden-option").append(html);
+			
+	    } );
 		
-		 $("#option-value").keydown(function(key) {
+		
+		 $(document).on("keydown", "#option-value-1",function(key) {
              if (key.keyCode == 13) {
-         		var optionName = $('#option-name').val();
-        		var optionValue = $('#option-value').val();
+            	var optionNo = $('#option-name-no-1').val();
+         		var optionName = $('#option-name-1').val();
+        		var optionValue = $('#option-value-1').val();
 				
-        		var html = '<tr><td style="width: 25%;">'+optionName+'</td><td style="width: 75%;">'+optionValue+'</td></tr>';
+        		if($("#dataTable4").css("display") == "none"){   
+        	        $('#dataTable4').show();  
+        	    }  
+        		
+        		var html = '<tr><td style="width: 20%;">'+optionNo+'</td><td style="width: 25%;">'+optionName+'</td><td style="width: 55%;">'+optionValue+'</td></tr>';
 
         		$('#optionAdd-list').append(html);
-        		$('#option-value').val('');
-        		
-        		console.log(optionName, optionValue);
+        		$('#option-value-1').val('');
              }
          });
 		 
-		 $("#option-value-2").keydown(function(key) {
+		 $(document).on("keydown", "#option-value-2", function(key) {
              if (key.keyCode == 13) {
+              	var optionNo = $('#option-name-no-2').val();
          		var optionName = $('#option-name-2').val();
         		var optionValue = $('#option-value-2').val();
 				
-        		var html = '<tr><td style="width: 25%;">'+optionName+'</td><td style="width: 75%;">'+optionValue+'</td></tr>';
+        		if($("#dataTable5").css("display") == "none"){   
+        	        $('#dataTable5').show();  
+        	    }  
+        		
+        		var html = '<tr><td style="width: 20%;">'+optionNo+'</td><td style="width: 25%;">'+optionName+'</td><td style="width: 55%;">'+optionValue+'</td></tr>';
 
         		$('#optionAdd-list-2').append(html);
         		$('#option-value-2').val('');
-        		
-        		console.log(optionName, optionValue);
              }
          });
 		 
@@ -820,22 +825,34 @@
 			var optionValueList2 = new Set([]);
 			var optionFullValue = new Set([]);
 			
-			var html = '<input type="hidden" name="optionValueList['+i+'].optionNameNo" value="'+optionName+'">'
-			+  '<input type="hidden" name="optionValueList['+i+'].optionValue" value="'+optionValue+'">';
+			var html = '';
 			
-			$('#hidden-option').append(html);
+			var indexNo = 0;
 			
-			for (var i = 1; i < td1.length; i++) {
-				if(i%2 != 0){
+			for (var i = 0; i < td1.length; i++) {
+				if(i%3 == 0){
+					html += '<input type="hidden" name="optionValueList['+parseInt(i/3)+'].optionNameNo" value="'+td1[i].innerHTML+'">';
+				}else if(i%3 == 2){
+					html += '<input type="hidden" name="optionValueList['+parseInt(i/3)+'].optionValue" value="'+td1[i].innerHTML+'">';
 					optionValueList1.add(td1[i].innerHTML);
 				}
+				indexNo = i/3;
 			}
 			
-			for (var i = 1; i < td2.length; i++) {
-				if(i%2 != 0){
+			indexNo += 1;
+			indexNo = parseInt(indexNo);
+			for (var i = 0; i < td2.length; i++) {
+				if(i%3 == 0){
+					html += '<input type="hidden" name="optionValueList['+parseInt((i/3)+indexNo)+'].optionNameNo" value="'+td2[i].innerHTML+'">';
+				}else if(i%3 == 2){
+					html += '<input type="hidden" name="optionValueList['+parseInt((i/3)+indexNo)+'].optionValue" value="'+td2[i].innerHTML+'">';
 					optionValueList2.add(td2[i].innerHTML);
 				}
 			}
+			
+			console.log(html);
+			
+			$('#hidden-option').append(html);
 			
 			var it1 = optionValueList1.values();
 			var it2 = optionValueList2.values();
@@ -869,11 +886,6 @@
 			
 			
 		});
-		
-		$('#dataTable2 tbody').on('change', function() {
-			alert('Handler for .change() called.'); 
-		});
-
 		
 		$('#dataTable2 tbody').on('click', 'tr', function () {
 			var tr = $(this);

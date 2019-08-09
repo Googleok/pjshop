@@ -36,18 +36,18 @@
 		<div class="card card-container">
 				<form:form modelAttribute="userVo" id="join-form" name="joinForm" method="post" action="${pageContext.servletContext.contextPath }/user/join" >
 					<label class="block-label" for="id">아이디</label>
-					<input type="button" id="check-button" value="체크" class="btn btn-light">
+					<input type="button" id="check-button" value="체크" class="btn btn-light" >
 					<img style="display:none" id="check-image" src="${pageContext.servletContext.contextPath }/assets/images/check.png" />
 					<p style="font-weight:bold; color:#f00; text-align:left; padding:0; margin:0 ">
 						<form:errors path="id" />
 					</p>
-					<form:input path="id" id="id" class="form-control"/>
+					<form:input path="id" id="id" class="form-control" required="required"/>
 					
 					<label class="block-label">패스워드</label>
-					<form:password path="password" id="password" class="form-control"/>
+					<form:password path="password" id="password" class="form-control" required="required"/>
 					
 					<label class="block-label" for="name">이름</label>
-					<input id="name" name="name" type="text" value="" class="form-control">
+					<input id="name" name="name" type="text" value="" class="form-control" required="required">
 					<spring:hasBindErrors name="userVo">
 					    <c:if test="${errors.hasFieldErrors('name') }">
 							<p style="font-weight:bold; color:red; text-align:left; padding:0">
@@ -59,14 +59,14 @@
 					</spring:hasBindErrors>
 					
 					<label class="block-label" for="phone">전화번호</label>
-					<form:input path="phone" id="phone" class="form-control"/>
+					<form:input path="phone" id="phone" class="form-control" required="required"/>
 					
 					<label class="block-label" for="email">이메일</label>
-					<form:input path="email" id="email" class="form-control"/>
+					<form:input path="email" id="email" class="form-control" required="required"/>
 				
 					
 					<label class="block-label" for="birth">생일</label>
-					<form:input path="birth" id="birth" class="form-control"/>
+					<form:input path="birth" id="birth" class="form-control" required="required"/>
 					
 					<fieldset>
 						<label class="block-label" for="gender">성별</label><br>
