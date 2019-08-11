@@ -16,7 +16,7 @@ import org.springframework.util.FileCopyUtils;
 public class UploadFileUtils {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UploadFileUtils.class);
-	private static final String PREFIX_URL = "/shop-uploads"; //저장된 파일을 jsp에서 불러오기 위한 경로
+	private static final String PREFIX_URL = "/assets/image/"; //저장된 파일을 jsp에서 불러오기 위한 경로
 	
 	// 날짜별로 폴더 생성해서 경로 설정
 	public static String calcPath(String uploadPath)throws Exception{
@@ -107,7 +107,7 @@ public class UploadFileUtils {
 		}
 		
 		System.out.println("=========uploadedFileName=========" + uploadedFileName);
-		return uploadedFileName;
+		return PREFIX_URL + uploadedFileName;
 	}
 	
 	

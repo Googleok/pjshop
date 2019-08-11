@@ -3,7 +3,7 @@ package com.cafe24.pjshop.frontend.vo;
 public class OptionVo {
 	private Long no;
 	private String optionValue;
-	private Boolean stockAvailability;
+	private Boolean stockAvailability = true;
 	private Long productCount;
 	private Long additionalPrice;
 	private Long productNo;

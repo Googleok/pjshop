@@ -59,67 +59,84 @@
 
 			<div class="col-lg-9">
 
-				<div class="card mt-4">
-					<img class="card-img-top img-fluid"
-						src="http://placehold.it/900x400" alt="">
-					<div class="card-body">
-						<h3 class="card-title">${productDetail.name }</h3>
-						<h4>${productDetail.price }원</h4>
-						<div class="btn-group" id="option-dropdown">
+				<div class="row">
+				
+					<div id="carouselExampleIndicators" class="carousel slide my-4 col-md-6"
+						data-ride="carousel">
+						
+						<ol class="carousel-indicators">
+							<li data-target="#carouselExampleIndicators" data-slide-to="${productDetail.productImageVoList[0].no}"></li>
+			
+						<c:forEach items="${productDetail.productImageVoList}" var="vo" varStatus="status" begin="1">
+							<li data-target="#carouselExampleIndicators" data-slide-to="${vo.no }"></li>
+						</c:forEach>
+						</ol>
+						<div class="carousel-inner" role="listbox">
+							<div class="carousel-item active">
+								<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }${productDetail.productImageVoList[0].imageUrl}" style="width: 400px; height: 500px;">
+							</div>
+						<c:forEach items="${productDetail.productImageVoList}" var="vo" varStatus="status" begin="1">
+							<div class="carousel-item">
+								<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }${vo.imageUrl}" style="width: 400px; height: 500px;">
+							</div>
+						</c:forEach>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleIndicators"
+							role="button" data-slide="prev"> <span
+							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="sr-only">Previous</span>
+						</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+							role="button" data-slide="next"> <span
+							class="carousel-control-next-icon" aria-hidden="true"></span> <span
+							class="sr-only">Next</span>
+						</a>
+					</div>
+					
+					<div class="col-md-6" style="margin-top: 40px;">
+						<hr>
+						<div class="row ml-3">
+							<h5>상품명</h5>							
+							<span class="card-title ml-3">${productDetail.name }</span>
+						</div>
+						<hr>
+						<div class="row ml-3">
+							<h5>판매가</h5>							
+							<span class="ml-3">${productDetail.price }원</span>
+						</div>
+						<hr>
+						<div class="row ml-3">
+							<h5>배송비</h5>							
+							<span class="ml-3">${productDetail.shippingFee }원</span>
+						</div>
+						<span class="ml-3">3일후 도착예정</span>
+						<hr>
+						<div class="btn-group col-md-12" id="option-dropdown">
 						  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    Option <span class="caret"></span>
 						  </button>
-						  <div class="dropdown-menu">
+						  <div class="dropdown-menu col-md-11">
 							  	<c:forEach items="${productDetail.optionList }" var="vo" varStatus="status">
 								    <a class="dropdown-item" href="javascript:void(0)">${vo.optionValue }</a>
 							  	</c:forEach>
 						  </div>
 						</div>
 						
-						<div id="temp-list" style="height: 100px; background-color: red;">
+						<div id="temp-list" style="height: 150px; background-color: red;" class="col-md-11 ml-3 mb-3">
 						</div>
 						
-						<button type="button" class="btn btn-warning">Go Cart</button>
-						<p class="card-text">
-							Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque
-							facere, soluta. Totam id dolores, sint aperiam sequi pariatur
-							praesentium animi perspiciatis molestias iure, ducimus!
-						</p>
-						<span class="text-warning">&#9733; &#9733; &#9733; &#9733;
-							&#9734;</span> 4.0 stars
+						<div class="row col-md-12 ml-1">
+						
+							<button type="button" class="btn btn-warning col-md-6">바로 주문하기</button>
+							<button type="button" class="btn btn-secondary col-md-5 ml-2">장바구니 담기</button>
+						</div>
 					</div>
 				</div>
 				<!-- /.card -->
 
 				<div class="card card-outline-secondary my-4">
-					<div class="card-header">Product Reviews</div>
+					<div class="card-header">Product Detail</div>
 					<div class="card-body">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.
-						</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-						<hr>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.
-						</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-						<hr>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.
-						</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-						<hr>
-						<a href="#" class="btn btn-success">Leave a Review</a>
+						${productDetail.detail }
 					</div>
 				</div>
 				<!-- /.card -->

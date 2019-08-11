@@ -15,6 +15,7 @@ public class ProductVo {
 	private String detail;
 	private Long shippingFee;
 	private Long categoryNo;
+	private String mainImageUrl;
 	private List<OptionValueVo> optionValueList;
 	private List<OptionVo> optionList;  // optionName optionValue count
 	private List<ProductImageVo> productImageList;
@@ -183,6 +184,14 @@ public class ProductVo {
 	public void setProductImageList(List<ProductImageVo> productImageList) {
 		this.productImageList = productImageList;
 	}
+	
+	public String getMainImageUrl() {
+		return mainImageUrl;
+	}
+
+	public void setMainImageUrl(String mainImageUrl) {
+		this.mainImageUrl = mainImageUrl;
+	}
 
 	@Override
 	public String toString() {
@@ -190,9 +199,10 @@ public class ProductVo {
 				+ ", exhibitionAvailability=" + exhibitionAvailability + ", optionAvailability=" + optionAvailability
 				+ ", sailsStatus=" + sailsStatus + ", exhibitionRank=" + exhibitionRank + ", count=" + count
 				+ ", detail=" + detail + ", shippingFee=" + shippingFee + ", categoryNo=" + categoryNo
-				+ ", optionValueList=" + optionValueList + ", optionList=" + optionList + ", productImageList="
-				+ productImageList + "]";
+				+ ", mainImageUrl=" + mainImageUrl + ", optionValueList=" + optionValueList + ", optionList="
+				+ optionList + ", productImageList=" + productImageList + "]";
 	}
+
 	
 	
 }

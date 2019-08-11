@@ -97,7 +97,7 @@
 					
 					    <div id="accordion-register-body-1" class="collapse show" aria-labelledby="accordion-register-header-1" data-parent="#accordion-register">
 					      <div class="card-body">
-					      
+					      <input type="hidden" name="count" value="1000">
 					      <table class="table">
 							  <tbody>
 							    <tr>
@@ -159,10 +159,10 @@
 							      	이미지
 							      </th>
 							      <td style="width: 85%">
-							          <div class="form-group">
-							            <div class="form-row">
+							          <div class="form-group" >
+							            <div class="form-row" id="imageUpload">
 										   <div class="col-sm-3 imgUp">
-										   <h5 class="mb-3 ml-1">대표이미지</h5>
+										  	 <h5 class="mb-3 ml-1 img-title">대표이미지</h5>
 										     <div class="imagePreview"></div>
 										     <label class="btn btn-primary btn-upload col-md-12">
 										       Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
@@ -487,7 +487,7 @@
 							      </td>
 							    </tr>
 							    
-							    <tr>
+							    <tr id="option-setting" style="display: none;">
 							      <th scope="row" style="width: 15%;">
 							      	옵션설정
 							      </th>
@@ -562,34 +562,30 @@
 											<button type="button" class="btn btn-primary btn-lg" id="option-cartesian">옵션품목 만들기</button>									 	
 									 	</div>
 									 </div>
+									 
+									 <div class="form-group" style="margin-top: 80px;">
+							          	<div class="form-row">
+								          <div class="col-md-12">
+											<table class="table table-bordered" id="dataTable6" width="100%"
+														cellspacing="0" style="display: none;">
+												<thead>
+													<tr>
+														<th style="width: 30%;">옵션</th>
+														<th style="width: 20%;">부가세</th>
+														<th style="width: 30%;">재고설정</th>
+														<th style="width: 20%;">수량</th>
+													</tr>
+												</thead>
+												<tbody id="optionAdd-list-3">
+												</tbody>
+											</table>
+										  </div>
+										</div>
+									 </div>
+									 
 							      </td>
 							      
 							    </tr>
-												    
-							    
-							    <tr>
-							      <th scope="row" style="width: 15%;">
-							      	재고관리
-							      </th>
-							      <td style="width: 85%">
-							        <div class="form-group">
-							            <div class="form-row">
-							              <div class="col-md-6 row">
-							                  <div class="custom-control custom-radio">
-												<input type="radio" name="stock" id="stock-1" class="custom-control-input" value="true">
-												<label class="custom-control-label" for="stock-1">사용함</label>
-											  </div>
-											  <div class="custom-control custom-radio ml-4">
-												<input type="radio" name="stock" id="stock-2" class="custom-control-input" value="false" checked="checked">
-												<label class="custom-control-label" for="stock-2">사용안함</label>
-											  </div>
-							              </div>
-							            </div>
-							          </div>
-							      </td>
-							    </tr>
-							 
-							    
 							    
 							  </tbody>
 							</table>					      
@@ -665,14 +661,6 @@
 	<!-- FileUpload UI -->
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/admin/imageUpload.js"></script>
 
-	<script type="text/javascript">
-	 $('#summernote').summernote({
-         height: 600,                 // set editor height
-         minHeight: null,             // set minimum height of editor
-         maxHeight: null,             // set maximum height of editor
-         focus: true                  // set focus to editable area after initializing summernote
- 	 });
-	</script>
 	
 	<script type="text/javascript">
 
@@ -794,6 +782,16 @@
 		};
 		
 	$(function () {
+		
+		
+		$('#optionAvailability-1').on('click', function () {
+			$('#option-setting').show();
+		});
+		
+		$('#optionAvailability-2').on('click', function () {
+			$('#option-setting').hide();
+		});		
+		
 		$('#dataTable3 tbody').on('click', 'tr', function () {
 			var tr = $(this);
 			var td = tr.children();
@@ -906,12 +904,32 @@
 			
 			var myArr3 = Array.from(it3);
 			
+			$('#dataTable6').show();
+			
 			for (var i = 0; i < myArr3.length; i++) {
-				var html = '<input type="hidden" name="optionList['+i+'].optionValue" value="'+myArr3[i]+'">'
-						+  '<input type="hidden" name="optionList['+i+'].productCount" value="100">'
-						+  '<input type="hidden" name="optionList['+i+'].additionalPrice" value="1500">';
+				var html = '<input type="hidden" name="optionList['+i+'].optionValue" value="'+myArr3[i]+'">';
 						
 				$('#hidden-option').append(html);
+        		var html2 = '<tr>';
+        			html2+= '<td style="width: 30%;">'+myArr3[i]+'</td>';
+        			html2+= '<td style="width: 20%;"><input type="text" class="form-control" name="optionList['+ i +'].additionalPrice" placeholder="부가세"></td>';
+ 
+        			html2 += '<td style="width: 30%">'  
+						   + '<div class="col-md-12 row">'        			
+				  		   + '<div class="custom-control custom-radio">'
+						   + '<input type="radio" name="optionList['+i+'].stockAvailability" id="stock-1" class="custom-control-input" value="true" checked="checked">'
+						   + '<label class="custom-control-label" for="stock-1">사용함</label>'
+				 		   + '</div>'
+				  		   + '<div class="custom-control custom-radio ml-4">'
+						   + '<input type="radio" name="optionList['+i+'].stockAvailability" id="stock-2" class="custom-control-input" value="false">'
+						   + '<label class="custom-control-label" for="stock-2">사용안함</label>'
+				 		   + '</div>'
+				 		   + '</td>';
+        			       + '</div>'
+        			html2+= '<td style="width: 20%;"><input type="text" class="form-control" name="optionList['+ i +'].productCount" placeholder="개수"></td>';
+        			html2+= '</tr>';
+
+				$('#optionAdd-list-3').append(html2);
 			}
 			
 			
@@ -994,6 +1012,50 @@
 		getChildCategoryList();	
 		getOptionnameList();
 	});
+	</script>
+	
+	<!-- Summernote -->
+	<script type="text/javascript">
+	$(function(){
+		$('#summernote').summernote({
+			height: 600,
+	        minHeight: null,             // set minimum height of editor
+	        maxHeight: null,             // set maximum height of editor
+			fontNames : [ '맑은고딕', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', ],
+			fontNamesIgnoreCheck : [ '맑은고딕' ],
+			focus: true,
+			
+			callbacks: {
+				onImageUpload: function(files, editor, welEditable) {
+		            for (var i = files.length - 1; i >= 0; i--) {
+		            	sendFile(files[i], this);
+		            }
+		        }
+			}
+			
+		});
+
+	})
+	
+	function sendFile(file, el) {
+		var form_data = new FormData();
+      	form_data.append('file', file);
+      	$.ajax({
+        	data: form_data,
+        	type: "POST",
+        	url: '/productImageUploadAjax',
+        	cache: false,
+        	contentType: false,
+        	dataType: 'json',
+        	enctype: 'multipart/form-data',
+        	processData: false,
+        	success: function(img_name) {
+          		$(el).summernote('editor.insertImage', img_name);
+        	}
+      	});
+    }	
+	
+	
 	</script>
 </body>
 

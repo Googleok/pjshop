@@ -26,23 +26,25 @@
 	<select id="getListByCategory" parameterType="long" resultType="productVo">
 		<![CDATA[
 			select
-					no,
-					name,
-					price,
-					reg_date as regDate,
-					exhibition_availability as exhibitionAvailability,
-					option_availability as optionAvailability,
-					sails_status as sailsStatus,
-					exhibition_rank as exhibitionRank, 
-					count,
-					detail,
-					shipping_fee as shippingFee,
-					category_no as categoryNo
-			from product
+					a.no,
+					a.name,
+					a.price,
+					a.reg_date as regDate,
+					a.exhibition_availability as exhibitionAvailability,
+					a.option_availability as optionAvailability,
+					a.sails_status as sailsStatus,
+					a.exhibition_rank as exhibitionRank, 
+					a.count,
+					a.detail,
+					a.shipping_fee as shippingFee,
+					a.category_no as categoryNo,
+					b.image_url as mainImageUrl
+			from product a, representative_image b
+			where a.no = b.product_no and b.image_role = 'main'
 		]]>
 		<if test="value != null">
 			<![CDATA[
-				where category_no = #{value}
+				and a.category_no = #{value}
 			]]>
 		</if>			
 	</select>

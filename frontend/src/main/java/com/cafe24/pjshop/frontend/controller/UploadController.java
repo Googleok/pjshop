@@ -69,11 +69,11 @@ public class UploadController {
 				HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value="/snsUploadAjax", method=RequestMethod.GET)
+	@RequestMapping(value="/productImageUploadAjax", method=RequestMethod.GET)
 	public void snsUploadAjax(){
 	}
 	
-	@RequestMapping(value="/snsUploadAjax", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/productImageUploadAjax", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	public ResponseEntity<String> snsUploadAjax(MultipartFile file)throws Exception{
 		logger.info("originalName: "+file.getOriginalFilename());
 	

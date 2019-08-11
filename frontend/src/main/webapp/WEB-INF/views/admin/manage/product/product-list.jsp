@@ -28,224 +28,153 @@
 	href="${pageContext.servletContext.contextPath }/assets/css/admin/sb-admin.css"
 	rel="stylesheet">
 
-<!-- Editor - SummerNote -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-
-<!-- FileUpload UI -->
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/admin/imageUpload.css"
-	rel="stylesheet">
-
-
-<style>
-.fileDrop {
-  width: 500px;
-  height: 600px;
-  border: 1px dotted gray;
-  background-color: red;
-  margin: auto;
-  
-}
-div.col-md-12 {
-    height: 700px;
-}
-div.form-group {
-    margin-top: 30px;
-}
-div.box-body {
-    height: 600px;
-}
-div.form-group input,textarea {
-    position: relative;
-    bottom: 50px;
-}
-div.form-group label {
-    position: relative;
-    bottom: 30px;
-    font-size: 16px;
-    font-weight: bold;
-}
-button.btn.btn-default {
-    color: #ffffff;
-    background-color: #2ae03f;
-    font-weight: normal;
-    width : 100px;
-}
-</style>
-
-
 </head>
-<body>
-    
-<!-- Main content -->
-<section class="content">
-	<div class="row">
-		<!-- left column -->
-		<div class="col-md-12">
-			<!-- general form elements -->
-			<div class="box box-primary">
-				<div class="box-header with-border">
-					<h3 class="box-title">REGISTER BOARD</h3>
+
+<body id="page-top">
+
+	<!-- navbar -->
+	<c:import url='/WEB-INF/views/admin/includes/navbar.jsp'>
+	</c:import>
+	<!--/navbar -->
+
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<c:import url='/WEB-INF/views/admin/includes/sidebar.jsp'>
+		</c:import>
+		<!-- /Sidebar -->
+
+		<div id="content-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Breadcrumbs -->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Product</a></li>
+					<li class="breadcrumb-item active">List</li>
+				</ol>
+
+				<!-- Category DataTables -->
+				<div class="card mb-3">
+					<div class="card-header">
+						<i class="fas fa-table"></i> Product Data Table
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>Name</th>
+										<th>Price</th>
+										<th>ReqDate</th>
+										<th>Exhibition</th>
+										<th>Option</th>
+										<th>SailsStatus</th>
+										<th>Rank</th>
+										<th>Count</th>
+										<th>ShippingFee</th>
+										<th>CategoryNo</th>
+										<th>Del</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>No</th>
+										<th>Name</th>
+										<th>Price</th>
+										<th>ReqDate</th>
+										<th>Exhibition</th>
+										<th>Option</th>
+										<th>SailsStatus</th>
+										<th>Rank</th>
+										<th>Count</th>
+										<th>ShippingFee</th>
+										<th>CategoryNo</th>
+										<th>Del</th>
+									</tr>
+								</tfoot>
+								<tbody>
+								<c:forEach items="${productList }" var="vo" varStatus="status">
+									<tr>
+										<td>${vo.no }</td>
+										<td>${vo.name }</td>
+										<td>${vo.price }</td>
+										<td>${vo.regDate }</td>
+										<td>${vo.exhibitionAvailability }</td>
+										<td>${vo.optionAvailability }</td>
+										<td>${vo.sailsStatus }</td>
+										<td>${vo.exhibitionRank }</td>
+										<td>${vo.count }</td>
+										<td>${vo.shippingFee }</td>
+										<td>${vo.categoryNo }</td>
+										<td><a class="btn btn-danger" href="${pageContext.servletContext.contextPath }/admin/product/delete/${vo.no}">X</a></td>
+									</tr>
+								</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="card-footer small text-muted">Updated yesterday
+						at 11:59 PM</div>
 				</div>
-				<!-- /.box-header -->
-
-<form role="form" method="post" id="registerForm">
-	<div class="box-body">
-		<div class="form-group">
-			<label for="exampleInputEmail1">Title</label><br><br>
-			<input type="text"
-				name="title" class="form-control" placeholder="Enter Title" >
-		</div>
-		<br><br>
-		<div class="form-group">
-			<label for="exampleInputPassword1">Content</label><br><br>
-			<textarea rows="3" class="form-control" name="content" placeholder="Enter....."  ></textarea>
-		</div><br><br>
-		<div class="form-group">
-			<label for="exampleInputEmail1">Writer</label><br><br>
-			<input type="text"
-				name="writer" class="form-control" value="${login.uid}" readonly="readonly" >
-		</div><br><br>
-		
-		<div class="form-group">
-			<label for="exampleInputEmail1">File DROP Here</label><br><br>
-			<div class="fileDrop"></div>
-		</div>
-	</div>
-	<!-- /.box-body -->
-	
-	<div class="box-footer">
-		<div>
-			<hr>
-		</div>
-		<ul class="mailbox-attachments clearfix uploadedList">
-		</ul>
-		
-		
-		<button type="submit" class="btn btn-default">Submit</button>
-		<button type="reset" class="btn btn-warning">CANCEL</button>
-	</div>
-</form>
-
 
 			</div>
-			<!-- /.box -->
+			<!-- /.container-fluid -->
+
+			<!-- Sticky Footer -->
+			<footer class="sticky-footer">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright Â© Your Website 2019</span>
+					</div>
+				</div>
+			</footer>
+
 		</div>
-		<!--/.col (left) -->
+		<!-- /.content-wrapper -->
 
 	</div>
-	<!-- /.row -->
-</section>
-<!-- /.content -->
+	<!-- /#wrapper -->
 
-<!-- Handlebars -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js">
-</script>
-<script src="${pageContext.servletContext.contextPath }/assets/vendor/jquery/jquery.min.js"></script>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
+	<c:import url='/WEB-INF/views/admin/includes/logoutModal.jsp'>
+	</c:import>
 
-<!-- upload.js -->
-<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/admin/upload.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script
+		src="${pageContext.servletContext.contextPath }/assets/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.servletContext.contextPath }/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- 화면에 보일 각 파일을 템플릿화 -->
-<script id="template" type="text/x-handlebars-template">
-	<li>
-		<span class="mailbox-attachment-icon has-img">
-			<img src="{{imgsrc}}" alt="Attachment">
-		</span>
-		<div class="mailbox-attachment-info">
-			<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-			<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn">
-			</a>
-		</span>
-		</div>
-			<i class="fa fa-fw fa-remove" data-src="{{fullName}}"></i>
-	</li>
-</script>
+	<!-- Core plugin JavaScript-->
+	<script
+		src="${pageContext.servletContext.contextPath }/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<script>
-	var template = Handlebars.compile($("#template").html());
-	
-	$(".fileDrop").on("dragenter dragover", function (event) {
-		event.preventDefault();
-	});
-	
-	$(".fileDrop").on("drop", function (event) {
-		event.preventDefault();
-		
-		var files = event.originalEvent.dataTransfer.files;
-		
-		var file = files[0];
-		
-		var formData = new FormData();
-		
-		formData.append("file", file);
-		
-		$.ajax({
-			url: '/snsUploadAjax',
-			data: formData,
-			dataType: 'json',
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			success: function (data) {
-				
-				var fileInfo = getFileInfo(data);
-				
-				console.log(fileInfo);
-				var html = '<img src="/assets/image/'+data+'"alt="Attachment">'
-				$('.uploadedList').append(html);
-				
-				console.log(data);				
-			},
-			error : function (a,b,c) {
-				console.log(a,b,c);
-			}
-		});
-	});
-	
-	// form 태그의 submit 처리
-	$("#registerForm").submit(function (event) {
-		event.preventDefault();
-	
-		var that = $(this);
-		
-		var str = "";
-		
-		$(".uploadedList .delbtn").each(function (index) {
-			str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href")+"'> ";
-		});
-		
-		that.append(str);
-		alert(that);
-	 	that.get(0).submit(); 
-	});
-</script>
+	<!-- Page level plugin JavaScript-->
+	<script
+		src="${pageContext.servletContext.contextPath }/assets/vendor/chart.js/Chart.min.js"></script>
+	<script
+		src="${pageContext.servletContext.contextPath }/assets/vendor/datatables/jquery.dataTables.js"></script>
+	<script
+		src="${pageContext.servletContext.contextPath }/assets/vendor/datatables/dataTables.bootstrap4.js"></script>
 
-<script>
-/*
-...579p.
-...화면에서 small태그로 된 'x' 삭제버튼을 클릭하면 'data-src'속성값으로
-...사용된 파일의 이름을 얻어와서 POST방식으로 호출함.
-*/			
-$(".uploadedList").on("click", "i", function(event){
-	var that = $(this);
-	var tmp = that.attr("data-src");
-	console.log("tmp : " + tmp);
-	
-	$.ajax({
-	   url:"/deleteFile",
-	   type:"post",
-	   data: {fileName:$(this).attr("data-src")},
-	   dataType:"text",
-	   success:function(result){
-		   if(result == 'deleted'){
-			   that.parent('li').remove(); 
-		   }
-	   }
-	});
-});
-</script>
+	<!-- Custom scripts for all pages-->
+	<script
+		src="${pageContext.servletContext.contextPath }/assets/js/admin/sb-admin.min.js"></script>
+
+	<!-- Demo scripts for this page-->
+	<script
+		src="${pageContext.servletContext.contextPath }/assets/js/admin/demo/datatables-demo.js"></script>
+	<script
+		src="${pageContext.servletContext.contextPath }/assets/js/admin/demo/chart-area-demo.js"></script>
+
 
 </body>
+
 </html>
