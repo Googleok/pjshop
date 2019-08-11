@@ -296,5 +296,22 @@
 			and nonuser_id = #{nonUserId};
 		]]>
 	</select>
+	
+	<select id="getCartList" resultType="cartDto">
+		<![CDATA[
+			select a.no,
+				   a.user_no as userNo,
+				   a.nonmember_id as nonMemberId,
+				   b.option_value as optionValue, 
+			       b.additional_price as additionalPrice, 
+			       c.name as productName,
+			       c.no as productNo, 
+			       c.price, 
+			       c.shipping_fee as shippingFee, 
+			       a.count 
+			from cart a, product_option b, product c 
+			where a.product_option_no = b.no and b.product_no = c.no
+		]]>
+	</select>
 
 </mapper>

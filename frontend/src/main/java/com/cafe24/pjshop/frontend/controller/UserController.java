@@ -1,5 +1,6 @@
 package com.cafe24.pjshop.frontend.controller;
 
+import java.security.Principal;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -79,5 +80,22 @@ public class UserController {
 		}
 		model.addAttribute("authUser", authUser);
 		return "redirect: /main";
+	}
+	
+	
+	@GetMapping("/cart")
+	public String cartGet(Model model) {
+		userService.getCartList(model);
+		return "/user/cart";
+	}
+	
+	@GetMapping("/order")
+	public String orderPage() {
+		return "/user/order";
+	}
+	
+	@GetMapping("/update")
+	public String mypage() {
+		return "/user/update";
 	}
 }

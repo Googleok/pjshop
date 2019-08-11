@@ -9,6 +9,7 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,9 +50,21 @@ public class UserController {
 		
 		UserVo authUser = userService.login(vo);
 		if(authUser == null) {
-			return "/admins/login";
+			return "/admin/login";
 		}
 		model.addAttribute("authUser", authUser);
 		return "redirect: /admin";
 	}
+	
+	@GetMapping("/cart")
+	public String getCartList(Model model) {
+		userService.getCartListAll(model);
+		return "/admin/manage/user/user-cart";
+	}
+	
+	@GetMapping({"", "/list"})
+	public String getUserList() {
+		return "/admin/manage/user/user-list";
+	}
+	
 }

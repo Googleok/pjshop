@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,23 +16,83 @@
 	<!-- Custom styles for this template -->
 	<link href="${pageContext.servletContext.contextPath }/assets/css/shop-item.css" rel="stylesheet">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<sec:authentication property="principal.no" var="userNo"/>
+	
 	<script type="text/javascript">
 	$(function () {
-		$('#option-dropdown .dropdown-menu a').bind('click', function (e) {
+		
+		$('#go-cart').on('click', function () {
+			
+			
+			var userNo = ${userNo};
+			var no = $("input[name=productOptionNo]");
+			var count = $("input[name=count]");
+			
+			console.log(userNo);
+			
+		    for (var i = 0; i < count.length; i++) {
+				console.log(no[i].value);
+				console.log(count[i].value);
+		    }
+		    
+			$.ajax({
+				url : "${pageContext.servletContext.contextPath}/api/user/cart",
+				type: "post",
+				contentType : "application/x-www-form-urlencoded; charset=utf-8" ,
+				dataType: "json",
+				data: {
+					userNo : userNo,
+					productOptionNo : no[0].value,
+					count : count[0].value
+				},
+				success: function(response){
+						$('#cartModal').modal();
+						
+						$('#temp-list').empty();
+						
+			  			console.log(response);
+			         },            // jqeury XML Http Request
+			         error : function(jqXHR, status, e){
+			            console.error(status + " : " + e);
+			         }
+			});
+			
+		});
+		
+		$('option-dropdown .dropdown-menu a').bind('click', function (e) {
+			
+			
 		    var html = $(this).html();
 		    $('#option-dropdown button.dropdown-toggle').html(html + ' <span class="caret"></span>');
 			
-		    var rowHtml = '<div>';
+		    var rowHtml = '<div class="row">';
 		    
-		    rowHtml += html;
+		    rowHtml += '<span class="col-md-6" style="padding-top: 10px;">' + html + '</span>';
 		    
-		    rowHtml += '<input type="text" style="display: inline; width: 50px; margin-left: 100px;" class="form-control" value="1"/>'
-		    rowHtml += '<button type="button" class="btn btn-light" style="width: 50px;">+</button>'
-		    rowHtml += '<button type="button" class="btn btn-light" style="width: 50px;">-</button>'
+		    rowHtml += '<input type="text" class="form-control col-md-2" value="1"/>'
+		    rowHtml += '<button type="button" class="btn btn-light col-md-2">+</button>'
+		    rowHtml += '<button type="button" class="btn btn-light col-md-2">-</button>'
 		    rowHtml += '</div>'
 		    $('#temp-list').append(rowHtml);		    
 		});
+		
+		
 	});
+	
+	function addOption(no, value) {
+		
+	    $('#option-dropdown button.dropdown-toggle').html(value + ' <span class="caret"></span>');
+		
+	    var rowHtml = '<div class="row">';
+	    
+	    rowHtml += '<input type="hidden" name="productOptionNo" value="'+no+'">';
+	    rowHtml += '<span class="col-md-6" style="padding-top: 10px;">' + value + '</span>';
+	    rowHtml += '<input type="text" name="count" class="form-control col-md-2" id="count" value="1"/>'
+	    rowHtml += '<button type="button" class="btn btn-light col-md-2" onclick="">+</button>'
+	    rowHtml += '<button type="button" class="btn btn-light col-md-2">-</button>'
+	    rowHtml += '</div>'
+	    $('#temp-list').append(rowHtml);		    
+	}
 	</script>
 </head>
 
@@ -116,18 +177,18 @@
 						  </button>
 						  <div class="dropdown-menu col-md-11">
 							  	<c:forEach items="${productDetail.optionList }" var="vo" varStatus="status">
-								    <a class="dropdown-item" href="javascript:void(0)">${vo.optionValue }</a>
+								    <a class="dropdown-item" href="javascript:void(0)" onclick="addOption('${vo.no}', '${vo.optionValue }')">${vo.optionValue }</a>
 							  	</c:forEach>
 						  </div>
 						</div>
 						
-						<div id="temp-list" style="height: 150px; background-color: red;" class="col-md-11 ml-3 mb-3">
+						<div id="temp-list" style="height: 150px; background-color: #FFFFFF; overflow: auto;" class="col-md-11 ml-3 mb-3">
 						</div>
 						
 						<div class="row col-md-12 ml-1">
 						
 							<button type="button" class="btn btn-warning col-md-6">바로 주문하기</button>
-							<button type="button" class="btn btn-secondary col-md-5 ml-2">장바구니 담기</button>
+							<button type="button" class="btn btn-secondary col-md-5 ml-2" id="go-cart">장바구니 담기</button>
 						</div>
 					</div>
 				</div>
@@ -152,6 +213,30 @@
 	<!-- Footer -->
 	<c:import url='/WEB-INF/views/includes/footer.jsp' />
 	<!-- /.Footer -->
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+			상품이 장바구니에 담겼습니다.
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">계속 쇼핑하기</button>
+	        <a href="${pageContext.servletContext.contextPath }/user/cart" class="btn btn-primary">장바구니 가기</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
 </body>
 
 </html>

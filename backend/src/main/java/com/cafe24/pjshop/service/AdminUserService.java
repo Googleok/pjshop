@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cafe24.pjshop.dto.CartDto;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.repository.AdminUserDao;
 import com.cafe24.pjshop.vo.UserVo;
@@ -54,6 +55,10 @@ public class AdminUserService {
 	 */
 	public List<UserVo> getUserSearchList(SearchDto searchDto) {
 		return adminUserDao.getUserSearchList(searchDto);
+	}
+
+	public List<CartDto> getCartList() {
+		return adminUserDao.getCartList();
 	}
 
 	

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafe24.pjshop.dto.CartDto;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.vo.UserVo;
 
@@ -42,6 +43,10 @@ public class AdminUserDao {
 
 	public UserVo getUser(String id) {
 		return sqlSession.selectOne("user.getUser", id);
+	}
+
+	public List<CartDto> getCartList() {
+		return sqlSession.selectList("user.getCartList");
 	}
 	
 	

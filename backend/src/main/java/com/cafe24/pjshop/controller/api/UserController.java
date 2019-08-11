@@ -134,7 +134,7 @@ public class UserController {
 	
 	@ApiOperation(value = "장바구니 리스트")
 	@GetMapping({"/cart", "/cart/list"})
-	public ResponseEntity<JSONResult> getCartList(@RequestParam(value = "id") Long no, @RequestParam(value = "nonUserId") String nonUserId) {
+	public ResponseEntity<JSONResult> getCartList(@RequestParam(value = "id", defaultValue = "") Long no, @RequestParam(value = "nonUserId", defaultValue = "") String nonUserId) {
 		List<CartDto> cartList = userService.getCartList(no, nonUserId);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(cartList));
 	}

@@ -26,10 +26,10 @@ import com.cafe24.pjshop.vo.UserVo;
 import com.google.gson.Gson;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {WebConfig.class})
+@SpringBootTest(classes = { WebConfig.class })
 public class AdminUserControllerTest {
 	private MockMvc mockMvc;
-	
+
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 
@@ -37,56 +37,49 @@ public class AdminUserControllerTest {
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
-	
+
 	// 회원리스트 요청 Test
 	@Test
 	public void testGetUserList() throws Exception {
-		ResultActions resultActions = 
-				mockMvc
-				.perform(get("/api/admin/user"))
-				.andExpect(status().isOk())
+		ResultActions resultActions = mockMvc.perform(get("/api/admin/user")).andExpect(status().isOk()).andDo(print());
+	}
+
+	// 회원리스트 요청 Test
+	@Test
+	public void testGetCartList() throws Exception {
+		ResultActions resultActions = mockMvc.perform(get("/api/admin/user/cart")).andExpect(status().isOk())
 				.andDo(print());
 	}
 
-	// 회원삭제  Test
+	// 회원삭제 Test
 	@Test
 	public void testDeleteUser() throws Exception {
 		Long deleteNo = 2L;
-		
-		ResultActions resultActions = 
-				mockMvc
-				.perform(delete("/api/admin/user/{deleteNo}", deleteNo))
-				.andExpect(status().isOk())
-				.andDo(print());
-	}	
-	
-	// 회원정보수정  Test
+
+		ResultActions resultActions = mockMvc.perform(delete("/api/admin/user/{deleteNo}", deleteNo))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
+	// 회원정보수정 Test
 	@Test
 	public void testModifyUser() throws Exception {
 		UserVo voMock = new UserVo();
 		voMock.setPhone("01012345678");
 		voMock.setGender("female");
-		
+
 		Long modifyNo = 1L;
-		
-		ResultActions resultActions = 
-					mockMvc
-					.perform(put("/api/admin/user/{modifyNo}", modifyNo)
-					.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock)))
-					.andExpect(status().isOk())
-					.andDo(print());
-	}	
-	
-	// 회원검색리스트  요청 Test
+
+		ResultActions resultActions = mockMvc.perform(put("/api/admin/user/{modifyNo}", modifyNo)
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(voMock))).andExpect(status().isOk())
+				.andDo(print());
+	}
+
+	// 회원검색리스트 요청 Test
 	@Test
 	public void testGetUserSearchList() throws Exception {
 		SearchDto searchDto = new SearchDto("name", "박종억");
-		ResultActions resultActions = 
-				mockMvc
-				.perform(get("/api/admin/user/search?menu={menu}&keyword={keyword}", searchDto.getMenu(), searchDto.getKeyword()))
-				.andExpect(status().isOk())
-				.andDo(print());
+		ResultActions resultActions = mockMvc.perform(get("/api/admin/user/search?menu={menu}&keyword={keyword}",
+				searchDto.getMenu(), searchDto.getKeyword())).andExpect(status().isOk()).andDo(print());
 	}
-	
-}
 
+}

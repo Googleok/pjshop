@@ -3,6 +3,8 @@ package com.cafe24.pjshop.frontend.dto;
 public class CartDto {
 	
 	private Long no;
+	private Long userNo;
+	private String nonMemberId;
 	private String optionValue;
 	private Long additionalPrice;
 	private String productName;
@@ -15,10 +17,12 @@ public class CartDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CartDto(Long no, String optionValue, Long additionalPrice, String productName, Long productNo, Long price, Long shippingFee,
-			Long count) {
+	public CartDto(Long no, Long userNo, String nonMemberId, String optionValue, Long additionalPrice,
+			String productName, Long productNo, Long price, Long shippingFee, Long count) {
 		super();
 		this.no = no;
+		this.userNo = userNo;
+		this.nonMemberId = nonMemberId;
 		this.optionValue = optionValue;
 		this.additionalPrice = additionalPrice;
 		this.productName = productName;
@@ -34,6 +38,22 @@ public class CartDto {
 
 	public void setNo(Long no) {
 		this.no = no;
+	}
+
+	public Long getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(Long userNo) {
+		this.userNo = userNo;
+	}
+
+	public String getNonMemberId() {
+		return nonMemberId;
+	}
+
+	public void setNonMemberId(String nonMemberId) {
+		this.nonMemberId = nonMemberId;
 	}
 
 	public String getOptionValue() {
@@ -59,7 +79,7 @@ public class CartDto {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	
+
 	public Long getProductNo() {
 		return productNo;
 	}
@@ -94,9 +114,11 @@ public class CartDto {
 
 	@Override
 	public String toString() {
-		return "CartDto [no=" + no + ", optionValue=" + optionValue + ", additionalPrice=" + additionalPrice
-				+ ", productName=" + productName + ", productNo=" + productNo + ", price=" + price + ", shippingFee="
-				+ shippingFee + ", count=" + count + "]";
+		return "CartDto [no=" + no + ", userNo=" + userNo + ", nonMemberId=" + nonMemberId + ", optionValue="
+				+ optionValue + ", additionalPrice=" + additionalPrice + ", productName=" + productName + ", productNo="
+				+ productNo + ", price=" + price + ", shippingFee=" + shippingFee + ", count=" + count + "]";
 	}
 
+	
+	
 }

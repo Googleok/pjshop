@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafe24.pjshop.dto.CartDto;
 import com.cafe24.pjshop.dto.JSONResult;
 import com.cafe24.pjshop.dto.SearchDto;
 import com.cafe24.pjshop.service.AdminUserService;
@@ -65,6 +66,13 @@ public class AdminUserController {
 			@RequestParam(value = "keyword") String keyword){
 		List<UserVo> list = adminService.getUserSearchList(new SearchDto(menu, keyword));
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	}
+	
+	@ApiOperation(value = "장바구니 리스트")
+	@GetMapping({"/cart", "/cart/list"})
+	public ResponseEntity<JSONResult> getCartList() {
+		List<CartDto> cartList = adminService.getCartList();
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(cartList));
 	}
 	
 }
