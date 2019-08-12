@@ -63,41 +63,60 @@
 								cellspacing="0">
 								<thead>
 									<tr>
-										<th>ProductName</th>
-										<th>OptionValue</th>
-										<th>AdditionalPrice</th>
-										<th>ShippingFee</th>
-										<th>Price</th>
-										<th>Count</th>
+										<th width="10%">
+											<div class="custom-control custom-checkbox">
+											    <input type="checkbox" class="custom-control-input" id="allCheck" >
+												<label class="custom-control-label" for="allCheck"></label>
+											</div>
+										</th>
+										<th>상품명</th>
+										<th>옵션</th>
+										<th>부가세</th>
+										<th>배송비</th>
+										<th>가격</th>
+										<th>수량</th>
+										<th>총가격 (상품가격 + 부가세  * 수량)</th>
+										<th width="5%">삭제</th>
 									</tr>
 								</thead>
-								<tfoot>
-									<tr>
-										<th>ProductName</th>
-										<th>OptionValue</th>
-										<th>AdditionalPrice</th>
-										<th>ShippingFee</th>
-										<th>Price</th>
-										<th>Count</th>
-									</tr>
-								</tfoot>
+						
 								<tbody>
 								<c:forEach items="${cartList }" var="vo" varStatus="status">
 									<tr>
+										<td>
+											<div class="custom-control custom-checkbox">
+											    <input type="checkbox" class="custom-control-input cart-class" name="cart-checkbox" id="${vo.no}" >
+												<label class="custom-control-label" for="${vo.no}"></label>
+											</div>
+										</td>
 										<td>${vo.productName }</td>
 										<td>${vo.optionValue }</td>
 										<td>${vo.additionalPrice }</td>
 										<td>${vo.shippingFee }</td>
 										<td>${vo.price }</td>
 										<td>${vo.count }</td>
+										<td>${vo.count * (vo.price + vo.additionalPrice) }</td>
+										<td><a class="btn btn-danger" href="${pageContext.servletContext.contextPath }/user/cart/delete/${vo.no}">X</a></td>
 									</tr>
 								</c:forEach>
 								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="1" class="text-center">
+											<button class="btn btn-danger btn-lg" id="delete-btn">선택삭제</button>
+										</td>
+										<td colspan="8" id="tablefoot" class="text-right">
+											
+										</td>
+									</tr>
+								</tfoot>
 							</table>
 						</div>
 					</div>
-					<div class="card-footer small text-muted">Updated yesterday
-						at 11:59 PM</div>
+					<div class="card-footer small text-muted text-center">
+						<a href="${pageContext.servletContext.contextPath}/main" class="btn btn-secondary col-md-2" style="height: 70px; padding-top: 22px;">계속 쇼핑하기</a>
+						<button type="button" class="btn btn-warning col-md-2 ml-2" style="height: 70px;">바로 주문하기</button>
+					</div>
 				</div>
 
 			</div>
@@ -114,8 +133,9 @@
 
 		</div>
 		<!-- /.content-wrapper -->
-
 	</div>
+	
+	
 	<!-- /#wrapper -->
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i
@@ -145,6 +165,122 @@
 	<script
 		src="${pageContext.servletContext.contextPath }/assets/js/admin/demo/datatables-demo.js"></script>
 
+	<script type="text/javascript">
+	
+	function appendPrice(checkbox) {
+		var productPrice = 0;
+		var productAdditionalPrice = 0;
+		var productShippingFee = 0;
+		var name = "";
+		var option = "";
+		var additional_price = "";
+		var shipping_fee = "";
+		var price = "";
+		var count = "";
+		
+		checkbox.each(function (i) {
+			var tr = checkbox.parent().parent().parent().eq(i);
+			var td = tr.children();
+			
+			name = td.eq(1).text();
+			option = td.eq(2).text();
+			additional_price = td.eq(3).text();
+			shipping_fee = td.eq(4).text();
+			price = td.eq(5).text();
+			count = td.eq(6).text();
+			
+			productPrice += parseInt(price);
+			productAdditionalPrice += parseInt(additional_price);
+			productShippingFee += parseInt(shipping_fee);
+			
+		});
+		
+		if(productPrice + productAdditionalPrice < 30000){
+			productShippingFee = 2500;
+		}else{
+			productShippingFee = 0;
+		}
+		
+		var totalPrice = count * (productPrice + productAdditionalPrice) + productShippingFee;
+		
+		$('#tablefoot').empty();
+		
+		var html = '<span>상품가격 '+productPrice+'원 + </span>';
+			html += '<span>부가세 '+ productAdditionalPrice +'원 + </span>';
+			if(productShippingFee == 0) {
+				html += '<span>배송비 <b> 무료 </b> = </span>';
+			}else{
+				html += '<span>배송비 '+ productShippingFee +'원 = </span>';
+			}
+			
+			html += '<span>주문금액 <b> '+ totalPrice +' </b> 원 </span>';
+		$('#tablefoot').append(html);
+
+		var cc = $("input[name=cart-checkbox]");
+		if(checkbox.length == 0) {
+			$('#tablefoot').empty();
+		}
+		
+		if(cc.length > checkbox.length){
+			$("#delete-btn")[0].innerHTML = "선택삭제";
+		}
+		
+		if(cc.length == checkbox.length){
+			$("#delete-btn")[0].innerHTML = "전체삭제";
+		}
+		
+	}
+	
+	$(function () {
+		
+		$('#delete-btn').on('click', function () {
+			var checkList = $("input[name=cart-checkbox]:checked");
+			var deleteList = [];
+			
+			for (var i = 0; i < checkList.length; i++) {
+				deleteList.push(checkList[i].id);
+			}
+			
+			$.ajax({
+				url : "${pageContext.servletContext.contextPath}/api/user/cart",
+				type: "delete",
+				contentType : "application/json; charset=utf-8" ,
+				dataType: "json",
+				data: JSON.stringify(deleteList),
+				success: function(response){
+					
+		  			console.log(response);
+		  			location.reload();
+		         },            // jqeury XML Http Request
+		         error : function(jqXHR, status, e){
+		            console.error(status + " : " + e);
+		         }
+				
+			})
+			
+			console.log(deleteList);
+		});
+		
+		$('#allCheck').click(function(e){
+		    if($("#allCheck").prop("checked")) {
+		    	$("input[name=cart-checkbox]").prop("checked",true); 
+		   	} else {
+		   		$("input[name=cart-checkbox]").prop("checked",false);
+		   	}
+		    var checkbox = $("input[name=cart-checkbox]:checked");
+		    appendPrice(checkbox);
+		});
+		
+		$('.cart-class').on('click', function () {
+			var checkbox = $("input[name=cart-checkbox]:checked");
+			appendPrice(checkbox);
+		}); 
+		
+	
+		
+	})
+	
+	</script>
 	
 </body>
 

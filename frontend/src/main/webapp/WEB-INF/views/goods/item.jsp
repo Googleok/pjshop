@@ -23,7 +23,6 @@
 	
 	
 	$(function () {
-		
 		$(document).on('click', '.number-spinner button', function () {    
 			var btn = $(this),
 				oldValue = btn.closest('.number-spinner').find('#count').val().trim(),
@@ -224,7 +223,7 @@
 						
 						<div class="row col-md-12 ml-1">
 						
-							<button type="button" class="btn btn-warning col-md-6">바로 주문하기</button>
+							 <a href="${pageContext.servletContext.contextPath }/order" class="btn btn-warning col-md-6" id="go-order">바로 주문하기</a>
 							<button type="button" class="btn btn-secondary col-md-5 ml-2" id="go-cart">장바구니 담기</button>
 						</div>
 					</div>

@@ -1,0 +1,11 @@
+.order-info th {
+	background-color : #d5d5d5000;
+	width: 15%;
+}
+.order-info td {
+	width: 85%;
+}
+
+.order-title{ 
+	margin-left: 20px;
+}

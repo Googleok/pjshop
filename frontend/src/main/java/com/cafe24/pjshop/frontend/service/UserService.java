@@ -1,11 +1,12 @@
 package com.cafe24.pjshop.frontend.service;
 
-import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.stereotype.Service;
@@ -64,13 +65,37 @@ public class UserService {
 		return jsonResult.getData();
 	}
 
+	public Boolean deleteFromCart(Long no) {
+		ResponseEntity<JSONResultDeleteFromCart> jsonResultDeleteProduct = restTemplate.exchange("http://localhost:9999/v1/api/user/cart/"+no, HttpMethod.DELETE, null,JSONResultDeleteFromCart.class);
+		return jsonResultDeleteProduct.getBody().getData();
+	}
+	
+	public Boolean deleteFromCartList(List<Long> list) {
+		HttpEntity<List<Long>> requestEntity = new HttpEntity<List<Long>>(list, null);
+		ResponseEntity<JSONResultDeleteFromCart> jsonResultDeleteProduct = restTemplate.exchange("http://localhost:9999/v1/api/user/cart", HttpMethod.DELETE, requestEntity,JSONResultDeleteFromCart.class);
+		return jsonResultDeleteProduct.getBody().getData();
+	}
+
+	public void getUserList(Model model) {
+		JSONResult<List<UserVo>> jsonResult = restTemplate.getForObject("http://localhost:9999/v1/api/admin/user/list", JSONResultGetUserList.class);
+		model.addAttribute("userList", jsonResult.getData());
+	}
+
+	public Boolean deleteUser(Long no) {
+		ResponseEntity<JSONResultDeleteUser> jsonResultDeleteProduct = restTemplate.exchange("http://localhost:9999/v1/api/user/cart/"+no, HttpMethod.DELETE, null,JSONResultDeleteUser.class);
+		return jsonResultDeleteProduct.getBody().getData();
+
+	}
+
 	// DTO Class
 	private static class JSONResultJoin extends JSONResult<Boolean> {}
 	private static class JSONResultLogin extends JSONResult<UserVo> {}
 	private static class JSONResultGetUser extends JSONResult<UserVo> {}
+	private static class JSONResultDeleteUser extends JSONResult<Boolean> {}
 	private static class JSONResultAddToCart extends JSONResult<Long> {}
 	private static class JSONResultGetCartList extends JSONResult<List<CartDto>> {}
+	private static class JSONResultGetUserList extends JSONResult<List<UserVo>> {}
 	private static class JSONResultAddToCartList extends JSONResult<Boolean> {}
-	
+	private static class JSONResultDeleteFromCart extends JSONResult<Boolean> {}
 	
 }

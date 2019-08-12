@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -14,6 +15,9 @@
 	<link href="${pageContext.servletContext.contextPath }/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
 	<link href="${pageContext.servletContext.contextPath }/assets/css/shop-homepage.css" rel="stylesheet">
+	<sec:authorize access="isAuthenticated()"> 
+	<sec:authentication property="principal.no" var="userNo"/>
+	</sec:authorize>
 </head>
 <body>
 	<!-- Navigation -->
@@ -111,12 +115,8 @@
 										<a href="${pageContext.servletContext.contextPath }/product/detail/${vo.no }">${vo.name }</a>
 									</h4>
 									<h5>${vo.price }원</h5>
-									<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-										adipisicing elit. Amet numquam aspernatur!</p>
 								</div>
 								<div class="card-footer">
-									<small class="text-muted">&#9733; &#9733; &#9733;
-										&#9733; &#9734;</small>
 								</div>
 							</div>
 						</div>
@@ -135,6 +135,57 @@
 	<!-- Footer -->
 	<c:import url='/WEB-INF/views/includes/footer.jsp' />
 	<!-- /.Footer -->
+	
+	
+	<script type="text/javascript">
+	
+	function goCart() {
+		
+		var userNo = ${userNo};
+		var no = $("input[name=productOptionNo]");
+		var count = $("input[name=count]");
+	    var cartList = [];
+		
+		console.log(userNo);
+		
+		
+	    for (var i = 0; i < count.length; i++) {
+	    	
+	    	var CartVo = {
+	    		"userNo" : userNo,
+	    		"productOptionNo" : no[i].value,		    			
+				"count" : count[i].value
+	    	}
+	    	
+	    	cartList.push(CartVo);
+	    	
+	    }
+	    
+	    console.log(cartList);
+	    
+		$.ajax({
+			url : "${pageContext.servletContext.contextPath}/api/user/cart",
+			type: "post",
+			contentType : "application/json; charset=utf-8" ,
+			dataType: "json",
+			data: JSON.stringify({
+				cartList : cartList					
+			}),
+			success: function(response){
+					$('#cartModal').modal();
+					
+					$('#temp-list').empty();
+					
+		  			console.log(response);
+		         },            // jqeury XML Http Request
+		         error : function(jqXHR, status, e){
+		            console.error(status + " : " + e);
+		         }
+		});
+		
+	}
+	
+	</script>
 </body>
 
 </html>

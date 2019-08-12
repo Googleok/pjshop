@@ -50,14 +50,14 @@
 
 				<!-- Breadcrumbs -->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Product</a></li>
+					<li class="breadcrumb-item"><a href="#">User</a></li>
 					<li class="breadcrumb-item active">List</li>
 				</ol>
 
 				<!-- Category DataTables -->
 				<div class="card mb-3">
 					<div class="card-header">
-						<i class="fas fa-table"></i> Product Data Table
+						<i class="fas fa-table"></i> User Data Table
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
@@ -66,50 +66,41 @@
 								<thead>
 									<tr>
 										<th>No</th>
+										<th>ID</th>
 										<th>Name</th>
-										<th>Price</th>
-										<th>ReqDate</th>
-										<th>Exhibition</th>
-										<th>Option</th>
-										<th>SailsStatus</th>
-										<th>Rank</th>
-										<th>Count</th>
-										<th>ShippingFee</th>
-										<th>CategoryNo</th>
+										<th>Phone</th>
+										<th>Email</th>
+										<th>Birth</th>
+										<th>Gender</th>
+										<th>Role</th>
 										<th>Del</th>
 									</tr>
 								</thead>
 								<tfoot>
 									<tr>
 										<th>No</th>
+										<th>ID</th>
 										<th>Name</th>
-										<th>Price</th>
-										<th>ReqDate</th>
-										<th>Exhibition</th>
-										<th>Option</th>
-										<th>SailsStatus</th>
-										<th>Rank</th>
-										<th>Count</th>
-										<th>ShippingFee</th>
-										<th>CategoryNo</th>
+										<th>Phone</th>
+										<th>Email</th>
+										<th>Birth</th>
+										<th>Gender</th>
+										<th>Role</th>
 										<th>Del</th>
 									</tr>
 								</tfoot>
 								<tbody>
-								<c:forEach items="${productList }" var="vo" varStatus="status">
+								<c:forEach items="${userList }" var="vo" varStatus="status">
 									<tr>
 										<td>${vo.no }</td>
+										<td>${vo.id }</td>
 										<td>${vo.name }</td>
-										<td>${vo.price }</td>
-										<td>${vo.regDate }</td>
-										<td>${vo.exhibitionAvailability }</td>
-										<td>${vo.optionAvailability }</td>
-										<td>${vo.sailsStatus }</td>
-										<td>${vo.exhibitionRank }</td>
-										<td>${vo.count }</td>
-										<td>${vo.shippingFee }</td>
-										<td>${vo.categoryNo }</td>
-										<td><a class="btn btn-danger" href="${pageContext.servletContext.contextPath }/admin/product/delete/${vo.no}">X</a></td>
+										<td>${vo.phone }</td>
+										<td>${vo.email }</td>
+										<td>${vo.birth }</td>
+										<td>${vo.gender }</td>
+										<td>${vo.role }</td>
+										<td><a class="btn btn-danger" href="${pageContext.servletContext.contextPath }/admin/user/delete/${vo.no}">X</a></td>
 									</tr>
 								</c:forEach>
 								</tbody>

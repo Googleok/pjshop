@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -63,8 +64,15 @@ public class UserController {
 	}
 	
 	@GetMapping({"", "/list"})
-	public String getUserList() {
+	public String getUserList(Model model) {
+		userService.getUserList(model);
 		return "/admin/manage/user/user-list";
+	}
+	
+	@RequestMapping("/delete/{no}")
+	public String deleteUser(@PathVariable(value = "no")Long no) {
+		Boolean result = userService.deleteUser(no);
+		return "redirect: /admin/user/list";
 	}
 	
 }
