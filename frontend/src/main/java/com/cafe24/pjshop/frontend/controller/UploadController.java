@@ -29,7 +29,8 @@ import com.cafe24.pjshop.frontend.util.UploadFileUtils;
 @Controller
 public class UploadController {
 
-	private static final String SAVE_PATH = "C:/Users/USER/Desktop/pjshop-project/shop-uploads/";
+//	private static final String SAVE_PATH = "C:/Users/USER/Desktop/pjshop-project/shop-uploads/";
+	private static final String SAVE_PATH = "/shop-uploads/";
 	private static final String URL = "/assets/image";
 	
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);

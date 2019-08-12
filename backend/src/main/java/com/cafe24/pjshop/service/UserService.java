@@ -1,5 +1,6 @@
 package com.cafe24.pjshop.service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -8,6 +9,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.pjshop.dto.CartDto;
+import com.cafe24.pjshop.dto.CartListDto;
 import com.cafe24.pjshop.repository.UserDao;
 import com.cafe24.pjshop.vo.AddressVo;
 import com.cafe24.pjshop.vo.CartVo;
@@ -114,6 +116,19 @@ public class UserService {
 
 	public boolean deleteAddress(Long no) {
 		return userDao.deleteAddress(no);
+	}
+
+	public Boolean addToCartList(CartListDto voList) {
+
+		for (CartVo vo : voList.getCartList()) {
+			try {
+				userDao.addToCart(vo);
+			} catch (DuplicateKeyException e) {
+				e.printStackTrace();
+				boolean result = userDao.modifyCart(vo);
+			}
+		}
+		return true;
 	}
 
 

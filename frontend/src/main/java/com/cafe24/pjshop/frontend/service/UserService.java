@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.cafe24.pjshop.frontend.dto.CartDto;
+import com.cafe24.pjshop.frontend.dto.CartListDto;
 import com.cafe24.pjshop.frontend.dto.JSONResult;
 import com.cafe24.pjshop.frontend.repository.UserDao;
 import com.cafe24.pjshop.frontend.security.SecurityUser;
@@ -58,13 +59,18 @@ public class UserService {
 		model.addAttribute("cartList", jsonResult.getData());
 	}
 	
+	public Boolean addToCartList(CartListDto voList) {
+		JSONResult<Boolean> jsonResult = restTemplate.postForObject("http://localhost:9999/v1/api/user/cart/add", voList, JSONResultAddToCartList.class);
+		return jsonResult.getData();
+	}
+
 	// DTO Class
 	private static class JSONResultJoin extends JSONResult<Boolean> {}
 	private static class JSONResultLogin extends JSONResult<UserVo> {}
 	private static class JSONResultGetUser extends JSONResult<UserVo> {}
 	private static class JSONResultAddToCart extends JSONResult<Long> {}
 	private static class JSONResultGetCartList extends JSONResult<List<CartDto>> {}
-	
+	private static class JSONResultAddToCartList extends JSONResult<Boolean> {}
 	
 	
 }

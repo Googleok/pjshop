@@ -1,19 +1,16 @@
 package com.cafe24.pjshop.controller.api;
 
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.pjshop.config.test.WebConfig;
-import com.cafe24.pjshop.dto.OptionDto;
+import com.cafe24.pjshop.dto.CartListDto;
 import com.cafe24.pjshop.vo.CartVo;
 import com.cafe24.pjshop.vo.UserVo;
 import com.google.gson.Gson;
@@ -282,5 +279,38 @@ public class UserControllerTest {
 				mockMvc.perform(get("/api/user/cart?id={id}&nonUserId={nonUserId}", userNo, nonUserId).header("Authorization", "Bearer " + accessToken))
 						.andExpect(status().isOk())
 						.andDo(print());
+	}
+	
+	
+	@Test
+	public void testAddToCartListByUser() throws Exception{
+
+		// 옵션 상품 하나
+	
+		CartVo voMock1 = new CartVo();
+		voMock1.setUserNo(1L);
+		voMock1.setCount(3L);
+		voMock1.setProductOptionNo(3L);
+		
+		CartVo voMock2 = new CartVo();
+		voMock2.setUserNo(1L);
+		voMock2.setCount(3L);
+		voMock2.setProductOptionNo(5L);
+		
+		List<CartVo> cartList = new ArrayList<CartVo>();
+		cartList.add(voMock1);
+		cartList.add(voMock2);
+		
+		CartListDto voMock = new CartListDto();
+		voMock.setUserNo(1L);
+		voMock.setCartList(cartList);
+		
+		
+		
+		ResultActions resultActions = 
+				mockMvc.perform(post("/api/user/cart/add")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(new Gson().toJson(voMock)).header("Authorization", "Bearer " + accessToken))
+					    .andExpect(status().isOk()).andDo(print());
 	}
 }

@@ -78,15 +78,15 @@
 					</ol>
 					<div class="carousel-inner" role="listbox">
 						<div class="carousel-item active">
-							<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }/assets/images/goods/jean-main.jpg" style="width: 900px; height: 1000px;"
+							<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }/assets/images/goods/jean-main.jpg" style="width: 825px; height: 700px;"
 								alt="First slide">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }/assets/images/goods/adidas-tee-main.jpg" style="width: 900px; height: 1000px;"
+							<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }/assets/images/goods/adidas-tee-main.jpg" style="width: 825px; height: 700px;"
 								alt="Second slide">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }/assets/images/goods/nike-tee_main.jpg" style="width: 900px; height: 1000px;"
+							<img class="d-block img-fluid" src="${pageContext.servletContext.contextPath }/assets/images/goods/nike-tee_main.jpg" style="width: 825px; height: 700px;"
 								alt="Third slide">
 						</div>
 					</div>

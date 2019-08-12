@@ -299,7 +299,7 @@
 							        <div class="form-group">
 							        	<input type="hidden" name="categoryNo" id="selected-category-no" value="">
 										<div class="row">
-											<h2 class="mb-3">✅ Select Product's Category</h2>
+											<h2 class="mb-3">✅ 상품 카테고리 선택</h2>
 										</div>
 							            <div class="form-row mb-5">
 											<div class="col-md-12">
@@ -330,7 +330,7 @@
 										</div>
 										
 										<div class="row">
-											<h2 class="mb-3">➕ Add Category</h2>
+											<h2 class="mb-3">➕ 카테고리 추가</h2>
 										</div>
 										
 							            <div class="form-row">
@@ -378,7 +378,7 @@
 									            <div class="form-row">
 									              <div class="col-md-12">
 									                <div class="form-label-group">
-									                  <input type="text" id="parents-category-name" class="form-control" placeholder="Category name" autofocus="autofocus">
+									                  <input type="text" id="parents-category-name" class="form-control" placeholder="Category name" >
 									                  <label for="parents-category-name">Category name</label>
 									                </div>
 									              </div>
@@ -402,7 +402,7 @@
 									            <div class="form-row">
 									              <div class="col-md-12">
 									                <div class="form-label-group">
-									                  <input type="text" id="child-category-name" class="form-control" placeholder="Category name" autofocus="autofocus">
+									                  <input type="text" id="child-category-name" class="form-control" placeholder="Category name" >
 									                  <label for="child-category-name">Category name</label>
 									                </div>
 									              </div>
@@ -1023,7 +1023,7 @@
 	        maxHeight: null,             // set maximum height of editor
 			fontNames : [ '맑은고딕', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', ],
 			fontNamesIgnoreCheck : [ '맑은고딕' ],
-			focus: true,
+			focus: false,
 			
 			callbacks: {
 				onImageUpload: function(files, editor, welEditable) {

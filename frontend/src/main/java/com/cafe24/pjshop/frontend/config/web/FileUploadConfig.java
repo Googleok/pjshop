@@ -30,7 +30,7 @@ public class FileUploadConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/assets/image/**").addResourceLocations("file:///C:/Users/USER/Desktop/pjshop-project/shop-uploads/");
+		registry.addResourceHandler("/assets/image/**").addResourceLocations("file:/shop-uploads/");
 	}
 	
 	

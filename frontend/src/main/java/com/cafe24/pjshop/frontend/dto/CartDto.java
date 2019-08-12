@@ -4,7 +4,7 @@ public class CartDto {
 	
 	private Long no;
 	private Long userNo;
-	private String nonMemberId;
+	private String nonUserId;
 	private String optionValue;
 	private Long additionalPrice;
 	private String productName;
@@ -17,12 +17,12 @@ public class CartDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CartDto(Long no, Long userNo, String nonMemberId, String optionValue, Long additionalPrice,
+	public CartDto(Long no, Long userNo, String nonUserId, String optionValue, Long additionalPrice,
 			String productName, Long productNo, Long price, Long shippingFee, Long count) {
 		super();
 		this.no = no;
 		this.userNo = userNo;
-		this.nonMemberId = nonMemberId;
+		this.nonUserId = nonUserId;
 		this.optionValue = optionValue;
 		this.additionalPrice = additionalPrice;
 		this.productName = productName;
@@ -49,11 +49,11 @@ public class CartDto {
 	}
 
 	public String getNonMemberId() {
-		return nonMemberId;
+		return nonUserId;
 	}
 
-	public void setNonMemberId(String nonMemberId) {
-		this.nonMemberId = nonMemberId;
+	public void setNonMemberId(String nonUserId) {
+		this.nonUserId = nonUserId;
 	}
 
 	public String getOptionValue() {
@@ -114,7 +114,7 @@ public class CartDto {
 
 	@Override
 	public String toString() {
-		return "CartDto [no=" + no + ", userNo=" + userNo + ", nonMemberId=" + nonMemberId + ", optionValue="
+		return "CartDto [no=" + no + ", userNo=" + userNo + ", nonUserId=" + nonUserId + ", optionValue="
 				+ optionValue + ", additionalPrice=" + additionalPrice + ", productName=" + productName + ", productNo="
 				+ productNo + ", price=" + price + ", shippingFee=" + shippingFee + ", count=" + count + "]";
 	}

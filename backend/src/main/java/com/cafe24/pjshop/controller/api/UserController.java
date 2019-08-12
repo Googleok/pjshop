@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.pjshop.dto.CartDto;
+import com.cafe24.pjshop.dto.CartListDto;
 import com.cafe24.pjshop.dto.JSONResult;
 import com.cafe24.pjshop.service.UserService;
 import com.cafe24.pjshop.vo.AddressVo;
@@ -146,6 +147,14 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(insertNo));
 	}
 
+	@ApiOperation(value = "장바구니 여러개 담기")
+	@PostMapping("/cart/add")
+	public ResponseEntity<JSONResult> addToCart2(@RequestBody CartListDto voList) {
+		System.out.println(voList);
+		Boolean result = userService.addToCartList(voList);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+	
 	@ApiOperation(value = "장바구니 여러개 삭제")
 	@DeleteMapping("/cart")
 	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody List<Long> deleteNoList) {

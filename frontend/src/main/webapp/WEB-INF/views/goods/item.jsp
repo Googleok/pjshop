@@ -16,10 +16,30 @@
 	<!-- Custom styles for this template -->
 	<link href="${pageContext.servletContext.contextPath }/assets/css/shop-item.css" rel="stylesheet">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<sec:authorize access="isAuthenticated()"> 
 	<sec:authentication property="principal.no" var="userNo"/>
-	
+	</sec:authorize>
 	<script type="text/javascript">
+	
+	
 	$(function () {
+		
+		$(document).on('click', '.number-spinner button', function () {    
+			var btn = $(this),
+				oldValue = btn.closest('.number-spinner').find('#count').val().trim(),
+				newVal = 0;
+			
+			if (btn.attr('data-dir') == 'up') {
+				newVal = parseInt(oldValue) + 1;
+			} else {
+				if (oldValue > 1) {
+					newVal = parseInt(oldValue) - 1;
+				} else {
+					newVal = 1;
+				}
+			}
+			btn.closest('.number-spinner').find('#count').val(newVal);
+		});
 		
 		$('#go-cart').on('click', function () {
 			
@@ -27,24 +47,33 @@
 			var userNo = ${userNo};
 			var no = $("input[name=productOptionNo]");
 			var count = $("input[name=count]");
+		    var cartList = [];
 			
 			console.log(userNo);
 			
+			
 		    for (var i = 0; i < count.length; i++) {
-				console.log(no[i].value);
-				console.log(count[i].value);
+		    	
+		    	var CartVo = {
+		    		"userNo" : userNo,
+		    		"productOptionNo" : no[i].value,		    			
+					"count" : count[i].value
+		    	}
+		    	
+		    	cartList.push(CartVo);
+		    	
 		    }
+		    
+		    console.log(cartList);
 		    
 			$.ajax({
 				url : "${pageContext.servletContext.contextPath}/api/user/cart",
 				type: "post",
-				contentType : "application/x-www-form-urlencoded; charset=utf-8" ,
+				contentType : "application/json; charset=utf-8" ,
 				dataType: "json",
-				data: {
-					userNo : userNo,
-					productOptionNo : no[0].value,
-					count : count[0].value
-				},
+				data: JSON.stringify({
+					cartList : cartList					
+				}),
 				success: function(response){
 						$('#cartModal').modal();
 						
@@ -69,9 +98,16 @@
 		    
 		    rowHtml += '<span class="col-md-6" style="padding-top: 10px;">' + html + '</span>';
 		    
-		    rowHtml += '<input type="text" class="form-control col-md-2" value="1"/>'
-		    rowHtml += '<button type="button" class="btn btn-light col-md-2">+</button>'
-		    rowHtml += '<button type="button" class="btn btn-light col-md-2">-</button>'
+		    rowHtml += '<div class="input-group number-spinner">';
+		    rowHtml += '<input type="text" class="form-control text-center" value="1">';
+		    rowHtml += '<span class="input-group-btn">';
+		    rowHtml += '<button class="btn btn-light" data-dir="dwn">+</button>';
+		    rowHtml += '</span>';
+		    rowHtml += '<span class="input-group-btn">';
+		    rowHtml += '<button class="btn btn-light" data-dir="up">-</button>';
+		    rowHtml += '</span>';
+		    rowHtml += '</div>';
+		    
 		    rowHtml += '</div>'
 		    $('#temp-list').append(rowHtml);		    
 		});
@@ -83,13 +119,14 @@
 		
 	    $('#option-dropdown button.dropdown-toggle').html(value + ' <span class="caret"></span>');
 		
-	    var rowHtml = '<div class="row">';
+	    var rowHtml = '<div class="row number-spinner">';
 	    
 	    rowHtml += '<input type="hidden" name="productOptionNo" value="'+no+'">';
 	    rowHtml += '<span class="col-md-6" style="padding-top: 10px;">' + value + '</span>';
 	    rowHtml += '<input type="text" name="count" class="form-control col-md-2" id="count" value="1"/>'
-	    rowHtml += '<button type="button" class="btn btn-light col-md-2" onclick="">+</button>'
-	    rowHtml += '<button type="button" class="btn btn-light col-md-2">-</button>'
+	    rowHtml += '<button type="button" class="btn btn-light col-md-2" data-dir="dwn">-</button>'
+	    rowHtml += '<button type="button" class="btn btn-light col-md-2" data-dir="up">+</button>'
+	    
 	    rowHtml += '</div>'
 	    $('#temp-list').append(rowHtml);		    
 	}
