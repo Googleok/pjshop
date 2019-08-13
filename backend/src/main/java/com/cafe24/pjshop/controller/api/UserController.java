@@ -196,4 +196,11 @@ public class UserController {
 		boolean result = userService.deleteAddress(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
+	
+	@ApiOperation(value = "주소 리스트")
+	@GetMapping("/address/{no}")
+	public ResponseEntity<JSONResult> getAddress( @PathVariable(value = "no") Long userNo) {
+		AddressVo address = userService.getAddress(userNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(address));
+	}
 }

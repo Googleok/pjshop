@@ -87,6 +87,7 @@
 											<div class="custom-control custom-checkbox">
 											    <input type="checkbox" class="custom-control-input cart-class" name="cart-checkbox" id="${vo.no}" >
 												<label class="custom-control-label" for="${vo.no}"></label>
+												<div><input type="hidden" value="${vo.productOptionNo }"></div>
 											</div>
 										</td>
 										<td>${vo.productName }</td>
@@ -115,7 +116,7 @@
 					</div>
 					<div class="card-footer small text-muted text-center">
 						<a href="${pageContext.servletContext.contextPath}/main" class="btn btn-secondary col-md-2" style="height: 70px; padding-top: 22px;">계속 쇼핑하기</a>
-						<button type="button" class="btn btn-warning col-md-2 ml-2" style="height: 70px;">바로 주문하기</button>
+						<button type="button" class="btn btn-warning col-md-2 ml-2" style="height: 70px;" id="go-order">바로 주문하기</button>
 					</div>
 				</div>
 
@@ -232,6 +233,86 @@
 	}
 	
 	$(function () {
+		
+		$('#go-order').on('click', function () {
+			var checked = $("input[name=cart-checkbox]:checked");
+			var productOptionNoList = checked.siblings('div').children();
+			var tdList = checked.parent().parent().siblings();
+			console.log(productOptionNoList);
+			console.log(tdList);
+			
+			//var tdList = parentTdList[i].siblings();
+			/* 
+			2,4,5
+			10,12,13
+			16
+			0~7
+			15
+			 */
+			var orderProductList = [];
+			
+			var additionalPrice = 0;
+			var price = 0;
+			var count = 0;
+			var orderProduct = {};				
+			for (var i = 0; i < tdList.length; i++) {
+				if(i%8 == 2){
+					additionalPrice = tdList[i].innerHTML;	
+					continue;
+				}
+				
+				if(i%8 == 4){
+					price = tdList[i].innerHTML;
+					continue;
+				}
+				
+				if(i%8 == 5){
+					count = tdList[i].innerHTML;
+					continue;
+				}
+				
+				if(i%8 == 7){
+					orderProduct = {
+						"productOptionNo" : productOptionNoList[i%7].defaultValue,
+						"count" : count,
+						"productPrice" : parseInt(additionalPrice) + parseInt(price)
+					}
+					
+					orderProductList.push(orderProduct);
+				}
+			}
+			
+			console.log(orderProductList);
+			
+		
+		    var form = document.createElement("form");
+		    form.setAttribute("method", "post");
+		    form.setAttribute("action", "${pageContext.servletContext.contextPath}/user/checkout");
+		    
+		    for(var i=0; i < orderProductList.length; i++){
+		    	var optionNoField = document.createElement("input");
+		    	optionNoField.setAttribute("type", "hidden");
+		    	optionNoField.setAttribute("name", "orderProductList["+ i +"].productOptionNo");
+		    	optionNoField.setAttribute("value", orderProductList[i].productOptionNo);
+		        form.appendChild(optionNoField);
+		    
+		    	var countField = document.createElement("input");
+		    	countField.setAttribute("type", "hidden");
+		    	countField.setAttribute("name", "orderProductList["+ i +"].count");
+		    	countField.setAttribute("value", orderProductList[i].count);
+		        form.appendChild(countField);
+		    
+		    	var priceField = document.createElement("input");
+		    	priceField.setAttribute("type", "hidden");
+		    	priceField.setAttribute("name", "orderProductList["+ i +"].productPrice");
+		    	priceField.setAttribute("value", orderProductList[i].productPrice);
+		        form.appendChild(priceField);
+		        
+		    }
+		    
+		    document.body.appendChild(form);
+		    form.submit();
+		});
 		
 		$('#delete-btn').on('click', function () {
 			var checkList = $("input[name=cart-checkbox]:checked");

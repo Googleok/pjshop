@@ -94,5 +94,9 @@ public class UserDao {
 	public boolean deleteAddress(Long no) {
 		return sqlSession.delete("address.deleteAddress", no) == 1;
 	}
+
+	public AddressVo getAddress(Long userNo) {
+		return sqlSession.selectOne("address.getAddress", userNo);
+	}
 	
 }

@@ -23,6 +23,11 @@
 	
 	
 	$(function () {
+		
+		$('#go-order').on('click', function () {
+			$('#order-form').submit();			
+		});
+		
 		$(document).on('click', '.number-spinner button', function () {    
 			var btn = $(this),
 				oldValue = btn.closest('.number-spinner').find('#count').val().trim(),
@@ -114,20 +119,24 @@
 		
 	});
 	
-	function addOption(no, value) {
-		
+	function addOption(no, value, additionalPrice) {
 	    $('#option-dropdown button.dropdown-toggle').html(value + ' <span class="caret"></span>');
 		
+	    var index = $('.option-no-input').length;
 	    var rowHtml = '<div class="row number-spinner">';
 	    
-	    rowHtml += '<input type="hidden" name="productOptionNo" value="'+no+'">';
+	    var productPrice = parseInt(${productDetail.price }) + parseInt(additionalPrice);
+	    
+	    rowHtml += '<input type="hidden" name="orderProductList['+ index +'].productOptionNo" class="option-no-input" value="'+no+'">';
+	    rowHtml += '<input type="hidden" name="orderProductList['+ index +'].productPrice" value="'+productPrice+'">';
 	    rowHtml += '<span class="col-md-6" style="padding-top: 10px;">' + value + '</span>';
-	    rowHtml += '<input type="text" name="count" class="form-control col-md-2" id="count" value="1"/>'
+	    rowHtml += '<input type="text" name="orderProductList['+ index +'].count" class="form-control col-md-2" id="count" value="1"/>'
 	    rowHtml += '<button type="button" class="btn btn-light col-md-2" data-dir="dwn">-</button>'
 	    rowHtml += '<button type="button" class="btn btn-light col-md-2" data-dir="up">+</button>'
 	    
 	    rowHtml += '</div>'
 	    $('#temp-list').append(rowHtml);		    
+
 	}
 	</script>
 </head>
@@ -213,17 +222,22 @@
 						  </button>
 						  <div class="dropdown-menu col-md-11">
 							  	<c:forEach items="${productDetail.optionList }" var="vo" varStatus="status">
-								    <a class="dropdown-item" href="javascript:void(0)" onclick="addOption('${vo.no}', '${vo.optionValue }')">${vo.optionValue }</a>
+								    <a class="dropdown-item" href="javascript:void(0)" onclick="addOption('${vo.no}', '${vo.optionValue }', '${vo.additionalPrice }')">${vo.optionValue }</a>
 							  	</c:forEach>
 						  </div>
 						</div>
 						
+						
+						<form action="${pageContext.servletContext.contextPath }/user/checkout" method="post" id="order-form">
+						
 						<div id="temp-list" style="height: 150px; background-color: #FFFFFF; overflow: auto;" class="col-md-11 ml-3 mb-3">
 						</div>
 						
+						</form>
+						
 						<div class="row col-md-12 ml-1">
 						
-							 <a href="${pageContext.servletContext.contextPath }/order" class="btn btn-warning col-md-6" id="go-order">바로 주문하기</a>
+							<button type="button" class="btn btn-warning col-md-6" id="go-order">바로 주문하기</button>
 							<button type="button" class="btn btn-secondary col-md-5 ml-2" id="go-cart">장바구니 담기</button>
 						</div>
 					</div>

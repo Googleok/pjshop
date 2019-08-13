@@ -8,12 +8,14 @@ public class AddressVo {
 	private String entrancePassword;
 	private String message;
 	private Long userNo;
+	private String recipientName;
+	private String recipientPhone;
 	
 	public AddressVo() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public AddressVo(Long no, String zipCode, String address, String entrancePassword, String message, Long userNo) {
+	public AddressVo(Long no, String zipCode, String address, String entrancePassword, String message, Long userNo,
+			String recipientName, String recipientPhone) {
 		super();
 		this.no = no;
 		this.zipCode = zipCode;
@@ -21,6 +23,8 @@ public class AddressVo {
 		this.entrancePassword = entrancePassword;
 		this.message = message;
 		this.userNo = userNo;
+		this.recipientName = recipientName;
+		this.recipientPhone = recipientPhone;
 	}
 
 	public Long getNo() {
@@ -71,10 +75,27 @@ public class AddressVo {
 		this.userNo = userNo;
 	}
 
+	public String getRecipientName() {
+		return recipientName;
+	}
+
+	public void setRecipientName(String recipientName) {
+		this.recipientName = recipientName;
+	}
+
+	public String getRecipientPhone() {
+		return recipientPhone;
+	}
+
+	public void setRecipientPhone(String recipientPhone) {
+		this.recipientPhone = recipientPhone;
+	}
+
 	@Override
 	public String toString() {
 		return "AddressVo [no=" + no + ", zipCode=" + zipCode + ", address=" + address + ", entrancePassword="
-				+ entrancePassword + ", message=" + message + ", userNo=" + userNo + "]";
+				+ entrancePassword + ", message=" + message + ", userNo=" + userNo + ", recipientName=" + recipientName
+				+ ", recipientPhone=" + recipientPhone + "]";
 	}
 	
 	

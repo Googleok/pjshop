@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cafe24.pjshop.frontend.dto.OrderProductDto;
+import com.cafe24.pjshop.frontend.dto.OrderProductListDto;
 import com.cafe24.pjshop.frontend.service.UserService;
 import com.cafe24.pjshop.frontend.vo.UserVo;
 
@@ -120,6 +122,12 @@ public class UserController {
 		return "/user/address";
 	}
 	
-	
+	@PostMapping({"/checkout"})
+	public String checkoutPage(Model model, OrderProductListDto orderProductList) {
+		userService.getUser(model);
+		userService.getAddress(model);
+		model.addAttribute("orderProductList", orderProductList.getOrderProductList());
+		return "/user/checkout";
+	}
 	
 }

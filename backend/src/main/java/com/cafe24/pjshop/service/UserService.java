@@ -131,6 +131,10 @@ public class UserService {
 		return true;
 	}
 
+	public AddressVo getAddress(Long userNo) {
+		return userDao.getAddress(userNo);
+	}
+
 
 
 

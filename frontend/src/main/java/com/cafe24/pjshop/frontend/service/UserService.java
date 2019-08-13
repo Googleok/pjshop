@@ -17,6 +17,7 @@ import com.cafe24.pjshop.frontend.dto.CartListDto;
 import com.cafe24.pjshop.frontend.dto.JSONResult;
 import com.cafe24.pjshop.frontend.repository.UserDao;
 import com.cafe24.pjshop.frontend.security.SecurityUser;
+import com.cafe24.pjshop.frontend.vo.AddressVo;
 import com.cafe24.pjshop.frontend.vo.CartVo;
 import com.cafe24.pjshop.frontend.vo.UserVo;
 
@@ -87,6 +88,33 @@ public class UserService {
 
 	}
 
+	public Long addAddress(AddressVo vo) {
+		JSONResult<Long> jsonResult = restTemplate.postForObject("http://localhost:9999/v1/api/user/address", vo, JSONResultAddAddress.class);
+		return jsonResult.getData();
+	}
+
+	public List<AddressVo> getAddressList(Long userNo) {
+		JSONResult<List<AddressVo>> jsonResult =restTemplate.getForObject("http://localhost:9999/v1/api/user/address?userno="+userNo, JSONResultGetAddressList.class);
+		return jsonResult.getData();
+	}
+
+	public boolean deleteAddress(Long no) {
+		ResponseEntity<JSONResultDeleteAddress> jsonResultDeleteProduct = restTemplate.exchange("http://localhost:9999/v1/api/user/address/"+no, HttpMethod.DELETE, null,JSONResultDeleteAddress.class);
+		return jsonResultDeleteProduct.getBody().getData();
+	}
+
+	public void getUser(Model model) {
+		SecurityUser user = (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		JSONResult<List<UserVo>> jsonResult =restTemplate.getForObject("http://localhost:9999/v1/api/admin/user/search?menu=no&keyword="+user.getNo(), JSONResultGetUserList.class);
+		model.addAttribute("userInfo", jsonResult.getData().get(0));
+	}
+
+	public void getAddress(Model model) {
+		SecurityUser user = (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		JSONResult<AddressVo> jsonResult =restTemplate.getForObject("http://localhost:9999/v1/api/user/address/"+user.getNo(), JSONResultGetAddress.class);
+		model.addAttribute("mainAddress", jsonResult.getData());
+	}
+
 	// DTO Class
 	private static class JSONResultJoin extends JSONResult<Boolean> {}
 	private static class JSONResultLogin extends JSONResult<UserVo> {}
@@ -97,5 +125,9 @@ public class UserService {
 	private static class JSONResultGetUserList extends JSONResult<List<UserVo>> {}
 	private static class JSONResultAddToCartList extends JSONResult<Boolean> {}
 	private static class JSONResultDeleteFromCart extends JSONResult<Boolean> {}
+	private static class JSONResultAddAddress extends JSONResult<Long> {}
+	private static class JSONResultGetAddressList extends JSONResult<List<AddressVo>> {}
+	private static class JSONResultGetAddress extends JSONResult<AddressVo> {}
+	private static class JSONResultDeleteAddress extends JSONResult<Boolean> {}
 	
 }

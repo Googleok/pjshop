@@ -1,3 +1,5 @@
+<%@page import="com.cafe24.pjshop.frontend.dto.OrderProductDto"%>
+<%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
@@ -29,27 +31,36 @@
 	<!-- /.Navigation -->
 	
 	<div class="container">
-		<form action="${pageContext.servletContext.contextPath }" method="post" >
+		<form action="${pageContext.servletContext.contextPath }/order" method="post" >
 	
 		<div class="row">
 			<h1 class="order-title">주문/결제</h1>
 		</div>
 		<hr style="border: 2px solid black; width: 100%; margin-right: 10px;">
+		
+		<div>
+			<c:forEach items="${orderProductList}" var="vo" varStatus="status">
+				<input type="hidden" value="${vo.productOptionNo }" name="orderProductList[${status.index }].productOptionNo">
+				<input type="hidden" value="${vo.count }" name="orderProductList[${status.index }].count">
+				<input type="hidden" value="${vo.productPrice }" name="orderProductList[${status.index }].productPrice">
+			</c:forEach>
+		</div>
+
 		<div class="row">
 			<h4 class="order-title">구매자정보</h4>
 		</div>
 		<table class="table table-bordered order-info">
 			<tr>
 				<th>이름</th>
-				<td>박종억</td>
+				<td>${userInfo.name }</td>
 			</tr>
 			<tr>
 				<th>이메일</th>
-				<td>whddjrw</td>
+				<td>${userInfo.email }</td>
 			</tr>
 			<tr>
 				<th>휴대폰번호</th>
-				<td>010-4028-7755</td>
+				<td>${userInfo.phone }</td>
 			</tr>
 		</table>	
 		
@@ -58,47 +69,79 @@
 			<a href="javascript:popup()" class="btn btn-light mb-1 ml-2" style="bottom: 10px;">배송지변경</a>
 		</div>
 		<table class="table table-bordered order-info">
-			<tr>
-				<th>이름</th>
-				<td>박종억</td>
-			</tr>
-			<tr>
-				<th>배송주소</th>
-				<td>서울특별시 관악구 신림동 1458-10 샤인에비뉴  203호</td>
-			</tr>
-			<tr>
-				<th>휴대폰번호</th>
-				<td>010-4028-7755</td>
-			</tr>
-			<tr>
-				<th>공동 현관비밀번호</th>
-				<td>2812*</td>
-			</tr>
-			<tr>
-				<th>배송 요청사항</th>
-				<td>직접 받고 부재 시 문 앞</td>
-			</tr>
+		
+			<tbody id="recipient-info-table">
+				<tr>
+					<th>이름</th>
+					<td>${mainAddress.recipientName }</td>
+				</tr>
+				<tr>
+					<th>배송주소</th>
+					<td>${mainAddress.address }</td>
+				</tr>
+				<tr>
+					<th>휴대폰번호</th>
+					<td>${mainAddress.recipientPhone }</td>
+				</tr>
+				<tr>
+					<th>공동 현관비밀번호</th>
+					<td>${mainAddress.entrancePassword }</td>
+				</tr>
+				<tr>
+					<th>배송 요청사항</th>
+					<td>${mainAddress.message }</td>
+				</tr>
+			</tbody>
 			
 		</table>	
 		
 		<div class="row">
 			<h4 class="order-title">결제정보</h4>
 		</div>
+	
+		<%
+			
+			List<OrderProductDto> productList = (List<OrderProductDto>)request.getAttribute("orderProductList");			
+			Long totalPrice = 0L;
+			Long shippingFee = 0L;
+			
+			for(int i=0; i< productList.size(); i++){
+				totalPrice += (productList.get(i).getProductPrice() * productList.get(i).getCount());
+			}
+			
+			if(totalPrice > 30000){
+				shippingFee = 0L;
+			}else{
+				shippingFee = 2500L;
+			}
+			
+		%>
 		<table class="table table-bordered order-info">
 			<tr>
 				<th>총상품가격</th>
-				<td>12900원</td>
+				<td><%= totalPrice %>원</td>
 			</tr>
 			<tr>
 				<th>배송비</th>
-				<td>0원</td>
+				<td><%= shippingFee %>원</td>
 			</tr>
 			<tr>
 				<th>총결제금액</th>
-				<td>12250원</td>
+				<td><%= totalPrice %>원</td>
 			</tr>
 		</table>	
+		<div id="recipient-info">
+			<input type="hidden" name="name" value="${mainAddress.recipientName }">
+			<input type="hidden" name="address" value="${mainAddress.address }">
+			<input type="hidden" name="phone" value="${mainAddress.recipientPhone }">
+			<input type="hidden" name="entrancePassword" value="${mainAddress.entrancePassword }">
+			<input type="hidden" name="shippingMessage" value="${mainAddress.message }">
+		</div>
 		<div class="container text-center mb-5">
+			<input type="hidden" name="email" value="${userInfo.email }">
+			<input type="hidden" name="shippingFee" value="<%= shippingFee %>">
+			<input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+			<input type="hidden" name="userNo" value="${userNo }">
 			<input type="submit" class="btn btn-warning btn-lg col-md-4" value="결제하기">
 		</div>
 		
@@ -114,11 +157,36 @@
 	<!-- /.Footer -->
 
 <script type="text/javascript">
+	var popupX = (window.screen.width / 2) - (776 / 2);
+	var popupY = (window.screen.height / 2) - (700 / 2);
+	
 	function popup() {
 		 var url = "${pageContext.servletContext.contextPath }/user/address";
          var name = "popup test";
-         var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+         var option = "width = 776, height = 700, top =  "+ popupY +", left = "+ popupX +", location = no"
          window.open(url, name, option);
+	}
+	
+	var hello = function(data){
+		var td = $('#recipient-info-table td');
+		td[0].innerHTML = data.recipientName;
+		td[1].innerHTML = data.address;
+		td[2].innerHTML = data.recipientPhone;
+		td[3].innerHTML = data.entrancePassword;
+		td[4].innerHTML = data.message;
+		
+		$('#recipient-info').empty();
+		html = '';
+		html += '<input type="hidden" name="name" value="'+ data.recipientName +'">';
+		html += '<input type="hidden" name="address" value="'+ data.address +'">';
+		html += '<input type="hidden" name="phone" value="'+ data.recipientPhone +'">';
+		html += '<input type="hidden" name="entrancePassword" value="'+ data.entrancePassword +'">';
+		html += '<input type="hidden" name="shippingMessage" value="'+ data.message +'">';
+		
+		$('#recipient-info').append(html);
+		
+		
+		console.log(data);
 	}
 </script>
 

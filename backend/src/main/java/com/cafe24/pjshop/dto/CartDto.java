@@ -5,6 +5,7 @@ public class CartDto {
 	private Long no;
 	private Long userNo;
 	private String nonUserId;
+	private Long productOptionNo;
 	private String optionValue;
 	private Long additionalPrice;
 	private String productName;
@@ -17,12 +18,13 @@ public class CartDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CartDto(Long no, Long userNo, String nonUserId, String optionValue, Long additionalPrice,
-			String productName, Long productNo, Long price, Long shippingFee, Long count) {
+	public CartDto(Long no, Long userNo, String nonUserId, Long productOptionNo, String optionValue,
+			Long additionalPrice, String productName, Long productNo, Long price, Long shippingFee, Long count) {
 		super();
 		this.no = no;
 		this.userNo = userNo;
 		this.nonUserId = nonUserId;
+		this.productOptionNo = productOptionNo;
 		this.optionValue = optionValue;
 		this.additionalPrice = additionalPrice;
 		this.productName = productName;
@@ -48,12 +50,20 @@ public class CartDto {
 		this.userNo = userNo;
 	}
 
-	public String getNonMemberId() {
+	public String getNonUserId() {
 		return nonUserId;
 	}
 
-	public void setNonMemberId(String nonUserId) {
+	public void setNonUserId(String nonUserId) {
 		this.nonUserId = nonUserId;
+	}
+
+	public Long getProductOptionNo() {
+		return productOptionNo;
+	}
+
+	public void setProductOptionNo(Long productOptionNo) {
+		this.productOptionNo = productOptionNo;
 	}
 
 	public String getOptionValue() {
@@ -114,9 +124,10 @@ public class CartDto {
 
 	@Override
 	public String toString() {
-		return "CartDto [no=" + no + ", userNo=" + userNo + ", nonUserId=" + nonUserId + ", optionValue="
-				+ optionValue + ", additionalPrice=" + additionalPrice + ", productName=" + productName + ", productNo="
-				+ productNo + ", price=" + price + ", shippingFee=" + shippingFee + ", count=" + count + "]";
+		return "CartDto [no=" + no + ", userNo=" + userNo + ", nonUserId=" + nonUserId + ", productOptionNo="
+				+ productOptionNo + ", optionValue=" + optionValue + ", additionalPrice=" + additionalPrice
+				+ ", productName=" + productName + ", productNo=" + productNo + ", price=" + price + ", shippingFee="
+				+ shippingFee + ", count=" + count + "]";
 	}
 
 	

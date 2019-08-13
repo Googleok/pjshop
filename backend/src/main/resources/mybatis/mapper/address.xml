@@ -13,7 +13,9 @@
 				AES_ENCRYPT(#{address}, SHA2('7755',512)),
 				AES_ENCRYPT(#{entrancePassword}, SHA2('7755',512)),
 				AES_ENCRYPT(#{message}, SHA2('7755',512)),
-				#{userNo}
+				#{userNo},
+				AES_ENCRYPT(#{recipientName}, SHA2('7755',512)),
+				AES_ENCRYPT(#{recipientPhone}, SHA2('7755',512))
 			)		
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
@@ -28,9 +30,26 @@
 				   convert(AES_DECRYPT(address, SHA2('7755', 512))using utf8) as address,
 				   convert(AES_DECRYPT(entrance_password, SHA2('7755', 512))using utf8) as entrancePassword,
 				   convert(AES_DECRYPT(message, SHA2('7755', 512))using utf8) as message,
-				   user_no as userNo
+				   user_no as userNo,
+				   convert(AES_DECRYPT(recipient_name, SHA2('7755', 512))using utf8) as recipientName,
+				   convert(AES_DECRYPT(recipient_phone, SHA2('7755', 512))using utf8) as recipientPhone
 			from address
 			where user_no = #{userNo}
+		]]>
+	</select>
+	
+	<select id="getAddress" resultType="addressVo" parameterType="long">
+		<![CDATA[
+			select no,
+				   convert(AES_DECRYPT(zip_code, SHA2('7755', 512))using utf8) as zipCode,
+				   convert(AES_DECRYPT(address, SHA2('7755', 512))using utf8) as address,
+				   convert(AES_DECRYPT(entrance_password, SHA2('7755', 512))using utf8) as entrancePassword,
+				   convert(AES_DECRYPT(message, SHA2('7755', 512))using utf8) as message,
+				   user_no as userNo,
+				   convert(AES_DECRYPT(recipient_name, SHA2('7755', 512))using utf8) as recipientName,
+				   convert(AES_DECRYPT(recipient_phone, SHA2('7755', 512))using utf8) as recipientPhone
+			from address
+			where user_no = #{userNo} and is_main = 1
 		]]>
 	</select>
 	
