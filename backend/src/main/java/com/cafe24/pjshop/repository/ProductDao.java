@@ -1,6 +1,8 @@
 package com.cafe24.pjshop.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,11 @@ public class ProductDao {
 		return sqlSession.selectOne("product.getProductDetailByProductOptionNo", productOptionNo);
 	}
 	
-	public Boolean productCountUpdate(Long productOptuionNo) {
-		return sqlSession.update("product.productCountUpdate", productOptuionNo) == 1;
+	public Boolean productCountUpdate(Long productOptionNo, Long count) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productOptionNo", productOptionNo);
+		map.put("count", count);
+		return sqlSession.update("product.productCountUpdate", map) == 1;
 	}
 	
 }

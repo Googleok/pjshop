@@ -10,12 +10,14 @@ public class AddressVo {
 	private Long userNo;
 	private String recipientName;
 	private String recipientPhone;
+	private Boolean isMain = false;
 	
 	public AddressVo() {
+		// TODO Auto-generated constructor stub
 	}
-
+	
 	public AddressVo(Long no, String zipCode, String address, String entrancePassword, String message, Long userNo,
-			String recipientName, String recipientPhone) {
+			String recipientName, String recipientPhone, Boolean isMain) {
 		super();
 		this.no = no;
 		this.zipCode = zipCode;
@@ -25,7 +27,10 @@ public class AddressVo {
 		this.userNo = userNo;
 		this.recipientName = recipientName;
 		this.recipientPhone = recipientPhone;
+		this.isMain = isMain;
 	}
+
+
 
 	public Long getNo() {
 		return no;
@@ -91,12 +96,21 @@ public class AddressVo {
 		this.recipientPhone = recipientPhone;
 	}
 
+	public Boolean getIsMain() {
+		return isMain;
+	}
+
+	public void setIsMain(Boolean isMain) {
+		this.isMain = isMain;
+	}
+
 	@Override
 	public String toString() {
 		return "AddressVo [no=" + no + ", zipCode=" + zipCode + ", address=" + address + ", entrancePassword="
 				+ entrancePassword + ", message=" + message + ", userNo=" + userNo + ", recipientName=" + recipientName
-				+ ", recipientPhone=" + recipientPhone + "]";
+				+ ", recipientPhone=" + recipientPhone + ", isMain=" + isMain + "]";
 	}
+	
 	
 	
 }

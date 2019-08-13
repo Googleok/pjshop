@@ -19,6 +19,7 @@ import com.cafe24.pjshop.frontend.repository.UserDao;
 import com.cafe24.pjshop.frontend.security.SecurityUser;
 import com.cafe24.pjshop.frontend.vo.AddressVo;
 import com.cafe24.pjshop.frontend.vo.CartVo;
+import com.cafe24.pjshop.frontend.vo.OrderVo;
 import com.cafe24.pjshop.frontend.vo.UserVo;
 
 @Service
@@ -115,6 +116,12 @@ public class UserService {
 		model.addAttribute("mainAddress", jsonResult.getData());
 	}
 
+	public void getOrderList(Model model) {
+		SecurityUser user = (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		JSONResult<List<OrderVo>> jsonResult =restTemplate.getForObject("http://localhost:9999/v1/api/order/"+user.getNo(), JSONResultGetOrderList.class);
+		model.addAttribute("orderList", jsonResult.getData());
+	}
+
 	// DTO Class
 	private static class JSONResultJoin extends JSONResult<Boolean> {}
 	private static class JSONResultLogin extends JSONResult<UserVo> {}
@@ -129,5 +136,6 @@ public class UserService {
 	private static class JSONResultGetAddressList extends JSONResult<List<AddressVo>> {}
 	private static class JSONResultGetAddress extends JSONResult<AddressVo> {}
 	private static class JSONResultDeleteAddress extends JSONResult<Boolean> {}
+	private static class JSONResultGetOrderList extends JSONResult<List<OrderVo>> {}
 	
 }

@@ -332,9 +332,9 @@
 	]]>
 	</select>
 	
-	<update id="productCountUpdate" parameterType="long">
+	<update id="productCountUpdate" parameterType="map">
 	<![CDATA[
-		update product_option set product_count = product_count - 1 where no = #{value}
+		update product_option set product_count = product_count - #{count} where no = #{productOptionNo}
 	]]>
 	</update>
 	

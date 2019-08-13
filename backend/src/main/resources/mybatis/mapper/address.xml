@@ -15,7 +15,8 @@
 				AES_ENCRYPT(#{message}, SHA2('7755',512)),
 				#{userNo},
 				AES_ENCRYPT(#{recipientName}, SHA2('7755',512)),
-				AES_ENCRYPT(#{recipientPhone}, SHA2('7755',512))
+				AES_ENCRYPT(#{recipientPhone}, SHA2('7755',512)),
+				#{isMain}
 			)		
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">

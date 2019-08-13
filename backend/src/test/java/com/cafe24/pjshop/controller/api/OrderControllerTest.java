@@ -150,7 +150,7 @@ public class OrderControllerTest {
 	@Test
 	public void testAddAddress() throws Exception{
 		
-		AddressVo voMock = new AddressVo(null, "12345", "서울시 관악구", "벨1234*", "부재시 현관 앞", 1L, "박종억", "01040287755");
+		AddressVo voMock = new AddressVo(null, "12345", "서울시 관악구", "벨1234*", "부재시 현관 앞", 1L, "박종억", "01040287755", false);
 		
 		ResultActions resultActions = 
 				mockMvc

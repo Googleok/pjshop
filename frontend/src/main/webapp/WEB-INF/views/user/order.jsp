@@ -63,51 +63,33 @@
 								cellspacing="0">
 								<thead>
 									<tr>
-										<th>No</th>
-										<th>Name</th>
-										<th>Price</th>
-										<th>ReqDate</th>
-										<th>Exhibition</th>
-										<th>Option</th>
-										<th>SailsStatus</th>
-										<th>Rank</th>
-										<th>Count</th>
-										<th>ShippingFee</th>
-										<th>CategoryNo</th>
-										<th>Del</th>
+										<th>수취인</th>
+										<th>전화번호</th>
+										<th>이메일</th>
+										<th>주소</th>
+										<th>배송메시지</th>
+										<th>현관비밀번호</th>
+										<th>등록일</th>
+										<th>배송비</th>
+										<th>총가격</th>
+										<th>상세주문서</th>
 									</tr>
 								</thead>
-								<tfoot>
-									<tr>
-										<th>No</th>
-										<th>Name</th>
-										<th>Price</th>
-										<th>ReqDate</th>
-										<th>Exhibition</th>
-										<th>Option</th>
-										<th>SailsStatus</th>
-										<th>Rank</th>
-										<th>Count</th>
-										<th>ShippingFee</th>
-										<th>CategoryNo</th>
-										<th>Del</th>
-									</tr>
-								</tfoot>
+								
 								<tbody>
-								<c:forEach items="${productList }" var="vo" varStatus="status">
+								<c:forEach items="${orderList }" var="vo" varStatus="status">
 									<tr>
-										<td>${vo.no }</td>
+										<input type="hidden" value="${vo.no }">
 										<td>${vo.name }</td>
-										<td>${vo.price }</td>
+										<td>${vo.phone }</td>
+										<td>${vo.email }</td>
+										<td>${vo.address }</td>
+										<td>${vo.shippingMessage }</td>
+										<td>${vo.entrancePassword }</td>
 										<td>${vo.regDate }</td>
-										<td>${vo.exhibitionAvailability }</td>
-										<td>${vo.optionAvailability }</td>
-										<td>${vo.sailsStatus }</td>
-										<td>${vo.exhibitionRank }</td>
-										<td>${vo.count }</td>
 										<td>${vo.shippingFee }</td>
-										<td>${vo.categoryNo }</td>
-										<td><a class="btn btn-danger" href="${pageContext.servletContext.contextPath }/admin/product/delete/${vo.no}">X</a></td>
+										<td>${vo.totalPrice }</td>
+										<td><button class="btn btn-success" onclick="getDetail(${vo.no})">상세</button></td>
 									</tr>
 								</c:forEach>
 								</tbody>
@@ -139,6 +121,49 @@
 	<a class="scroll-to-top rounded" href="#page-top"> <i
 		class="fas fa-angle-up"></i>
 	</a>
+	
+	
+	
+	<!-- Modal -->
+	<div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">상세 주문서</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" id="orderDetailModal-body">
+			
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable2" width="100%"
+								cellspacing="0">
+						<thead>
+							<tr>
+								<th>상품명</th>
+								<th>옵션</th>
+								<th>개수</th>
+								<th>가격</th>
+								<th>배송상태</th>
+								<th>서비스</th>
+							</tr>
+						</thead>
+								
+						<tbody id="orderDetail-table-tbody">
+						</tbody>
+					</table>
+				</div>
+			
+
+	      </div>
+	      <div class="modal-footer">
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
 		<!-- Bootstrap core JavaScript-->
 	<script
 		src="${pageContext.servletContext.contextPath }/assets/vendor/jquery/jquery.min.js"></script>
@@ -163,6 +188,49 @@
 	<script
 		src="${pageContext.servletContext.contextPath }/assets/js/admin/demo/datatables-demo.js"></script>
 
+	<script type="text/javascript">
+	
+	function getDetail(orderNo) {
+		
+		$.ajax({
+			url: "${pageContext.servletContext.contextPath }/api/order/detail/list/" + orderNo,
+			type: "get",
+			data: "json",
+			success: function (response) {
+				var data = response.data;
+				console.log(response);
+				$('#orderDetail-table-tbody').empty();
+				for (var i = 0; i < data.length; i++) {
+					var html = '';
+					html += '<tr>';
+					html += '<td>'+ data[i].productName +'</td>';
+					html += '<td>'+ data[i].options +'</td>';
+					html += '<td>'+ data[i].count +'</td>';
+					html += '<td>'+ data[i].productPrice +'</td>';
+					html += '<td>'+ data[i].shippingStatus +'</td>';
+					html += '<td>';
+					html += '<button class="btn btn-primary col-md-12">배송조회</button><br>';
+					html += '<button class="btn btn-secondary col-md-12">교환신청</button><br>';
+					html += '<button class="btn btn-secondary col-md-12">반품신청</button><br>';
+					html += '<button class="btn btn-light col-md-12">구매후기 쓰기</button>';
+					html += '</td>';
+					html += '</tr>';
+					$('#orderDetail-table-tbody').append(html); 
+				}
+				
+				$('#orderDetailModal').modal();
+			},
+			error: function (j, s, e) {
+				console.log(s + " : " + e);
+			}
+			
+			
+		})
+		
+		
+	}
+	
+	</script>
 	
 </body>
 

@@ -108,7 +108,8 @@ public class UserController {
 	}
 	
 	@GetMapping("/order")
-	public String orderPage() {
+	public String orderPage(Model model) {
+		userService.getOrderList(model);
 		return "/user/order";
 	}
 	

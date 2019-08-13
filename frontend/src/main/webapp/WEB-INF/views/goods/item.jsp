@@ -49,10 +49,12 @@
 			
 			
 			var userNo = ${userNo};
-			var no = $("input[name=productOptionNo]");
-			var count = $("input[name=count]");
+			var no = $("input[data=option-no]");
+			var count = $("input[data=count]");
 		    var cartList = [];
 			
+		    console.log("no", no);
+		    console.log("count", count);
 			console.log(userNo);
 			
 			
@@ -127,10 +129,10 @@
 	    
 	    var productPrice = parseInt(${productDetail.price }) + parseInt(additionalPrice);
 	    
-	    rowHtml += '<input type="hidden" name="orderProductList['+ index +'].productOptionNo" class="option-no-input" value="'+no+'">';
-	    rowHtml += '<input type="hidden" name="orderProductList['+ index +'].productPrice" value="'+productPrice+'">';
+	    rowHtml += '<input type="hidden" name="orderProductList['+ index +'].productOptionNo" class="option-no-input" data="option-no" value="'+no+'">';
+	    rowHtml += '<input type="hidden" name="orderProductList['+ index +'].productPrice" class="price-input" value="'+productPrice+'">';
 	    rowHtml += '<span class="col-md-6" style="padding-top: 10px;">' + value + '</span>';
-	    rowHtml += '<input type="text" name="orderProductList['+ index +'].count" class="form-control col-md-2" id="count" value="1"/>'
+	    rowHtml += '<input type="text" name="orderProductList['+ index +'].count" class="form-control col-md-2 count-list" data="count" id="count" value="1"/>'
 	    rowHtml += '<button type="button" class="btn btn-light col-md-2" data-dir="dwn">-</button>'
 	    rowHtml += '<button type="button" class="btn btn-light col-md-2" data-dir="up">+</button>'
 	    

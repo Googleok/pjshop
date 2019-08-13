@@ -60,6 +60,10 @@ public class UserDao {
 		return sqlSession.delete("user.deleteFromCart", no) == 1;
 	}
 	
+	public boolean deleteFromCartByOptionNo(Long no) {
+		return sqlSession.delete("user.deleteFromCartByOptionNo", no) == 1;
+	}
+	
 	public boolean deleteFromCart(List<Long> deleteNoList) {
 		return sqlSession.delete("user.deleteListFromCart", deleteNoList) == deleteNoList.size();
 	}

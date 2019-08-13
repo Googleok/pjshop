@@ -228,6 +228,14 @@
 		]]>
 	</delete>
 	
+	
+	<delete id="deleteFromCartByOptionNo" parameterType="long">
+		<![CDATA[
+			delete from cart where product_option_no = #{no}		
+		]]>
+	</delete>
+	
+	
 	<delete id="deleteListFromCart" parameterType="java.util.List">
 		<![CDATA[
 			delete from cart where	

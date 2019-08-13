@@ -1,10 +1,13 @@
 package com.cafe24.pjshop.frontend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.pjshop.frontend.dto.JSONResult;
+import com.cafe24.pjshop.frontend.vo.OrderDetailVo;
 import com.cafe24.pjshop.frontend.vo.OrderVo;
 
 @Service
@@ -19,7 +22,13 @@ public class OrderService {
 		return jsonResult.getData();
 	}
 	
+	public List<OrderDetailVo> getOrderDetailList(Long no) {
+		JSONResult<List<OrderDetailVo>> jsonResult =restTemplate.getForObject("http://localhost:9999/v1/api/order/detail/list/"+no, JSONResultGetOrderDetailList.class);
+		return jsonResult.getData();
+	}
 
 	// DTO Class
 	private static class JSONResultOrder extends JSONResult<OrderVo> {}
+	private static class JSONResultGetOrderDetailList extends JSONResult<List<OrderDetailVo>> {}
+
 }

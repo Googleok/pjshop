@@ -2,6 +2,7 @@ package com.cafe24.pjshop.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DaoSupport;
@@ -11,6 +12,7 @@ import com.cafe24.pjshop.dto.OrderDetailDto;
 import com.cafe24.pjshop.dto.OrderProductDto;
 import com.cafe24.pjshop.repository.OrderDao;
 import com.cafe24.pjshop.repository.ProductDao;
+import com.cafe24.pjshop.repository.UserDao;
 import com.cafe24.pjshop.vo.OrderDetailVo;
 import com.cafe24.pjshop.vo.OrderVo;
 import com.cafe24.pjshop.vo.PaymentVo;
@@ -25,6 +27,8 @@ public class OrderService {
 
 	@Autowired
 	private ProductDao productDao;
+	
+	@Autowired UserDao userDao;
 	
 //	public OrderVo getOrderOne(String id) {
 //		OrderVo vo = new OrderVo(1L, "박종억", "1234", "01040287755", "whddjr2225@naver.com", "서울시 관악구",
@@ -62,7 +66,10 @@ public class OrderService {
 				orderDetailResult = orderDao.detailOrderProduct(orderDetailVo);
 				// 상품재고 count
 				if(orderDetailResult) {
-					subProductCountResult = productDao.productCountUpdate(orderProduct.getProductOptionNo());
+					subProductCountResult = productDao.productCountUpdate(orderProduct.getProductOptionNo(), orderProduct.getCount());
+					
+					// 장바구니에서 제거
+					userDao.deleteFromCartByOptionNo(orderProduct.getProductOptionNo());
 				}
 				
 				// 주문 : 상품옵션 테이블에 추가
