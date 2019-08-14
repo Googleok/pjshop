@@ -69,6 +69,9 @@ public class ProductControllerTest {
         accessToken = jsonParser.parseMap(resultString).get("access_toke" + "n").toString();
 
 	}
+	
+	
+	
 	// 상품검색 Test 
 	@Test
 	public void testProductSearchList() throws Exception{

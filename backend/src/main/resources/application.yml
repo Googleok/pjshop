@@ -9,7 +9,7 @@ spring:  profiles:    active: dev
     url: jdbc:mariadb://127.0.0.1:3306/shopdb
     username: shopdb
     password: shopdb
-    
+
   devtools:    livereload:       enabled: true
   mvc:    view:      prefix: /WEB-INF/views/
       suffix: .jsp
@@ -26,7 +26,13 @@ spring:  profiles:    active: dev
   
   messages:    always-use-message-format: true
     basename: messages/messages_ko
-    encoding: UTF-8
+    encoding: UTF-8  zipkin:
+    base-url: http://192.168.1.123:9411/
+  sleuth:
+    enabled: true
+    sampler:
+      percentage: 1.0  application:    name: zipkin-server1
+
 security:    user:      name: test
       password: 5678
 mybatis:  config-location: classpath:mybatis/configuration.xml
