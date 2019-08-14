@@ -61,60 +61,62 @@
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="table table-bordered" id="dataTable" width="100%"
-								cellspacing="0">
-								<thead>
-									<tr>
-										<th>No</th>
-										<th>Name</th>
-										<th>Price</th>
-										<th>ReqDate</th>
-										<th>Exhibition</th>
-										<th>Option</th>
-										<th>SailsStatus</th>
-										<th>Rank</th>
-										<th>Count</th>
-										<th>ShippingFee</th>
-										<th>CategoryNo</th>
-										<th>Del</th>
-									</tr>
-								</thead>
-								<tfoot>
-									<tr>
-										<th>No</th>
-										<th>Name</th>
-										<th>Price</th>
-										<th>ReqDate</th>
-										<th>Exhibition</th>
-										<th>Option</th>
-										<th>SailsStatus</th>
-										<th>Rank</th>
-										<th>Count</th>
-										<th>ShippingFee</th>
-										<th>CategoryNo</th>
-										<th>Del</th>
-									</tr>
-								</tfoot>
-								<tbody>
-								<c:forEach items="${productList }" var="vo" varStatus="status">
-									<tr>
-										<td>${vo.no }</td>
-										<td>${vo.name }</td>
-										<td>${vo.price }</td>
-										<td>${vo.regDate }</td>
-										<td>${vo.exhibitionAvailability }</td>
-										<td>${vo.optionAvailability }</td>
-										<td>${vo.sailsStatus }</td>
-										<td>${vo.exhibitionRank }</td>
-										<td>${vo.count }</td>
-										<td>${vo.shippingFee }</td>
-										<td>${vo.categoryNo }</td>
-										<td><a class="btn btn-danger" href="${pageContext.servletContext.contextPath }/admin/product/delete/${vo.no}">X</a></td>
-									</tr>
-								</c:forEach>
-								</tbody>
-							</table>
-						</div>
+									<table class="table table-bordered" id="dataTable" width="100%"
+										cellspacing="0">
+										<thead>
+											<tr>
+												<th>No</th>
+												<th>Name</th>
+												<th>Price</th>
+												<th>ReqDate</th>
+												<th>Exhibition</th>
+												<th>Option</th>
+												<th>SailsStatus</th>
+												<th>Rank</th>
+												<th>Count</th>
+												<th>ShippingFee</th>
+												<th>CategoryNo</th>
+												<th>Del</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>No</th>
+												<th>Name</th>
+												<th>Price</th>
+												<th>ReqDate</th>
+												<th>Exhibition</th>
+												<th>Option</th>
+												<th>SailsStatus</th>
+												<th>Rank</th>
+												<th>Count</th>
+												<th>ShippingFee</th>
+												<th>CategoryNo</th>
+												<th>Del</th>
+											</tr>
+										</tfoot>
+										<tbody>
+											<c:forEach items="${productList }" var="vo"
+												varStatus="status">
+												<tr>
+													<td>${vo.no }</td>
+													<td>${vo.name }</td>
+													<td>${vo.price }</td>
+													<td>${vo.regDate }</td>
+													<td>${vo.exhibitionAvailability }</td>
+													<td>${vo.optionAvailability }</td>
+													<td>${vo.sailsStatus }</td>
+													<td>${vo.exhibitionRank }</td>
+													<td>${vo.count }</td>
+													<td>${vo.shippingFee }</td>
+													<td>${vo.categoryNo }</td>
+													<td><a class="btn btn-danger"
+														href="${pageContext.servletContext.contextPath }/admin/product/delete/${vo.no}">X</a></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
 					</div>
 					<div class="card-footer small text-muted">Updated yesterday
 						at 11:59 PM</div>

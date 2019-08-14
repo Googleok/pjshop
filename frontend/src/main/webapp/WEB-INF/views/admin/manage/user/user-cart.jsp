@@ -66,7 +66,7 @@
 								<thead>
 									<tr>
 										<th>UserNo</th>
-										<th>NonMemberId</th>
+										<th>NonUserId</th>
 										<th>ProductName</th>
 										<th>OptionValue</th>
 										<th>AdditionalPrice</th>
@@ -78,7 +78,7 @@
 								<tfoot>
 									<tr>
 										<th>UserNo</th>
-										<th>NonMemberId</th>
+										<th>NonUserId</th>
 										<th>ProductName</th>
 										<th>OptionValue</th>
 										<th>AdditionalPrice</th>
@@ -91,7 +91,7 @@
 								<c:forEach items="${cartList }" var="vo" varStatus="status">
 									<tr>
 										<td>${vo.userNo }</td>
-										<td>${vo.nonMemberId }</td>
+										<td>${vo.nonUserId }</td>
 										<td>${vo.productName }</td>
 										<td>${vo.optionValue }</td>
 										<td>${vo.additionalPrice }</td>

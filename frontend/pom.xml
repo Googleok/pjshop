@@ -221,7 +221,15 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/io.jaegertracing/jaeger-client -->
+		<dependency>
+		    <groupId>io.jaegertracing</groupId>
+		    <artifactId>jaeger-client</artifactId>
+		    <version>0.32.0</version>
+		</dependency>
 
+				
 	</dependencies>
 
 	<build>

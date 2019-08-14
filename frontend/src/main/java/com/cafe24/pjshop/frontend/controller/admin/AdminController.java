@@ -56,6 +56,5 @@ public class AdminController {
 	public String adminTable() {
 		return "admin/tables";
 	}
-	
-	
+
 }

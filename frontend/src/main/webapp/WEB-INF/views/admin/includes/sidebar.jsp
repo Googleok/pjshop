@@ -63,7 +63,7 @@
 					<div class="dropdown-divider"></div>
 					<h6 class="dropdown-header">주문 관리:</h6>
 					<a class="dropdown-item"
-						href="${pageContext.servletContext.contextPath }/admin/blank">전체주문목록</a>
+						href="${pageContext.servletContext.contextPath }/admin/order">전체주문목록</a>
 					<a class="dropdown-item"
 						href="${pageContext.servletContext.contextPath }/admin/blank">배송관리</a>
 				</div>
